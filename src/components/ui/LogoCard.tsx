@@ -20,12 +20,16 @@ export function LogoCard({ client }: LogoCardProps) {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        transition: 'filter 200ms ease, border-color 200ms ease',
+        transition: 'filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.22s ease',
       }}
       styles={{
         root: {
-          '&:hover': { filter: 'none' },
           filter: 'grayscale(1)',
+          '&:hover': {
+            filter: 'none',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 10px 28px rgba(2, 6, 23, 0.1)',
+          },
           '&:hover img': { opacity: 1 },
         },
       }}
@@ -38,7 +42,7 @@ export function LogoCard({ client }: LogoCardProps) {
           mah={48}
           maw="90%"
           opacity={0.72}
-          style={{ transition: 'opacity 200ms ease' }}
+          style={{ transition: 'opacity 0.25s ease' }}
           onError={() => setBroken(true)}
         />
       ) : (

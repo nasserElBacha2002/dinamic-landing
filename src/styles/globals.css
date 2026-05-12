@@ -58,3 +58,71 @@ section[id] {
   outline: 3px solid color-mix(in srgb, var(--mantine-color-brand-6) 55%, transparent);
   outline-offset: 3px;
 }
+
+/* Header nav — subtle hover lift */
+.ds-nav-link {
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+.ds-nav-link:hover {
+  transform: translateY(-2px);
+}
+
+.ds-header-cta {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.ds-header-cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--mantine-color-brand-6) 32%, transparent);
+}
+.ds-header-cta:active {
+  transform: scale(0.99);
+}
+
+.ds-footer-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.ds-footer-link:hover {
+  transform: translateY(-1px);
+}
+
+.ds-value-orbit {
+  animation: ds-spin 14s linear infinite;
+}
+.ds-value-orbit-reverse {
+  animation: ds-spin-reverse 14s linear infinite;
+}
+
+.ds-submit-cta {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.ds-submit-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent);
+}
+.ds-submit-cta:active {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-value-orbit,
+  .ds-value-orbit-reverse,
+  .ds-drone-scan-inner {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@keyframes ds-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ds-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}

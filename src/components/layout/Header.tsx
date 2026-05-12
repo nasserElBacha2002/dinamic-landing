@@ -10,6 +10,9 @@ import {
 } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { IconPackages } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import { motionEaseOut } from '@/components/animations/variants';
+import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { contentMaxWidth } from '@/theme/theme';
 
@@ -25,16 +28,19 @@ const links = [
 export function Header() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const isLg = useMediaQuery('(min-width: 62em)');
+  const reduced = usePrefersReducedMotion();
 
   return (
-    <Box
-      component="header"
-      pos="fixed"
-      top={0}
-      left={0}
-      right={0}
-      h={rem(80)}
+    <motion.header
+      initial={reduced ? false : { y: -12, opacity: 0.96 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: reduced ? 0.15 : 0.55, ease: motionEaseOut }}
       style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: rem(80),
         zIndex: 100,
         backdropFilter: 'blur(16px)',
         background: 'color-mix(in srgb, #ffffff 92%, transparent)',
@@ -82,7 +88,7 @@ export function Header() {
                 fw={l.href === '#inicio' ? 800 : 600}
                 c={l.href === '#inicio' ? 'brand.6' : 'dimmed'}
                 underline="never"
-                className="ds-focus-ring"
+                className="ds-focus-ring ds-nav-link"
                 style={{ borderRadius: rem(4), padding: `${rem(4)} ${rem(6)}` }}
               >
                 {l.label}
@@ -99,6 +105,7 @@ export function Header() {
             size="md"
             px="xl"
             radius="xl"
+            className="ds-focus-ring ds-header-cta"
           >
             Contacto
           </BrandButton>
@@ -109,15 +116,15 @@ export function Header() {
       <Drawer opened={opened} onClose={close} position="right" title="Menú" padding="md" size="sm">
         <Stack gap="md">
           {links.map((l) => (
-            <Anchor key={l.href} href={l.href} fw={700} onClick={close}>
+            <Anchor key={l.href} href={l.href} fw={700} onClick={close} className="ds-footer-link">
               {l.label}
             </Anchor>
           ))}
-          <BrandButton component="a" href="#contacto" fullWidth onClick={close}>
+          <BrandButton component="a" href="#contacto" fullWidth onClick={close} className="ds-header-cta">
             Contacto
           </BrandButton>
         </Stack>
       </Drawer>
-    </Box>
+    </motion.header>
   );
 }

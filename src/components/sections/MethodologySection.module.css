@@ -1,0 +1,67 @@
+/**
+ * Card hover / badge micro-motion — Mantine `styles` pseudo-selectors are not applied
+ * with default @mantine/core/styles.css (styles merge to inline only).
+ */
+
+.card {
+  transform: translateZ(0);
+  transition:
+    border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.045);
+}
+
+.card:hover {
+  border-color: color-mix(in srgb, var(--mantine-color-brand-6) 22%, var(--mantine-color-gray-3));
+  box-shadow:
+    0 18px 46px rgba(15, 23, 42, 0.09),
+    0 6px 14px rgba(15, 23, 42, 0.05),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 10%, transparent);
+}
+
+.card[data-highlight='true'] {
+  border-color: color-mix(in srgb, var(--mantine-color-brand-6) 38%, transparent);
+}
+
+.card[data-highlight='true']:hover {
+  border-color: var(--mantine-color-brand-6);
+  box-shadow:
+    0 20px 52px color-mix(in srgb, var(--mantine-color-brand-6) 18%, rgba(15, 23, 42, 0.06)),
+    0 6px 16px rgba(15, 23, 42, 0.06),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 16%, transparent);
+}
+
+.badge {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .badge {
+  transform: scale(1.035);
+}
+
+.card:hover .badgeHighlight {
+  box-shadow: 0 22px 44px color-mix(in srgb, var(--mantine-color-brand-6) 34%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition-property: border-color;
+    transition-duration: 0.2s;
+  }
+
+  .card:hover,
+  .card[data-highlight='true']:hover {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.045);
+  }
+
+  .badge {
+    transition-property: box-shadow;
+    transition-duration: 0.2s;
+  }
+
+  .card:hover .badge {
+    transform: none;
+  }
+}

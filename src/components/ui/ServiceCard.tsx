@@ -1,5 +1,6 @@
 import { Box, Group, Paper, Stack, Text, ThemeIcon } from '@mantine/core';
 import type { ServiceItem } from '@/types/content';
+import classes from '@/components/ui/ServiceCard.module.css';
 
 interface ServiceCardProps {
   service: ServiceItem;
@@ -11,45 +12,27 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
   return (
     <Paper
+      data-accent={accent}
       p={{ base: 'lg', md: 'xl' }}
       radius="2.5rem"
       bg="gray.0"
       withBorder
+      classNames={{
+        root: classes.card,
+      }}
       style={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        transition: 'border-color 180ms ease',
-      }}
-      styles={{
-        root: {
-          '&:hover': {
-            borderColor:
-              accent === 'brand'
-                ? 'var(--mantine-color-brand-6)'
-                : 'var(--mantine-color-cyan-5)',
-          },
-          '&:hover .svc-icon-wrap': {
-            backgroundColor:
-              accent === 'brand'
-                ? 'var(--mantine-color-brand-6)'
-                : 'var(--mantine-color-cyan-5)',
-            color: 'var(--mantine-color-white)',
-          },
-        },
       }}
     >
       <ThemeIcon
-        className="svc-icon-wrap"
+        className={classes.iconWrap}
         size={56}
         radius="lg"
         variant="white"
         color={color}
         mb="xl"
-        style={{
-          boxShadow: 'var(--mantine-shadow-sm)',
-          transition: 'background-color 180ms ease, color 180ms ease',
-        }}
       >
         <Icon stroke={1.35} style={{ width: 32, height: 32 }} />
       </ThemeIcon>

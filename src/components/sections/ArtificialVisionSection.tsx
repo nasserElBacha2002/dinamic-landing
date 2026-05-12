@@ -2,6 +2,9 @@ import { Box, Container, Grid, Group, Paper, Stack, Text, ThemeIcon, rem } from 
 import { IconArrowRight, IconCamera, IconCircleCheck, IconEye, IconPackage } from '@tabler/icons-react';
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
+import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+import { motionDuration, motionEaseOut } from '@/components/animations/variants';
+import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import aiVisionUrl from '@/assets/images/ai-vision-mock.svg?url';
 
 const steps = [
@@ -12,12 +15,14 @@ const steps = [
 ];
 
 export function ArtificialVisionSection() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <Box component="section" py={{ base: '4rem', md: '6rem' }} bg="white">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={rem(1280)}>
         <Grid gutter={{ base: 'xl', lg: '4rem' }} align="center">
           <Grid.Col span={{ base: 12, lg: 6 }}>
-            <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
+            <MotionFadeIn direction="left" duration={motionDuration.section}>
               <Text
                 component="span"
                 display="inline-block"
@@ -52,60 +57,83 @@ export function ArtificialVisionSection() {
                 <Group justify="center" align="center" gap="xs" wrap="wrap">
                   {steps.map((s, idx) => (
                     <Fragment key={s.label}>
-                      <Stack gap={6} align="center" miw={rem(76)}>
-                        <ThemeIcon
-                          radius="md"
-                          size={48}
-                          color={s.tone === 'brand' ? 'brand' : 'cyan'}
-                          variant={s.filled ? 'filled' : 'white'}
-                          style={{
-                            border: s.filled
-                              ? undefined
-                              : `1px solid color-mix(in srgb, var(--mantine-color-${s.tone === 'brand' ? 'brand' : 'cyan'}-6) 25%, transparent)`,
-                            boxShadow: 'var(--mantine-shadow-sm)',
-                          }}
-                        >
-                          <s.icon stroke={1.25} style={{ width: rem(22), height: rem(22) }} />
-                        </ThemeIcon>
-                        <Text tt="uppercase" fz={9} fw={800} c={s.tone === 'brand' ? 'brand.7' : 'cyan.6'} style={{ letterSpacing: '0.12em' }}>
-                          {s.label}
-                        </Text>
-                      </Stack>
+                      <motion.div
+                        initial={reduced ? false : { opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.25 }}
+                        transition={{
+                          duration: motionDuration.base,
+                          delay: reduced ? 0 : 0.1 * idx,
+                          ease: motionEaseOut,
+                        }}
+                      >
+                        <Stack gap={6} align="center" miw={rem(76)}>
+                          <ThemeIcon
+                            radius="md"
+                            size={48}
+                            color={s.tone === 'brand' ? 'brand' : 'cyan'}
+                            variant={s.filled ? 'filled' : 'white'}
+                            style={{
+                              border: s.filled
+                                ? undefined
+                                : `1px solid color-mix(in srgb, var(--mantine-color-${s.tone === 'brand' ? 'brand' : 'cyan'}-6) 25%, transparent)`,
+                              boxShadow: 'var(--mantine-shadow-sm)',
+                            }}
+                          >
+                            <s.icon stroke={1.25} style={{ width: rem(22), height: rem(22) }} />
+                          </ThemeIcon>
+                          <Text tt="uppercase" fz={9} fw={800} c={s.tone === 'brand' ? 'brand.7' : 'cyan.6'} style={{ letterSpacing: '0.12em' }}>
+                            {s.label}
+                          </Text>
+                        </Stack>
+                      </motion.div>
                       {idx < steps.length - 1 ? <IconArrowRight size={18} color="var(--mantine-color-gray-4)" aria-hidden /> : null}
                     </Fragment>
                   ))}
                 </Group>
               </Paper>
-            </motion.div>
+            </MotionFadeIn>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, lg: 6 }}>
-            <Box pos="relative" style={{ borderRadius: rem(48), overflow: 'hidden', boxShadow: '0 30px 80px rgba(2, 6, 23, 0.12)' }}>
-              <Box
-                component="img"
-                src={aiVisionUrl}
-                alt="Representación de panel y evidencia visual para validación de inventario"
-                w="100%"
-                style={{ display: 'block' }}
-              />
-              {/* TODO: replace ai-vision-mock.svg with a licensed operations/dashboard image if required */}
-              <Paper
-                pos="absolute"
-                bottom={rem(24)}
-                left={rem(24)}
-                p="md"
-                radius="xl"
-                bg="rgba(255,255,255,0.92)"
-                style={{ border: '1px solid rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}
-              >
-                <Text fz={10} fw={800} tt="uppercase" c="brand.7" style={{ letterSpacing: '0.16em' }}>
-                  Apoyo al conteo
-                </Text>
-                <Text fz="lg" fw={800} c="gray.9">
-                  Validación visual
-                </Text>
-              </Paper>
-            </Box>
+            <motion.div
+              initial={reduced ? false : { opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+            >
+              <Box pos="relative" style={{ borderRadius: rem(48), overflow: 'hidden', boxShadow: '0 30px 80px rgba(2, 6, 23, 0.12)' }}>
+                <Box
+                  component="img"
+                  src={aiVisionUrl}
+                  alt="Representación de panel y evidencia visual para validación de inventario"
+                  w="100%"
+                  style={{ display: 'block' }}
+                />
+                {/* TODO: replace ai-vision-mock.svg with a licensed operations/dashboard image if required */}
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.2, ease: motionEaseOut }}
+                  style={{ position: 'absolute', bottom: rem(24), left: rem(24) }}
+                >
+                  <Paper
+                    p="md"
+                    radius="xl"
+                    bg="rgba(255,255,255,0.92)"
+                    style={{ border: '1px solid rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}
+                  >
+                    <Text fz={10} fw={800} tt="uppercase" c="brand.7" style={{ letterSpacing: '0.16em' }}>
+                      Apoyo al conteo
+                    </Text>
+                    <Text fz="lg" fw={800} c="gray.9">
+                      Validación visual
+                    </Text>
+                  </Paper>
+                </motion.div>
+              </Box>
+            </motion.div>
           </Grid.Col>
         </Grid>
       </Container>

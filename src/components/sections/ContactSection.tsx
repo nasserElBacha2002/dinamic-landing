@@ -20,7 +20,8 @@ import { IconListNumbers, IconMail, IconMapPin, IconPhone } from '@tabler/icons-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { motion } from 'framer-motion';
+import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+import { motionDuration } from '@/components/animations/variants';
 import { operationTypes } from '@/types/content';
 import { contentMaxWidth } from '@/theme/theme';
 
@@ -90,7 +91,7 @@ export function ContactSection() {
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <Grid gutter={{ base: 'xl', lg: '3rem' }}>
           <Grid.Col span={{ base: 12, lg: 5 }}>
-            <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
+            <MotionFadeIn direction="left" duration={motionDuration.section}>
               <Text tt="uppercase" size="xs" fw={800} c="brand.6" mb="md" style={{ letterSpacing: '0.28em' }}>
                 ¿Hablamos?
               </Text>
@@ -164,56 +165,58 @@ export function ContactSection() {
                   <List.Item>3. Diseñamos una propuesta</List.Item>
                 </List>
               </Paper>
-            </motion.div>
+            </MotionFadeIn>
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, lg: 7 }}>
-            <Paper component="form" onSubmit={handleSubmit(onSubmit)} p={{ base: 'lg', md: 'xl' }} radius="4rem" withBorder bg="gray.0" shadow="md">
-              <Stack gap="lg">
-                <Grid gutter="lg">
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput label="Nombre completo" placeholder="Ej: Juan Pérez" error={errors.fullName?.message} {...register('fullName')} />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput label="Empresa" placeholder="Nombre de su organización" error={errors.company?.message} {...register('company')} />
-                  </Grid.Col>
-                </Grid>
-                <Grid gutter="lg">
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput
-                      label="Email profesional"
-                      placeholder="email@empresa.com"
-                      type="email"
-                      error={errors.email?.message}
-                      {...register('email')}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 6 }}>
-                    <TextInput label="Teléfono" placeholder="+54 …" error={errors.phone?.message} {...register('phone')} />
-                  </Grid.Col>
-                </Grid>
-                <Controller
-                  name="operation"
-                  control={control}
-                  render={({ field }) => (
-                    <Select
-                      label="Operación"
-                      data={selectData}
-                      error={errors.operation?.message}
-                      value={field.value}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                      name={field.name}
-                      ref={field.ref}
-                    />
-                  )}
-                />
-                <Textarea label="Mensaje" placeholder="Contanos brevemente qué tipo de control necesitás realizar" error={errors.message?.message} {...register('message')} />
-                <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" style={{ letterSpacing: '0.16em' }}>
-                  Enviar consulta técnica
-                </Button>
-              </Stack>
-            </Paper>
+            <MotionFadeIn direction="right" duration={motionDuration.section} delay={0.06}>
+              <Paper component="form" onSubmit={handleSubmit(onSubmit)} p={{ base: 'lg', md: 'xl' }} radius="4rem" withBorder bg="gray.0" shadow="md">
+                <Stack gap="lg">
+                  <Grid gutter="lg">
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <TextInput label="Nombre completo" placeholder="Ej: Juan Pérez" error={errors.fullName?.message} {...register('fullName')} />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <TextInput label="Empresa" placeholder="Nombre de su organización" error={errors.company?.message} {...register('company')} />
+                    </Grid.Col>
+                  </Grid>
+                  <Grid gutter="lg">
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <TextInput
+                        label="Email profesional"
+                        placeholder="email@empresa.com"
+                        type="email"
+                        error={errors.email?.message}
+                        {...register('email')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <TextInput label="Teléfono" placeholder="+54 …" error={errors.phone?.message} {...register('phone')} />
+                    </Grid.Col>
+                  </Grid>
+                  <Controller
+                    name="operation"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        label="Operación"
+                        data={selectData}
+                        error={errors.operation?.message}
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
+                  />
+                  <Textarea label="Mensaje" placeholder="Contanos brevemente qué tipo de control necesitás realizar" error={errors.message?.message} {...register('message')} />
+                  <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" className="ds-focus-ring ds-submit-cta" style={{ letterSpacing: '0.16em' }}>
+                    Enviar consulta técnica
+                  </Button>
+                </Stack>
+              </Paper>
+            </MotionFadeIn>
           </Grid.Col>
         </Grid>
       </Container>
