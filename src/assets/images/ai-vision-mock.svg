@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: Replace with a licensed dashboard / operations photo or custom mock export if preferred. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620">
+  <rect width="900" height="620" rx="28" fill="#f8f9fa" stroke="#c4c6cf"/>
+  <rect x="32" y="32" width="836" height="72" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="32" y="128" width="260" height="200" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="320" y="128" width="548" height="200" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="32" y="352" width="520" height="236" rx="16" fill="#020617"/>
+  <rect x="576" y="352" width="292" height="108" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+  <rect x="576" y="480" width="292" height="108" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+  <g opacity="0.9">
+    <rect x="64" y="404" width="72" height="140" rx="8" fill="#b7102a" fill-opacity="0.35"/>
+    <rect x="152" y="360" width="72" height="184" rx="8" fill="#00daf3" fill-opacity="0.45"/>
+    <rect x="240" y="392" width="72" height="152" rx="8" fill="#b7102a" fill-opacity="0.3"/>
+    <rect x="328" y="344" width="72" height="200" rx="8" fill="#00daf3" fill-opacity="0.4"/>
+    <rect x="416" y="376" width="72" height="168" rx="8" fill="#b7102a" fill-opacity="0.32"/>
+  </g>
+</svg>

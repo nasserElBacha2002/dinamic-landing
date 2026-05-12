@@ -1,0 +1,660 @@
+<html class="light" lang="es"><head></head><body class="bg-background text-on-surface antialiased scroll-smooth">```html
+
+
+    <meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#b7102a", // Institutional Red
+                        "secondary": "#00daf3", // Cyan
+                        "background": "#f8f9fa", // Light Gray
+                        "surface": "#ffffff",
+                        "navy-tech": "#020617",
+                        "on-surface": "#1a1c1e",
+                        "on-surface-variant": "#44474e",
+                        "outline": "#74777f",
+                        "outline-variant": "#c4c6cf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.375rem",
+                        "lg": "0.75rem",
+                        "xl": "1.25rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "margin-desktop": "80px",
+                        "xl": "100px",
+                        "lg": "64px",
+                        "md": "32px",
+                        "sm": "16px",
+                        "xs": "8px",
+                        "base": "12px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "sans": ["Inter", "sans-serif"],
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; font-weight: 500; }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; font-weight: 800; }
+        .hero-gradient { background: linear-gradient(105deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 45%, rgba(255,255,255,0.1) 100%); }
+        .corporate-card { background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
+        .flow-line { height: 2px; background: repeating-linear-gradient(90deg, #00daf3 0px, #00daf3 4px, transparent 4px, transparent 8px); }
+        .roadmap-connector { position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: #e5e7eb; transform: translateY(-50%); z-index: 0; }
+    </style>
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-white/90 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white">data_thresholding</span>
+</div>
+<div class="font-display text-xl font-extrabold tracking-tight">
+                Dinamic <span class="text-primary">Systems</span>
+</div>
+</div>
+<nav class="hidden lg:flex gap-md items-center">
+<a class="text-sm font-bold text-primary" href="#">Inicio</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#quienes-somos">Quiénes Somos</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#soluciones">Soluciones</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#metodologia">Metodología</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#tecnologia">Tecnología</a>
+<a class="text-sm font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#clientes">Clientes</a>
+</nav>
+<button class="h-12 bg-primary text-white px-8 text-sm font-bold rounded-full hover:bg-[#92001c] transition-all shadow-lg shadow-primary/20">
+            Contacto
+        </button>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[90vh] flex items-center overflow-hidden bg-white">
+<div class="absolute inset-0">
+<img alt="Logística avanzada" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkHMifK-BUfdzG4yW3w3Yz79OP25XzVp7GlEl1q6Y4K9lOQVNUSJ75uHl0K99dJuDFX_pjt-8PS8UvW8_6LyBcLt85yUKMNmPLawp-ZvL1caiV3H3vXUcKBiw6w3jNRRAp3QMO6yc0_VCas3voNZsJjHm7PaIwyh5IoHuPdJdP00A_RKC6v3y22Pq6pS3JR7iCkEwDTXLS1xqE9-FyolnVEKefsvHhh0LghcCHo3E9z-72KL1phx6-GgNdrmBcD2a4Ey7dBUYknBs"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop w-full py-xl grid lg:grid-cols-12 gap-xl items-center">
+<div class="lg:col-span-7">
+<div class="flex items-center gap-2 mb-8">
+<span class="w-8 h-[3px] bg-primary"></span>
+<span class="text-sm font-extrabold tracking-[0.2em] text-on-surface-variant uppercase">Control de inventarios físicos</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-extrabold text-on-surface leading-tight mb-10">
+                        Expertos en <br/>
+<span class="text-primary italic">inventarios físicos</span>
+</h1>
+<p class="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mb-12 font-medium">
+                        Brindamos servicios profesionales de control de inventarios físicos para empresas de retail, logística y distribución, combinando metodología operativa, trazabilidad y herramientas digitales adaptadas a cada operación.
+                    </p>
+<div class="flex flex-wrap gap-6">
+<button class="h-14 bg-primary text-white px-12 font-bold rounded-full shadow-xl shadow-primary/30 hover:scale-105 transition-all text-lg">
+                            Solicitar reunión
+                        </button>
+<button class="h-14 border-2 border-secondary text-secondary px-12 font-bold rounded-full hover:bg-secondary/5 transition-all text-lg">
+                            Ver soluciones
+                        </button>
+</div>
+</div>
+<!-- Metrics Panel (Qualitative Labels) -->
+<div class="lg:col-span-5 grid grid-cols-2 gap-4">
+<div class="corporate-card p-8 rounded-3xl transition-all">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Precisión operativa</h4>
+<div class="h-1.5 w-12 bg-primary rounded-full"></div>
+</div>
+<div class="corporate-card p-8 rounded-3xl transition-all">
+<div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 text-secondary">
+<span class="material-symbols-outlined text-3xl">monitoring</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Trazabilidad digital</h4>
+<div class="h-1.5 w-12 bg-secondary rounded-full"></div>
+</div>
+<div class="corporate-card p-8 rounded-3xl transition-all">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Control por ubicación</h4>
+<div class="h-1.5 w-12 bg-primary rounded-full"></div>
+</div>
+<div class="corporate-card p-8 rounded-3xl transition-all">
+<div class="w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 text-secondary">
+<span class="material-symbols-outlined text-3xl">speed</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Reportes auditables</h4>
+<div class="h-1.5 w-12 bg-secondary rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quiénes Somos Section -->
+<section class="py-xl bg-white border-y border-outline-variant/30" id="quienes-somos">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div>
+<span class="text-primary font-extrabold uppercase tracking-widest text-xs mb-4 block">Sobre Nosotros</span>
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-8">Quiénes Somos</h2>
+<p class="text-xl text-on-surface leading-relaxed mb-6 font-semibold">
+                            Dinamic Systems es una empresa argentina especializada en servicios profesionales de control de inventarios físicos para empresas de retail, logística y distribución.
+                        </p>
+<p class="text-lg text-on-surface-variant leading-relaxed mb-8">
+                            Acompañamos a organizaciones que necesitan exactitud, trazabilidad y control operativo real. Nuestra metodología estructurada garantiza precisión, cumplimiento en tiempo y forma y resultados confiables.
+                        </p>
+<div class="grid grid-cols-2 gap-8 pt-8 border-t border-outline-variant/30">
+<div>
+<h4 class="text-primary font-extrabold text-3xl mb-1">AR</h4>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Sede Central Argentina</p>
+</div>
+<div>
+<h4 class="text-secondary font-extrabold text-3xl mb-1">PRO</h4>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Servicio Profesional</p>
+</div>
+</div>
+</div>
+<div class="relative">
+<img alt="Equipo Dinamic" class="rounded-[3rem] shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN7E2XDy_A6FQquDeOiw_jjIOXnNYyeQbA7ds1UewwaG0ZTA6FEc-18TcaTDi03i2TbTAY8V_xPhfrFH9XRjr6kripIeJYkbUR1VwteSw-lyjo9pjOyJgJl3d-LYbjyFn3jxOf0Q4NURa6g3xovpMczgkjQiOf34GKSbhHduKhvf0gz-fpYBEWu8mLg2WXBcWgLr2n0EHYFtOVbpMEtWVTjsdAmzAOwvEbLuIYCdXC_XtYgyiCPxpADeeNnn1pGBe0dRTFtx6Dx-o"/>
+<div class="absolute -bottom-10 -left-10 bg-primary p-12 rounded-[2rem] text-white shadow-2xl hidden md:block">
+<span class="material-symbols-outlined text-5xl mb-4">verified_user</span>
+<h4 class="text-2xl font-bold">Confianza <br/>Operativa</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Value System Section -->
+<section class="py-xl bg-background overflow-hidden">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-24">
+<span class="text-primary font-extrabold uppercase tracking-widest text-xs mb-4 block">Metodología Propia</span>
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">Nuestro sistema de valor</h2>
+<p class="text-on-surface-variant text-lg font-medium max-w-3xl mx-auto">Cada operación se estructura para asegurar exactitud, seguimiento y cumplimiento de los objetivos del cliente.</p>
+</div>
+<div class="relative flex flex-col items-center">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-outline-variant to-transparent opacity-30 -translate-y-1/2 hidden lg:block"></div>
+<div class="grid md:grid-cols-3 gap-12 lg:gap-32 relative z-10 w-full">
+<div class="flex flex-col items-center text-center group">
+<div class="w-40 h-40 bg-white rounded-full flex items-center justify-center mb-8 border-4 border-background shadow-xl group-hover:border-primary transition-all duration-500 relative">
+<div class="absolute inset-4 rounded-full border-2 border-primary/20 border-dashed animate-[spin_10s_linear_infinite]"></div>
+<span class="material-symbols-outlined text-5xl text-primary">verified_user</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">Precisión operativa</h3>
+<p class="text-on-surface-variant text-base leading-relaxed">Eliminamos discrepancias mediante procesos de auditoría rigurosos y doble verificación.</p>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-48 h-48 bg-primary rounded-full flex flex-col items-center justify-center mb-8 shadow-2xl shadow-primary/30 transform group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-6xl text-white mb-2">settings_input_component</span>
+<span class="text-white text-[10px] font-bold tracking-widest uppercase">Núcleo Central</span>
+<span class="text-white font-bold text-xs">Control operativo real</span>
+</div>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-40 h-40 bg-white rounded-full flex items-center justify-center mb-8 border-4 border-background shadow-xl group-hover:border-secondary transition-all duration-500 relative">
+<div class="absolute inset-4 rounded-full border-2 border-secondary/20 border-dashed animate-[spin_10s_linear_infinite_reverse]"></div>
+<span class="material-symbols-outlined text-5xl text-secondary">task_alt</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">Cumplimiento eficiente</h3>
+<p class="text-on-surface-variant text-base leading-relaxed">Cada dato capturado cuenta con respaldo digital, permitiendo auditorías posteriores y trazabilidad total.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Operational Map -->
+<section class="py-xl bg-white" id="soluciones">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20">
+<div>
+<span class="text-xs font-extrabold text-primary tracking-widest uppercase mb-4 block">Alcance de Servicios</span>
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface">Mapa Operativo de Servicios</h2>
+</div>
+<div class="hidden md:flex gap-4">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-3 h-3 rounded-full bg-primary/20"></div>
+<div class="w-3 h-3 rounded-full bg-primary/20"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="bg-background p-10 rounded-[2.5rem] border border-outline-variant/30 flex flex-col hover:border-primary transition-all group">
+<div class="mb-10 p-4 w-fit bg-white rounded-2xl text-primary shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl">storefront</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">Tiendas</h3>
+<p class="text-sm text-on-surface-variant mb-10 flex-grow leading-relaxed font-medium">Inventario físico integral en piso de venta y depósitos internos de retail. Especialistas en control operativo real.</p>
+<div class="space-y-4 pt-8 border-t border-outline-variant/30">
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-primary"></span> CONTEO CIEGO</div>
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-primary"></span> TRAZABILIDAD</div>
+</div>
+</div>
+<div class="bg-background p-10 rounded-[2.5rem] border border-outline-variant/30 flex flex-col hover:border-secondary transition-all group">
+<div class="mb-10 p-4 w-fit bg-white rounded-2xl text-secondary shadow-sm group-hover:bg-secondary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl">forklift</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">CD &amp; Logística</h3>
+<p class="text-sm text-on-surface-variant mb-10 flex-grow leading-relaxed font-medium">Inventarios masivos de alta rotación con relevamiento por ubicación en superficies industriales.</p>
+<div class="space-y-4 pt-8 border-t border-outline-variant/30">
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-secondary"></span> AUDITORÍA PICKING</div>
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-secondary"></span> VALIDACIÓN PALLETS</div>
+</div>
+</div>
+<div class="bg-background p-10 rounded-[2.5rem] border border-outline-variant/30 flex flex-col hover:border-primary transition-all group">
+<div class="mb-10 p-4 w-fit bg-white rounded-2xl text-primary shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl">inventory_2</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">Depósitos</h3>
+<p class="text-sm text-on-surface-variant mb-10 flex-grow leading-relaxed font-medium">Integridad de stock y gestión de ubicaciones críticas mediante mapeo dinámico de racks y control físico.</p>
+<div class="space-y-4 pt-8 border-t border-outline-variant/30">
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-primary"></span> MAPEO DE RACKS</div>
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-primary"></span> RELEVAMIENTO</div>
+</div>
+</div>
+<div class="bg-background p-10 rounded-[2.5rem] border border-outline-variant/30 flex flex-col hover:border-secondary transition-all group">
+<div class="mb-10 p-4 w-fit bg-white rounded-2xl text-secondary shadow-sm group-hover:bg-secondary group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-4xl">analytics</span>
+</div>
+<h3 class="text-2xl font-extrabold mb-4">Consultoría</h3>
+<p class="text-sm text-on-surface-variant mb-10 flex-grow leading-relaxed font-medium">Relevamientos estructurados y mapeo para la optimización de trazabilidad y activos logísticos.</p>
+<div class="space-y-4 pt-8 border-t border-outline-variant/30">
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-secondary"></span> AUDITORÍA ACTIVOS</div>
+<div class="flex items-center gap-3 text-xs font-bold"><span class="w-2 h-2 rounded-full bg-secondary"></span> OPTIMIZACIÓN</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Infrastructure & Technology -->
+<section class="py-xl bg-background overflow-hidden" id="tecnologia">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-24">
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">Infraestructura digital de precisión</h2>
+<p class="max-w-2xl mx-auto text-on-surface-variant text-lg font-medium">Nuestro ecosistema tecnológico propio garantiza la integridad del dato desde la captura hasta su reporte final.</p>
+</div>
+<div class="relative mb-32">
+<div class="hidden lg:block absolute top-[44px] left-0 w-full flow-line opacity-30"></div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-4">
+<div class="flex flex-col items-center text-center relative z-10 group">
+<div class="w-24 h-24 bg-white text-secondary rounded-3xl flex items-center justify-center mb-6 shadow-xl border-2 border-transparent group-hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-4xl">barcode_scanner</span>
+</div>
+<h4 class="font-extrabold text-sm mb-2 uppercase tracking-widest">CAPTURA</h4>
+<p class="text-xs text-on-surface-variant font-semibold px-4">App móvil propia para relevamiento.</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10 group">
+<div class="w-24 h-24 bg-white text-primary rounded-3xl flex items-center justify-center mb-6 shadow-xl border-2 border-transparent group-hover:border-primary transition-all">
+<span class="material-symbols-outlined text-4xl">cloud_sync</span>
+</div>
+<h4 class="font-extrabold text-sm mb-2 uppercase tracking-widest">PROCESO</h4>
+<p class="text-xs text-on-surface-variant font-semibold px-4">Validación en tiempo real.</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10 group">
+<div class="w-24 h-24 bg-white text-secondary rounded-3xl flex items-center justify-center mb-6 shadow-xl border-2 border-transparent group-hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-4xl">rule</span>
+</div>
+<h4 class="font-extrabold text-sm mb-2 uppercase tracking-widest">VALIDACIÓN</h4>
+<p class="text-xs text-on-surface-variant font-semibold px-4">Chequeo automático de discrepancias.</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10 group">
+<div class="w-24 h-24 bg-white text-primary rounded-3xl flex items-center justify-center mb-6 shadow-xl border-2 border-transparent group-hover:border-primary transition-all">
+<span class="material-symbols-outlined text-4xl">dashboard</span>
+</div>
+<h4 class="font-extrabold text-sm mb-2 uppercase tracking-widest">REPORTE</h4>
+<p class="text-xs text-on-surface-variant font-semibold px-4">Dashboards interactivos en vivo.</p>
+</div>
+<div class="flex flex-col items-center text-center relative z-10 group">
+<div class="w-24 h-24 bg-white text-secondary rounded-3xl flex items-center justify-center mb-6 shadow-xl border-2 border-transparent group-hover:border-secondary transition-all">
+<span class="material-symbols-outlined text-4xl">integration_instructions</span>
+</div>
+<h4 class="font-extrabold text-sm mb-2 uppercase tracking-widest">INTEGRACIÓN</h4>
+<p class="text-xs text-on-surface-variant font-semibold px-4">Conexión nativa con su ERP.</p>
+</div>
+</div>
+</div>
+<!-- Integrated Dashboard Visual -->
+<div class="bg-navy-tech rounded-[3rem] p-12 shadow-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_top_right,rgba(0,218,243,0.15),transparent_70%)]"></div>
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8 relative z-10">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-xs font-extrabold text-secondary tracking-widest uppercase">Dashboard Central de Control</span>
+</div>
+<h3 class="text-3xl font-extrabold text-white leading-tight">Visibilidad total de la operación en tiempo real</h3>
+<p class="text-gray-400 font-medium">Monitoreo de avance, productividad de los equipos y trazabilidad por sector. Reportes instantáneos para toma de decisiones rápida.</p>
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+<div class="text-secondary text-2xl font-extrabold mb-1">AVANCE DE INVENTARIO</div>
+<div class="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">VALIDACIÓN DE DATOS</div>
+</div>
+<div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+<div class="text-white text-2xl font-extrabold mb-1">UBICACIONES RELEVADAS</div>
+<div class="text-[10px] text-gray-500 uppercase font-bold tracking-[0.2em]">REPORTES GENERADOS</div>
+</div>
+</div>
+</div>
+<div class="relative z-10">
+<div class="aspect-video bg-[#0a0f1a] rounded-3xl border border-white/10 shadow-2xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-red-500/30"></div>
+<div class="w-3 h-3 rounded-full bg-yellow-500/30"></div>
+<div class="w-3 h-3 rounded-full bg-green-500/30"></div>
+</div>
+<span class="text-[10px] font-mono text-secondary tracking-widest">SYSTEM_LIVE: ACTIVE</span>
+</div>
+<div class="space-y-6 flex-grow flex flex-col justify-end">
+<div class="flex items-end gap-3 h-32">
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-lg group-hover:h-[45%] transition-all duration-700"></div>
+<div class="flex-1 bg-secondary/40 h-[60%] rounded-t-lg group-hover:h-[80%] transition-all duration-700 delay-100"></div>
+<div class="flex-1 bg-primary/20 h-[45%] rounded-t-lg group-hover:h-[65%] transition-all duration-700 delay-200"></div>
+<div class="flex-1 bg-secondary/40 h-[90%] rounded-t-lg group-hover:h-[100%] transition-all duration-700 delay-300"></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-lg group-hover:h-[75%] transition-all duration-700 delay-400"></div>
+</div>
+<div class="flex justify-between items-center">
+<div class="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Trazabilidad por sector</div>
+<div class="text-[9px] font-bold text-secondary uppercase tracking-widest">Diferencias detectadas</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Drone Section -->
+<section class="flex flex-col lg:flex-row bg-navy-tech text-white min-h-[700px] overflow-hidden">
+<div class="lg:w-1/2 relative min-h-[400px]">
+<img alt="Drone en depósito" class="absolute inset-0 w-full h-full object-cover opacity-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXFqfuPF8qbHKJrC2bwR0kqRssoLZl_r3E5ACTXKiawMt9KXnmhAaymlLZ-MzmZQ4Zi201ZVOKaqP7vZOPVPGSUmNW4a-2vfJcdJOehCqk07y2QceV8zzOT9ePaTnbwn7-IxWy55-4rykU9KQRQ6VkXt8DV4Y5bI8gHVmrHdhN-4eRWl_ry-6vTbmvQq3FcWCkyd72tB2rjTBUKcZA1QodQGJZnfuffcSc2id8-G6XM19w_-DgzgrCxHvMKrm5rRQnut0EkYWVAUA"/>
+<div class="absolute inset-0 bg-gradient-to-r from-navy-tech via-transparent to-transparent pointer-events-none"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-80 h-80 border border-secondary/20 rounded-full flex items-center justify-center animate-pulse">
+<div class="w-64 h-64 border-2 border-secondary/40 rounded-full border-t-transparent animate-spin"></div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 p-margin-mobile md:p-margin-desktop flex flex-col justify-center">
+<div class="inline-flex items-center gap-3 mb-10">
+<span class="w-12 h-[2px] bg-secondary"></span>
+<span class="text-xs font-extrabold text-secondary uppercase tracking-[0.3em]">Servicio tecnológico complementario</span>
+</div>
+<h2 class="text-5xl md:text-6xl font-extrabold mb-10 leading-tight">Inventario aéreo <br/><span class="text-secondary italic">autónomo</span></h2>
+<p class="text-xl text-gray-400 leading-relaxed mb-12 font-medium max-w-xl">
+                    Solución complementaria para depósitos, racks y posiciones en altura. Incorporamos drones autónomos para relevar ubicaciones logísticas, capturar etiquetas y reducir la exposición operativa en zonas elevadas.
+                </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div class="p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4 block group-hover:scale-110 transition-transform">view_in_ar</span>
+<h4 class="font-extrabold text-xl mb-3">Escaneo de posiciones</h4>
+<p class="text-sm text-gray-500 font-medium">Asociación ubicación-producto y lectura de etiquetas con alta precisión.</p>
+</div>
+<div class="p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-primary mb-4 block group-hover:scale-110 transition-transform">security</span>
+<h4 class="font-extrabold text-xl mb-3">Reducción de exposición</h4>
+<p class="text-sm text-gray-500 font-medium">Minimiza el riesgo humano en tareas de altura mediante relevamiento aéreo.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Section -->
+<section class="py-xl bg-white">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid lg:grid-cols-2 gap-24 items-center">
+<div class="space-y-10">
+<div class="inline-flex px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-extrabold uppercase tracking-widest">IA &amp; Computer Vision</div>
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface">Visión artificial como soporte al inventario</h2>
+<p class="text-xl text-on-surface-variant leading-relaxed font-medium">
+                            La visión artificial asiste el relevamiento en casos específicos, generando evidencia visual y apoyo para la validación del inventario mediante la detección de elementos visibles.
+                        </p>
+<!-- Visual Flow -->
+<div class="flex items-center gap-4 bg-background p-6 rounded-3xl border border-outline-variant/30">
+<div class="flex flex-col items-center gap-1 text-[9px] font-extrabold text-primary">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-primary/20"><span class="material-symbols-outlined text-xl">inventory</span></div>
+                                PALLET
+                            </div>
+<span class="material-symbols-outlined text-outline-variant">arrow_forward</span>
+<div class="flex flex-col items-center gap-1 text-[9px] font-extrabold text-secondary">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-secondary/20"><span class="material-symbols-outlined text-xl">photo_camera</span></div>
+                                CAPTURA
+                            </div>
+<span class="material-symbols-outlined text-outline-variant">arrow_forward</span>
+<div class="flex flex-col items-center gap-1 text-[9px] font-extrabold text-primary">
+<div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-primary/20"><span class="material-symbols-outlined text-xl">visibility</span></div>
+                                DETECCIÓN
+                            </div>
+<span class="material-symbols-outlined text-outline-variant">arrow_forward</span>
+<div class="flex flex-col items-center gap-1 text-[9px] font-extrabold text-secondary">
+<div class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-xl">check_circle</span></div>
+                                EVIDENCIA
+                            </div>
+</div>
+</div>
+<div class="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-background group">
+<img alt="AI Vision Support" class="w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHsYeAENt_H-P432vz7C6VEN0FwqCm4DrcHc5b883gKuR7p1CSL1JNmkr18waQPJjtC6eELI1yR4aN7ig1JSW1sgu5VP5tvXqhQiGg7nYkQnG-Ggq-uJZCmuA58VXwKuJJpISh7iPzPOO37HGeoT2Ga4m3V6gfEeZLya_-mX8l1qrkMXhJxzaN9Fg1AbAhHAPCJEhciwNdIdC7a2CqT9uoEOzF0AiysHXOxb4Fjb-HTN8nAkJa7zk_qvCv3bUyJhMMySVyRCmRYeE"/>
+<div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-all pointer-events-none"></div>
+<div class="absolute bottom-6 left-6 glass-ui p-4 rounded-2xl border border-white/40">
+<div class="text-[10px] font-mono font-bold text-primary">APOYO AL CONTEO</div>
+<div class="text-xl font-extrabold text-on-surface">Validación Visual</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Methodology Roadmap -->
+<section class="py-xl bg-background" id="metodologia">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<span class="text-xs font-extrabold text-primary tracking-[0.3em] uppercase mb-4 block">Proceso de Trabajo</span>
+<h2 class="text-4xl md:text-5xl font-extrabold text-on-surface mb-6">Metodología de Implementación</h2>
+<p class="max-w-3xl mx-auto text-on-surface-variant text-lg font-medium mb-24">Cada inventario se planifica, ejecuta y valida bajo una metodología estructurada, orientada a precisión, trazabilidad y cumplimiento.</p>
+<div class="relative">
+<div class="roadmap-connector hidden lg:block"></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
+<div class="corporate-card p-10 rounded-[2.5rem] transform hover:-translate-y-4 transition-all">
+<div class="w-20 h-20 bg-background rounded-3xl flex items-center justify-center mb-8 mx-auto border-2 border-outline-variant/20 shadow-inner">
+<span class="text-3xl font-extrabold text-primary">01</span>
+</div>
+<h4 class="text-xl font-extrabold mb-4">Diagnóstico y relevamiento</h4>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Análisis de infraestructura logística, tipos de carga y requerimientos específicos.</p>
+</div>
+<div class="corporate-card p-10 rounded-[2.5rem] border-primary/30 transform hover:-translate-y-4 transition-all lg:mt-12">
+<div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mb-8 mx-auto shadow-lg shadow-primary/30">
+<span class="text-3xl font-extrabold text-white">02</span>
+</div>
+<h4 class="text-xl font-extrabold mb-4">Planificación operativa</h4>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Cronograma detallado, despliegue de recursos humanos y preparación tecnológica.</p>
+</div>
+<div class="corporate-card p-10 rounded-[2.5rem] transform hover:-translate-y-4 transition-all">
+<div class="w-20 h-20 bg-background rounded-3xl flex items-center justify-center mb-8 mx-auto border-2 border-outline-variant/20 shadow-inner">
+<span class="text-3xl font-extrabold text-primary">03</span>
+</div>
+<h4 class="text-xl font-extrabold mb-4">Ejecución tecnológica</h4>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Conteo físico y captura digital mediante personal experto y herramientas de precisión.</p>
+</div>
+<div class="corporate-card p-10 rounded-[2.5rem] border-primary/30 transform hover:-translate-y-4 transition-all lg:mt-12">
+<div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mb-8 mx-auto shadow-lg shadow-primary/30">
+<span class="text-3xl font-extrabold text-white">04</span>
+</div>
+<h4 class="text-xl font-extrabold mb-4">Análisis y mejora continua</h4>
+<p class="text-sm text-on-surface-variant font-medium leading-relaxed">Reportes auditables, análisis de desvíos y propuestas de optimización de stock.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Clients Section -->
+<section class="py-xl bg-white" id="clientes">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-20">
+<h2 class="text-3xl font-extrabold text-on-surface mb-6">Empresas que confían su stock a Dinamic</h2>
+<p class="text-on-surface-variant font-medium max-w-2xl mx-auto">Líderes de industria que han optimizado sus operaciones mediante nuestra metodología.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+<!-- Brand Logo Cards -->
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<img alt="Carrefour" class="max-h-12 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLfU-7cpoaZkbExtqjPacy6qy2b0Fzwi7GA8ZJa0X3OdlEehkR-IJ9oWAv9FdwflIpxy-bA53uM1SqZuP_7fsSqN9W4sULMjIvXbVFx4vpMXR6aN5Mm1B4wAx1aqO6L8y86UnSGvSdWAlIYaoUbpSdonj6J2eAZSnAsndggG537DGP90MaVFuSAz9QY6MeepZcmHC50L1jFX3OpUB64JjAk4pD4_CM6459uYjbxZO9nQtSFqN27C4y1r8LtnPDJpKy-bnO6HUKYXE"/>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<img alt="Cencosud" class="max-h-12 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp2LbvgxZIlgmPdfcsXPSLabolTLGwwUw9rW3d6swXUR_V9UyQybLm_VufJzD9fgL2oOrwniNahyhnvN0qsJ3IxhEo3qZfR4ppn5qoDd8Mun-1sqTXRbENjyCD8uK8eNOgIIU8A7mtrvqhdaofYlkKJqVALawuGVwPo7M3--yV5XUs__QYcD84m5oHf1ytpiBkufo8JsEGJDQBhpnvVu5oO3lBURkYeQ1mjyUisZ_ag57nJC4rt6cRiXLuVDgqERbmzxYMmYm0jLM"/>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm text-center">
+<span class="font-extrabold text-on-surface/40 text-sm uppercase tracking-tight">CDEB SA Express</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-2xl uppercase">SBG</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-lg font-display">Avenida.com</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-xl font-display">Farmacity</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-lg uppercase tracking-tighter">DT Logística</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-2xl font-display">Cebra</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm text-center">
+<span class="font-extrabold text-on-surface/40 text-sm uppercase">Tea &amp; Deportea</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-2xl font-display">Fiore</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-2xl font-display">Melar</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-xl font-display">Farmashop</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-xl tracking-widest uppercase">Lacoste</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-xl uppercase">Penguin</span>
+</div>
+<div class="bg-white h-32 rounded-2xl flex items-center justify-center px-6 grayscale hover:grayscale-0 transition-all border border-outline-variant/30 shadow-sm">
+<span class="font-extrabold text-on-surface/40 text-xl italic uppercase">Cacharel</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA & Contact -->
+<section class="pt-xl bg-navy-tech">
+<div class="max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop text-center pb-xl">
+<h2 class="text-5xl md:text-6xl font-extrabold text-white mb-10 leading-tight">Optimizá el control de inventarios de tu operación</h2>
+<p class="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-16 font-medium">Coordinemos una reunión para analizar tus procesos actuales, necesidades operativas y oportunidades de mejora.</p>
+<button class="h-16 bg-primary text-white px-16 font-extrabold rounded-full shadow-2xl shadow-primary/40 hover:scale-105 transition-all text-xl uppercase tracking-widest">
+                    Agendar Reunión
+                </button>
+</div>
+<div class="bg-white rounded-t-[4rem] p-margin-mobile md:p-24">
+<div class="max-w-[1280px] mx-auto grid lg:grid-cols-12 gap-24">
+<div class="lg:col-span-5 space-y-12">
+<div>
+<span class="text-xs font-extrabold text-primary tracking-[0.3em] uppercase block mb-6">¿Hablamos?</span>
+<h2 class="text-4xl font-extrabold text-on-surface leading-tight">Hablemos de tu operación</h2>
+<p class="mt-6 text-on-surface-variant font-medium">Contanos sobre tu tienda, depósito o centro de distribución. Nuestro equipo puede ayudarte a definir una solución de inventario precisa, trazable y escalable.</p>
+</div>
+<div class="space-y-8">
+<div class="flex items-start gap-6">
+<div class="w-14 h-14 bg-background rounded-2xl flex items-center justify-center flex-shrink-0 text-primary shadow-sm">
+<span class="material-symbols-outlined text-3xl">mail</span>
+</div>
+<div>
+<div class="text-[10px] font-extrabold text-on-surface-variant uppercase tracking-widest mb-1">Email Corporativo</div>
+<div class="font-extrabold text-xl">info@dinamicsystems.com</div>
+</div>
+</div>
+<div class="flex items-start gap-6">
+<div class="w-14 h-14 bg-background rounded-2xl flex items-center justify-center flex-shrink-0 text-primary shadow-sm">
+<span class="material-symbols-outlined text-3xl">location_on</span>
+</div>
+<div>
+<div class="text-[10px] font-extrabold text-on-surface-variant uppercase tracking-widest mb-1">Oficinas Centrales</div>
+<div class="font-extrabold text-xl">Av. Rivadavia 4975 – CABA</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 bg-background p-10 md:p-16 rounded-[4rem] border border-outline-variant/30 shadow-xl">
+<form class="space-y-10">
+<div class="grid md:grid-cols-2 gap-10">
+<div class="space-y-3">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase ml-2 tracking-widest">Nombre completo</label>
+<input class="w-full bg-white border-outline-variant/40 rounded-2xl px-8 py-5 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm outline-none border-0 shadow-sm" placeholder="Ej: Juan Pérez" type="text"/>
+</div>
+<div class="space-y-3">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase ml-2 tracking-widest">Empresa</label>
+<input class="w-full bg-white border-outline-variant/40 rounded-2xl px-8 py-5 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm outline-none border-0 shadow-sm" placeholder="Nombre de su organización" type="text"/>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-10">
+<div class="space-y-3">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase ml-2 tracking-widest">Email profesional</label>
+<input class="w-full bg-white border-outline-variant/40 rounded-2xl px-8 py-5 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm outline-none border-0 shadow-sm" placeholder="email@empresa.com" type="email"/>
+</div>
+<div class="space-y-3">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase ml-2 tracking-widest">Operación</label>
+<select class="w-full bg-white border-outline-variant/40 rounded-2xl px-8 py-5 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm outline-none border-0 shadow-sm appearance-none cursor-pointer">
+<option>Retail / Tiendas</option>
+<option>Centro Logístico</option>
+<option>Depósito Industrial</option>
+<option>Otro</option>
+</select>
+</div>
+</div>
+<div class="space-y-3">
+<label class="text-[10px] font-extrabold text-on-surface-variant uppercase ml-2 tracking-widest">Mensaje o requerimiento</label>
+<textarea class="w-full bg-white border-outline-variant/40 rounded-3xl px-8 py-6 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-sm outline-none border-0 shadow-sm resize-none" placeholder="Contanos brevemente qué tipo de control necesitás realizar" rows="5"></textarea>
+</div>
+<button class="w-full h-20 bg-primary text-white font-extrabold rounded-3xl shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-[0.2em] text-sm">
+                                Enviar Consulta Técnica
+                            </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-20 px-margin-mobile md:px-margin-desktop bg-white border-t border-outline-variant/30">
+<div class="max-w-[1280px] mx-auto">
+<div class="grid lg:grid-cols-12 gap-xl items-start">
+<div class="lg:col-span-5 space-y-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white text-2xl">data_thresholding</span>
+</div>
+<div class="text-2xl font-extrabold tracking-tight font-display">Dinamic <span class="text-primary">Systems</span></div>
+</div>
+<p class="text-base text-on-surface-variant leading-relaxed max-w-sm font-medium">
+                        Líderes en servicios profesionales de control de inventarios físicos e integración tecnológica de precisión. Innovación argentina con estándares globales.
+                    </p>
+<div class="flex gap-4">
+<a class="w-12 h-12 bg-background rounded-2xl flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="w-12 h-12 bg-background rounded-2xl flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-white transition-all shadow-sm" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+<div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="space-y-8">
+<h5 class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-on-surface-variant">Servicios</h5>
+<nav class="flex flex-col gap-6 text-sm font-extrabold text-on-surface">
+<a class="hover:text-primary transition-colors" href="#">Inventarios Retail</a>
+<a class="hover:text-primary transition-colors" href="#">Auditoría de CD</a>
+<a class="hover:text-primary transition-colors" href="#">Mapeo de Racks</a>
+<a class="hover:text-primary transition-colors" href="#">Drones Autónomos</a>
+</nav>
+</div>
+<div class="space-y-8">
+<h5 class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-on-surface-variant">Soporte</h5>
+<nav class="flex flex-col gap-6 text-sm font-extrabold text-on-surface">
+<a class="hover:text-primary transition-colors" href="#"></a></nav></div></div></div></div></footer></body></html>

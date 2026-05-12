@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: Replace with an on-brand team / operations photograph for production. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720">
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#eef1f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="720" rx="40" fill="url(#a)" stroke="#e5e7eb"/>
+  <circle cx="450" cy="300" r="120" fill="#b7102a" fill-opacity="0.12"/>
+  <rect x="220" y="420" width="460" height="160" rx="20" fill="#ffffff" stroke="#c4c6cf"/>
+  <g fill="#44474e" opacity="0.35" font-family="Plus Jakarta Sans,Inter,sans-serif" font-size="18" font-weight="700">
+    <text x="450" y="510" text-anchor="middle">Imagen corporativa</text>
+  </g>
+</svg>

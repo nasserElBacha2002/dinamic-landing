@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO: Replace with a licensed warehouse / logistics photograph (e.g. hero-warehouse.webp) for production. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8eaef"/>
+      <stop offset="55%" stop-color="#cfd6e3"/>
+      <stop offset="100%" stop-color="#b8c0d4"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#grid)" opacity="0.5"/>
+  <g opacity="0.22" fill="#020617">
+    <rect x="120" y="520" width="520" height="180" rx="12"/>
+    <rect x="720" y="460" width="680" height="260" rx="12"/>
+    <rect x="1480" y="540" width="360" height="160" rx="12"/>
+    <rect x="260" y="300" width="1400" height="140" rx="12"/>
+  </g>
+</svg>
