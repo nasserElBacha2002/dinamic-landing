@@ -6,7 +6,7 @@ import { contentMaxWidth } from '@/theme/theme';
 
 export function CtaSection() {
   return (
-    <Box component="section" pt={{ base: '4rem', md: '6rem' }} bg="#020617">
+    <Box component="section" pt={{ base: '4rem', md: '6rem' }} className="ds-bg-cta">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth} pb={{ base: '4rem', md: '5rem' }}>
         <Stack align="center" ta="center" gap="xl">
           <MotionFadeIn direction="up" duration={motionDuration.section}>

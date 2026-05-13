@@ -17,7 +17,7 @@ export function AboutSection() {
       component="section"
       id="quienes-somos"
       py={{ base: '4rem', md: '6rem' }}
-      bg="white"
+      className="ds-bg-about"
       style={{ borderBlock: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}
     >
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>

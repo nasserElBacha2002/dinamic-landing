@@ -15,7 +15,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
       data-accent={accent}
       p={{ base: 'lg', md: 'xl' }}
       radius="2.5rem"
-      bg="gray.0"
+      bg={accent === 'cyan' ? 'cyan.1' : 'gray.0'}
       withBorder
       classNames={{
         root: classes.card,

@@ -12,10 +12,11 @@ import { HeroSection } from '@/components/sections/HeroSection';
 import { MethodologySection } from '@/components/sections/MethodologySection';
 import { ServicesMapSection } from '@/components/sections/ServicesMapSection';
 import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
+import { VisionProcessFlowSection } from '@/components/sections/VisionProcessFlowSection';
 
 export default function App() {
   return (
-    <Box component="div" bg="gray.0" style={{ overflowX: 'hidden' }}>
+    <Box component="div" className="ds-bg-page" style={{ overflowX: 'hidden' }}>
       <Header />
       <Box component="main">
         <HeroSection />
@@ -25,6 +26,7 @@ export default function App() {
         <DigitalInfrastructureSection />
         <DroneInventorySection />
         <ArtificialVisionSection />
+        <VisionProcessFlowSection />
         <MethodologySection />
         <ClientsSection />
         <CtaSection />

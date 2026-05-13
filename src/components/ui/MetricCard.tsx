@@ -20,7 +20,15 @@ export function MetricCard({ title, icon: Icon, accent }: MetricCardProps) {
       transition={{ duration: motionDuration.fast, ease: motionEaseOut }}
       style={{ height: '100%', width: '100%', minWidth: 0 }}
     >
-      <Card padding="xl" radius="3rem" shadow="sm" withBorder w="100%" style={{ height: '100%', minWidth: 0 }}>
+      <Card
+        padding="xl"
+        radius="3rem"
+        shadow="sm"
+        withBorder
+        w="100%"
+        bg={accent === 'cyan' ? 'cyan.1' : 'gray.0'}
+        style={{ height: '100%', minWidth: 0 }}
+      >
         <ThemeIcon
           size={56}
           radius="xl"

@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
+import droneClasses from '@/components/sections/DroneInventorySection.module.css';
 import droneWarehouseUrl from '@/assets/images/drone-warehouse.svg?url';
 
 export function DroneInventorySection() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <Box component="section" bg="#020617" c="white" style={{ overflow: 'hidden' }}>
+    <Box component="section" className="ds-bg-drone" c="white" style={{ overflow: 'hidden' }}>
       <Grid gutter={0}>
         <Grid.Col span={{ base: 12, lg: 6 }} pos="relative" mih={{ base: rem(360), lg: rem(620) }}>
           <motion.div
@@ -96,7 +97,13 @@ export function DroneInventorySection() {
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.06, ease: motionEaseOut }}
                 >
-                  <Paper p="xl" radius="2rem" bg="rgba(255,255,255,0.05)" style={{ border: '1px solid rgba(255,255,255,0.12)' }}>
+                  <Paper
+                    p="xl"
+                    radius="2rem"
+                    bg="rgba(255,255,255,0.05)"
+                    style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+                    className={`${droneClasses.card} ${droneClasses.cardCyan}`}
+                  >
                     <ThemeIcon variant="transparent" color="cyan" size={52} radius="md">
                       <IconView360 stroke={1.25} />
                     </ThemeIcon>
@@ -116,7 +123,13 @@ export function DroneInventorySection() {
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.14, ease: motionEaseOut }}
                 >
-                  <Paper p="xl" radius="2rem" bg="rgba(255,255,255,0.05)" style={{ border: '1px solid rgba(255,255,255,0.12)' }}>
+                  <Paper
+                    p="xl"
+                    radius="2rem"
+                    bg="rgba(255,255,255,0.05)"
+                    style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+                    className={`${droneClasses.card} ${droneClasses.cardBrand}`}
+                  >
                     <ThemeIcon variant="transparent" color="brand" size={52} radius="md">
                       <IconShieldLock stroke={1.25} />
                     </ThemeIcon>

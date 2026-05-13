@@ -1,24 +1,15 @@
-import { Box, Container, Grid, Group, Paper, Stack, Text, ThemeIcon, rem } from '@mantine/core';
-import { IconArrowRight, IconCamera, IconCircleCheck, IconEye, IconPackage } from '@tabler/icons-react';
-import { Fragment } from 'react';
+import { Box, Container, Grid, Paper, Text, rem } from '@mantine/core';
 import { motion } from 'framer-motion';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import aiVisionUrl from '@/assets/images/ai-vision-mock.svg?url';
 
-const steps = [
-  { label: 'Pallet', icon: IconPackage, tone: 'brand' as const },
-  { label: 'Captura', icon: IconCamera, tone: 'cyan' as const },
-  { label: 'Detección', icon: IconEye, tone: 'brand' as const },
-  { label: 'Evidencia', icon: IconCircleCheck, tone: 'cyan' as const, filled: true },
-];
-
 export function ArtificialVisionSection() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <Box component="section" py={{ base: '4rem', md: '6rem' }} bg="white">
+    <Box component="section" py={{ base: '4rem', md: '6rem' }} className="ds-bg-vision">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={rem(1280)}>
         <Grid gutter={{ base: 'xl', lg: '4rem' }} align="center">
           <Grid.Col span={{ base: 12, lg: 6 }}>
@@ -52,46 +43,6 @@ export function ArtificialVisionSection() {
                 La visión artificial asiste el relevamiento en casos específicos, generando evidencia visual y apoyo para
                 la validación del inventario mediante la detección de elementos visibles.
               </Text>
-
-              <Paper mt="xl" p="lg" radius="2rem" withBorder bg="gray.0">
-                <Group justify="center" align="center" gap="xs" wrap="wrap">
-                  {steps.map((s, idx) => (
-                    <Fragment key={s.label}>
-                      <motion.div
-                        initial={reduced ? false : { opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.25 }}
-                        transition={{
-                          duration: motionDuration.base,
-                          delay: reduced ? 0 : 0.1 * idx,
-                          ease: motionEaseOut,
-                        }}
-                      >
-                        <Stack gap={6} align="center" miw={rem(76)}>
-                          <ThemeIcon
-                            radius="md"
-                            size={48}
-                            color={s.tone === 'brand' ? 'brand' : 'cyan'}
-                            variant={s.filled ? 'filled' : 'white'}
-                            style={{
-                              border: s.filled
-                                ? undefined
-                                : `1px solid color-mix(in srgb, var(--mantine-color-${s.tone === 'brand' ? 'brand' : 'cyan'}-6) 25%, transparent)`,
-                              boxShadow: 'var(--mantine-shadow-sm)',
-                            }}
-                          >
-                            <s.icon stroke={1.25} style={{ width: rem(22), height: rem(22) }} />
-                          </ThemeIcon>
-                          <Text tt="uppercase" fz={9} fw={800} c={s.tone === 'brand' ? 'brand.7' : 'cyan.6'} style={{ letterSpacing: '0.12em' }}>
-                            {s.label}
-                          </Text>
-                        </Stack>
-                      </motion.div>
-                      {idx < steps.length - 1 ? <IconArrowRight size={18} color="var(--mantine-color-gray-4)" aria-hidden /> : null}
-                    </Fragment>
-                  ))}
-                </Group>
-              </Paper>
             </MotionFadeIn>
           </Grid.Col>
 

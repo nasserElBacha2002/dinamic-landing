@@ -33,7 +33,7 @@ export function ValueSystemSection() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <Box component="section" py={{ base: '4rem', md: '6rem' }} bg="gray.0" style={{ overflow: 'hidden' }}>
+    <Box component="section" py={{ base: '4rem', md: '6rem' }} className="ds-bg-value" style={{ overflow: 'hidden' }}>
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionFadeIn direction="none" duration={motionDuration.section}>
           <SectionHeader

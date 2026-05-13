@@ -43,8 +43,9 @@ export function Header() {
         height: rem(80),
         zIndex: 100,
         backdropFilter: 'blur(16px)',
-        background: 'color-mix(in srgb, #ffffff 92%, transparent)',
-        borderBottom: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)',
+        background:
+          'linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-cyan-0) 82%, #ffffff) 0%, color-mix(in srgb, #ffffff 90%, transparent) 100%)',
+        borderBottom: '1px solid color-mix(in srgb, var(--mantine-color-cyan-3) 22%, #c4c6cf)',
       }}
     >
       <Group

@@ -9,7 +9,7 @@ import { contentMaxWidth } from '@/theme/theme';
 
 export function ClientsSection() {
   return (
-    <Box component="section" id="clientes" py={{ base: '4rem', md: '6rem' }} bg="white">
+    <Box component="section" id="clientes" py={{ base: '4rem', md: '6rem' }} className="ds-bg-clients">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionFadeIn direction="none" duration={motionDuration.base}>
           <SectionHeader

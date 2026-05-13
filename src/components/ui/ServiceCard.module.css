@@ -14,17 +14,17 @@
 .card[data-accent='brand']:hover {
   border-color: var(--mantine-color-brand-6);
   box-shadow:
-    0 18px 44px rgba(15, 23, 42, 0.1),
-    0 6px 16px rgba(15, 23, 42, 0.06),
-    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent);
+    0 20px 52px color-mix(in srgb, var(--mantine-color-brand-6) 20%, rgba(15, 23, 42, 0.1)),
+    0 8px 20px rgba(15, 23, 42, 0.07),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent);
 }
 
 .card[data-accent='cyan']:hover {
-  border-color: var(--mantine-color-cyan-5);
+  border-color: var(--mantine-color-cyan-6);
   box-shadow:
-    0 18px 44px rgba(15, 23, 42, 0.1),
-    0 6px 16px rgba(15, 23, 42, 0.06),
-    0 0 0 1px color-mix(in srgb, var(--mantine-color-cyan-5) 20%, transparent);
+    0 20px 52px color-mix(in srgb, var(--mantine-color-cyan-5) 32%, rgba(15, 23, 42, 0.08)),
+    0 8px 20px color-mix(in srgb, var(--mantine-color-cyan-5) 12%, rgba(15, 23, 42, 0.06)),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-cyan-5) 38%, transparent);
 }
 
 .iconWrap {

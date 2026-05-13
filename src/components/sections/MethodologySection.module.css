@@ -12,23 +12,27 @@
 }
 
 .card:hover {
-  border-color: color-mix(in srgb, var(--mantine-color-brand-6) 22%, var(--mantine-color-gray-3));
+  border-color: color-mix(in srgb, var(--mantine-color-cyan-5) 32%, color-mix(in srgb, var(--mantine-color-brand-6) 22%, var(--mantine-color-gray-3)));
   box-shadow:
-    0 18px 46px rgba(15, 23, 42, 0.09),
-    0 6px 14px rgba(15, 23, 42, 0.05),
-    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 10%, transparent);
+    0 22px 56px color-mix(in srgb, var(--mantine-color-cyan-5) 14%, rgba(15, 23, 42, 0.1)),
+    0 8px 18px rgba(15, 23, 42, 0.06),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-cyan-5) 18%, transparent);
 }
 
 .card[data-highlight='true'] {
-  border-color: color-mix(in srgb, var(--mantine-color-brand-6) 38%, transparent);
+  border-color: color-mix(in srgb, var(--mantine-color-brand-6) 48%, transparent);
 }
 
 .card[data-highlight='true']:hover {
   border-color: var(--mantine-color-brand-6);
   box-shadow:
-    0 20px 52px color-mix(in srgb, var(--mantine-color-brand-6) 18%, rgba(15, 23, 42, 0.06)),
-    0 6px 16px rgba(15, 23, 42, 0.06),
-    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 16%, transparent);
+    0 24px 58px color-mix(in srgb, var(--mantine-color-brand-6) 28%, rgba(15, 23, 42, 0.08)),
+    0 8px 20px color-mix(in srgb, var(--mantine-color-cyan-5) 10%, rgba(15, 23, 42, 0.06)),
+    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 24%, transparent);
+}
+
+.card:hover .badgeHighlight {
+  box-shadow: 0 24px 50px color-mix(in srgb, var(--mantine-color-brand-6) 42%, transparent);
 }
 
 .badge {
@@ -39,10 +43,6 @@
 
 .card:hover .badge {
   transform: scale(1.035);
-}
-
-.card:hover .badgeHighlight {
-  box-shadow: 0 22px 44px color-mix(in srgb, var(--mantine-color-brand-6) 34%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

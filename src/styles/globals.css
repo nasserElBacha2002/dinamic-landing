@@ -16,7 +16,7 @@ section[id] {
   box-sizing: border-box;
 }
 
-/* Subtle dotted flow line (digital infrastructure) */
+/* Subtle dotted flow line (digital infrastructure) — celeste más visible */
 .ds-flow-line {
   height: 2px;
   width: 100%;
@@ -27,7 +27,7 @@ section[id] {
     transparent 4px,
     transparent 8px
   );
-  opacity: 0.35;
+  opacity: 0.58;
 }
 
 /* Value system hub connectors */
@@ -43,14 +43,125 @@ section[id] {
   pointer-events: none;
 }
 
-/* Hero overlay gradient matching reference */
+/* Hero overlay — celeste más presente hacia la derecha */
 .ds-hero-gradient {
   background: linear-gradient(
     105deg,
     rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.98) 45%,
-    rgba(255, 255, 255, 0.12) 100%
+    rgba(255, 255, 255, 0.94) 32%,
+    color-mix(in srgb, var(--mantine-color-cyan-2) 42%, rgba(255, 255, 255, 0.55)) 72%,
+    color-mix(in srgb, var(--mantine-color-cyan-3) 28%, rgba(255, 255, 255, 0.2)) 100%
   );
+}
+
+/* Fondos de página / secciones — celeste y rojo más perceptibles */
+.ds-bg-page {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 88%, var(--mantine-color-gray-0)) 0%,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 35%, var(--mantine-color-gray-0)) 28%,
+    var(--mantine-color-gray-0) 100%
+  );
+}
+
+.ds-bg-about {
+  background:
+    radial-gradient(ellipse 125% 95% at 100% 0%, color-mix(in srgb, var(--mantine-color-cyan-2) 52%, transparent), transparent 50%),
+    radial-gradient(ellipse 70% 55% at 0% 100%, color-mix(in srgb, var(--mantine-color-brand-1) 70%, transparent), transparent 55%),
+    linear-gradient(
+      185deg,
+      var(--mantine-color-white) 0%,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 62%, var(--mantine-color-white)) 100%
+    );
+}
+
+.ds-bg-value {
+  background:
+    radial-gradient(ellipse 80% 58% at 50% 100%, color-mix(in srgb, var(--mantine-color-brand-2) 55%, transparent), transparent 58%),
+    radial-gradient(ellipse 65% 50% at 12% 8%, color-mix(in srgb, var(--mantine-color-cyan-1) 65%, transparent), transparent 48%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 45%, var(--mantine-color-gray-0)) 0%,
+      var(--mantine-color-gray-0) 100%
+    );
+}
+
+.ds-bg-services {
+  background:
+    radial-gradient(ellipse 100% 85% at 0% 32%, color-mix(in srgb, var(--mantine-color-cyan-2) 38%, transparent), transparent 48%),
+    radial-gradient(ellipse 75% 60% at 100% 0%, color-mix(in srgb, var(--mantine-color-brand-1) 75%, transparent), transparent 46%),
+    linear-gradient(165deg, var(--mantine-color-white) 0%, color-mix(in srgb, var(--mantine-color-cyan-0) 48%, var(--mantine-color-white)) 100%);
+}
+
+.ds-bg-digital {
+  background:
+    radial-gradient(ellipse 100% 75% at 100% 0%, color-mix(in srgb, var(--mantine-color-cyan-1) 58%, transparent), transparent 50%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 58%, var(--mantine-color-gray-0)) 0%,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 22%, var(--mantine-color-gray-0)) 100%
+    );
+}
+
+.ds-bg-drone {
+  background:
+    radial-gradient(ellipse 100% 85% at 88% 10%, color-mix(in srgb, var(--mantine-color-cyan-5) 38%, transparent), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 6% 90%, color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent), transparent 48%),
+    #020617;
+}
+
+.ds-bg-vision {
+  background:
+    radial-gradient(ellipse 95% 85% at 0% 42%, color-mix(in srgb, var(--mantine-color-cyan-2) 40%, transparent), transparent 52%),
+    radial-gradient(ellipse 65% 50% at 100% 0%, color-mix(in srgb, var(--mantine-color-brand-1) 80%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-cyan-0) 35%, var(--mantine-color-white)) 0%, var(--mantine-color-white) 100%);
+}
+
+.ds-bg-methodology {
+  background:
+    radial-gradient(ellipse 85% 58% at 50% 0%, color-mix(in srgb, var(--mantine-color-cyan-1) 62%, transparent), transparent 48%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 38%, var(--mantine-color-gray-0)) 0%,
+      color-mix(in srgb, var(--mantine-color-brand-0) 22%, var(--mantine-color-gray-0)) 100%
+    );
+}
+
+.ds-bg-clients {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--mantine-color-cyan-1) 42%, var(--mantine-color-white)) 0%,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 28%, var(--mantine-color-white)) 38%,
+    var(--mantine-color-white) 50%,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 52%, var(--mantine-color-white)) 100%
+  );
+}
+
+.ds-bg-contact {
+  background:
+    radial-gradient(ellipse 100% 80% at 78% 8%, color-mix(in srgb, var(--mantine-color-cyan-0) 55%, transparent), transparent 58%),
+    radial-gradient(ellipse 85% 60% at 10% 92%, color-mix(in srgb, var(--mantine-color-brand-0) 40%, transparent), transparent 58%),
+    linear-gradient(
+      180deg,
+      var(--mantine-color-white) 0%,
+      color-mix(in srgb, var(--mantine-color-cyan-0) 22%, var(--mantine-color-white)) 100%
+    );
+}
+
+.ds-bg-footer {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 72%, var(--mantine-color-white)) 0%,
+    var(--mantine-color-white) 32%,
+    color-mix(in srgb, var(--mantine-color-cyan-0) 28%, var(--mantine-color-gray-0)) 100%
+  );
+}
+
+.ds-bg-cta {
+  background:
+    radial-gradient(ellipse 90% 130% at 10% 22%, color-mix(in srgb, var(--mantine-color-cyan-5) 42%, transparent), transparent 55%),
+    radial-gradient(ellipse 75% 95% at 94% 78%, color-mix(in srgb, var(--mantine-color-brand-6) 26%, transparent), transparent 50%),
+    #020617;
 }
 
 /* Focus visibility for custom interactive nodes */

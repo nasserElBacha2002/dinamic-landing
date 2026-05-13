@@ -1,0 +1,34 @@
+/* Pulso secuencial sobre el paso activo (desktop y mobile) */
+
+.stepShell {
+  position: relative;
+  border-radius: var(--mantine-radius-xl);
+  padding: 0.35rem;
+  transition:
+    transform 0.45s cubic-bezier(0.33, 0.86, 0.35, 1),
+    box-shadow 0.45s cubic-bezier(0.33, 0.86, 0.35, 1);
+}
+
+.stepShell[data-active='true'] {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--mantine-color-cyan-5) 45%, transparent),
+    0 18px 44px color-mix(in srgb, var(--mantine-color-cyan-5) 22%, transparent);
+}
+
+.stepShell[data-accent='brand'][data-active='true'] {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--mantine-color-brand-6) 42%, transparent),
+    0 18px 44px color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent);
+}
+
+.connector {
+  color: var(--mantine-color-gray-4);
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepShell[data-active='true'] {
+    box-shadow: none;
+  }
+}

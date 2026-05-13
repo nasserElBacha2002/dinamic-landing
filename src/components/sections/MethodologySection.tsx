@@ -13,7 +13,7 @@ export function MethodologySection() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <Box component="section" id="metodologia" py={{ base: '4rem', md: '6rem' }} bg="gray.0">
+    <Box component="section" id="metodologia" py={{ base: '4rem', md: '6rem' }} className="ds-bg-methodology">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionFadeIn direction="none" duration={motionDuration.section}>
           <SectionHeader

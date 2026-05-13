@@ -23,7 +23,7 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <Box component="footer" py={{ base: 'xl', md: '4rem' }} bg="white" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
+    <Box component="footer" py={{ base: 'xl', md: '4rem' }} className="ds-bg-footer" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionSection>
           <Grid gutter="xl" align="flex-start">

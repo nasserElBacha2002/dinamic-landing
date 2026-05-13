@@ -54,7 +54,7 @@ export function DigitalInfrastructureSection() {
   }, [pulseEnabled]);
 
   return (
-    <Box component="section" id="tecnologia" py={{ base: '4rem', md: '6rem' }} bg="gray.0" style={{ overflow: 'hidden' }}>
+    <Box component="section" id="tecnologia" py={{ base: '4rem', md: '6rem' }} className="ds-bg-digital" style={{ overflow: 'hidden' }}>
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionFadeIn direction="none" duration={motionDuration.section}>
           <SectionHeader
