@@ -1,20 +1,11 @@
-import {
-  Anchor,
-  Box,
-  Burger,
-  Drawer,
-  Group,
-  Stack,
-  Text,
-  rem,
-} from '@mantine/core';
+import { Anchor, Burger, Drawer, Group, Stack, rem } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
-import { IconPackages } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import { motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import { BrandButton } from '@/components/ui/BrandButton';
-import { contentMaxWidth } from '@/theme/theme';
+import { BrandLogo } from '@/components/ui/BrandLogo';
+import { appHeaderHeightPx, contentMaxWidth } from '@/theme/theme';
 
 const links = [
   { label: 'Inicio', href: '#inicio' },
@@ -40,12 +31,11 @@ export function Header() {
         top: 0,
         left: 0,
         right: 0,
-        height: rem(80),
+        height: rem(appHeaderHeightPx),
         zIndex: 100,
-        backdropFilter: 'blur(16px)',
-        background:
-          'linear-gradient(180deg, color-mix(in srgb, var(--mantine-color-cyan-0) 82%, #ffffff) 0%, color-mix(in srgb, #ffffff 90%, transparent) 100%)',
-        borderBottom: '1px solid color-mix(in srgb, var(--mantine-color-cyan-3) 22%, #c4c6cf)',
+        background: '#ffffff',
+        borderBottom: '1px solid #e8eaed',
+        boxShadow: '0 1px 3px rgba(2, 6, 23, 0.06)',
       }}
     >
       <Group
@@ -58,25 +48,7 @@ export function Header() {
         w="100%"
       >
         <Anchor href="#inicio" underline="never" className="ds-focus-ring" style={{ borderRadius: rem(8) }}>
-          <Group gap="sm" wrap="nowrap">
-            <Box
-              w={40}
-              h={40}
-              bg="brand.6"
-              style={{
-                borderRadius: rem(10),
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 10px 24px color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent)',
-              }}
-            >
-              <IconPackages size={22} color="white" stroke={1.5} aria-hidden />
-            </Box>
-            <Text fz="xl" fw={800} c="gray.9" style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif', letterSpacing: '-0.03em' }}>
-              Dinamic <Text span c="brand.6" inherit>Systems</Text>
-            </Text>
-          </Group>
+          <BrandLogo heightPx={72} maxWidthPx={520} />
         </Anchor>
 
         {isLg ? (

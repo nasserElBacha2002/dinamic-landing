@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
-import aiVisionUrl from '@/assets/images/ai-vision-mock.svg?url';
+import auditoriaImage from '@/assets/images/auditoria.png';
 
 export function ArtificialVisionSection() {
   const reduced = usePrefersReducedMotion();
@@ -53,15 +53,25 @@ export function ArtificialVisionSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: motionDuration.section, ease: motionEaseOut }}
             >
-              <Box pos="relative" style={{ borderRadius: rem(48), overflow: 'hidden', boxShadow: '0 30px 80px rgba(2, 6, 23, 0.12)' }}>
+              <Box
+                pos="relative"
+                style={{
+                  aspectRatio: '4 / 3',
+                  borderRadius: rem(48),
+                  overflow: 'hidden',
+                  boxShadow: '0 30px 80px rgba(2, 6, 23, 0.12)',
+                }}
+              >
                 <Box
                   component="img"
-                  src={aiVisionUrl}
-                  alt="Representación de panel y evidencia visual para validación de inventario"
+                  src={auditoriaImage}
+                  alt="Auditoría y evidencia visual para validación de inventario"
+                  pos="absolute"
+                  inset={0}
                   w="100%"
-                  style={{ display: 'block' }}
+                  h="100%"
+                  style={{ objectFit: 'cover', objectPosition: 'center', display: 'block' }}
                 />
-                {/* TODO: replace ai-vision-mock.svg with a licensed operations/dashboard image if required */}
                 <motion.div
                   initial={reduced ? false : { opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}

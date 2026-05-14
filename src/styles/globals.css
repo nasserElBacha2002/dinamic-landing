@@ -43,17 +43,6 @@ section[id] {
   pointer-events: none;
 }
 
-/* Hero overlay — celeste más presente hacia la derecha */
-.ds-hero-gradient {
-  background: linear-gradient(
-    105deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.94) 32%,
-    color-mix(in srgb, var(--mantine-color-cyan-2) 42%, rgba(255, 255, 255, 0.55)) 72%,
-    color-mix(in srgb, var(--mantine-color-cyan-3) 28%, rgba(255, 255, 255, 0.2)) 100%
-  );
-}
-
 /* Fondos de página / secciones — celeste y rojo más perceptibles */
 .ds-bg-page {
   background: linear-gradient(
@@ -216,8 +205,7 @@ section[id] {
 
 @media (prefers-reduced-motion: reduce) {
   .ds-value-orbit,
-  .ds-value-orbit-reverse,
-  .ds-drone-scan-inner {
+  .ds-value-orbit-reverse {
     animation: none !important;
   }
 

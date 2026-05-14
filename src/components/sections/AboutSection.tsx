@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Paper, SimpleGrid, Text, rem } from '@mantine/core';
 import { IconShieldCheck } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import aboutTeamUrl from '@/assets/images/about-team.svg?url';
+import quienesSomosUrl from '@/assets/images/quienes-somos.png';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { MotionSection } from '@/components/animations/MotionSection';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
@@ -56,13 +56,30 @@ export function AboutSection() {
             </Grid.Col>
             <Grid.Col span={{ base: 12, lg: 6 }}>
               <MotionFadeIn direction="right" duration={motionDuration.section} delay={0.08}>
-                <Box pos="relative">
+                <Box pos="relative" mx={{ base: 'auto', lg: 0 }} maw={{ base: rem(520), lg: '100%' }}>
                   <Box
-                    component="img"
-                    src={aboutTeamUrl}
-                    alt="Operaciones y equipo Dinamic Systems"
-                    style={{ width: '100%', borderRadius: rem(48), boxShadow: '0 24px 60px rgba(2, 6, 23, 0.12)' }}
-                  />
+                    pos="relative"
+                    w="100%"
+                    style={{
+                      aspectRatio: '4 / 3',
+                      borderRadius: 'clamp(1.25rem, 3.5vw, 2.25rem)',
+                      overflow: 'hidden',
+                      boxShadow: '0 24px 60px rgba(2, 6, 23, 0.12)',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={quienesSomosUrl}
+                      alt="Equipo y operaciones Dinamic Systems"
+                      w="100%"
+                      h="100%"
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center center',
+                        display: 'block',
+                      }}
+                    />
+                  </Box>
                   <motion.div
                     initial={reduced ? false : { opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}

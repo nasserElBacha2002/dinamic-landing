@@ -1,0 +1,11 @@
+{
+  "name": "dinamic-landing-server",
+  "private": true,
+  "type": "module",
+  "description": "Delega scripts al package.json de la raíz. Usá `npm run dev` aquí para Express, o desde la raíz: `npm run server:dev`.",
+  "scripts": {
+    "dev": "npm --prefix .. run server:dev",
+    "build": "npm --prefix .. run server:build",
+    "start": "npm --prefix .. run server:start"
+  }
+}

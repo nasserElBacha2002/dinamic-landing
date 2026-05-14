@@ -181,6 +181,9 @@ export const theme = createTheme({
   },
 });
 
+/** Fixed header height (px). Sync with `HeroSection` padding-top and `section[id]` scroll-margin in globals. */
+export const appHeaderHeightPx = 96;
+
 export const sectionPaddingX = { base: rem(20), md: rem(80) };
 export const contentMaxWidth = rem(1280);
 export const wideMaxWidth = rem(1440);

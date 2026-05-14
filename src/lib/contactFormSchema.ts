@@ -8,6 +8,8 @@ export const contactFormSchema = z.object({
   phone: z.string().min(6, 'Ingresá un teléfono de contacto'),
   operation: z.enum(operationTypes),
   message: z.string().min(10, 'Contanos un poco más sobre tu necesidad'),
+  /** Honeypot (campo oculto en el formulario; no usar `type="text"` oculto — el autofill lo rellena). */
+  honeypot: z.string().optional(),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

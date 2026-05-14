@@ -5,7 +5,7 @@ import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import droneClasses from '@/components/sections/DroneInventorySection.module.css';
-import droneWarehouseUrl from '@/assets/images/drone-warehouse.svg?url';
+import droneWarehouseUrl from '@/assets/images/drone-warehouse.png';
 
 export function DroneInventorySection() {
   const reduced = usePrefersReducedMotion();
@@ -13,53 +13,88 @@ export function DroneInventorySection() {
   return (
     <Box component="section" className="ds-bg-drone" c="white" style={{ overflow: 'hidden' }}>
       <Grid gutter={0}>
-        <Grid.Col span={{ base: 12, lg: 6 }} pos="relative" mih={{ base: rem(360), lg: rem(620) }}>
-          <motion.div
-            initial={reduced ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: motionDuration.section, ease: motionEaseOut }}
-            style={{ position: 'absolute', inset: 0 }}
-            aria-hidden
-          >
-            <Box
-              component="img"
-              src={droneWarehouseUrl}
-              alt=""
-              w="100%"
-              h="100%"
-              style={{ objectFit: 'cover', opacity: 0.55 }}
-            />
-            {/* TODO: replace drone-warehouse.svg with a licensed drone-in-warehouse photo in src/assets/images/ */}
-            <Box
-              pos="absolute"
-              inset={0}
-              style={{
-                background: 'linear-gradient(90deg, #020617 0%, rgba(2,6,23,0.2) 55%, rgba(2,6,23,0) 100%)',
-              }}
-            />
-          </motion.div>
-          <Box pos="absolute" inset={0} style={{ display: 'grid', placeItems: 'center' }} aria-hidden>
-            <Box
-              w={rem(320)}
-              h={rem(320)}
-              style={{
-                borderRadius: 999,
-                border: '1px solid rgba(0,218,243,0.22)',
-                display: 'grid',
-                placeItems: 'center',
-              }}
+        <Grid.Col
+          span={{ base: 12, lg: 6 }}
+          pos="relative"
+          mih={{ base: rem(360), lg: rem(620) }}
+          p={{ base: 'md', md: 'lg', lg: 'xl' }}
+          pr={{ lg: 'md' }}
+          style={{ display: 'flex', flexDirection: 'column' }}
+        >
+          <Box className={droneClasses.visualShell} style={{ flex: 1, minHeight: rem(280) }}>
+            <motion.div
+              className={droneClasses.visualInner}
+              initial={reduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+              aria-hidden
             >
               <Box
-                className={reduced ? undefined : 'ds-drone-scan-inner'}
-                w={rem(260)}
-                h={rem(260)}
-                style={{
-                  borderRadius: 999,
-                  border: '2px solid rgba(0,218,243,0.35)',
-                  borderTopColor: 'transparent',
-                }}
+                component="img"
+                src={droneWarehouseUrl}
+                alt=""
+                className={droneClasses.visualImg}
               />
-            </Box>
+              <Box className={droneClasses.mediaTint} />
+            </motion.div>
+            <Box pos="absolute" inset={0} className={droneClasses.radarWrap} aria-hidden>
+            <svg
+              className={droneClasses.radarSvg}
+              viewBox="0 0 400 400"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="droneAerialScanStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="rgba(0,218,243,0.06)" />
+                  <stop offset="45%" stopColor="rgba(0,218,243,0.9)" />
+                  <stop offset="100%" stopColor="rgba(0,218,243,0.12)" />
+                </linearGradient>
+              </defs>
+              <circle
+                cx="200"
+                cy="200"
+                r="188"
+                stroke="rgba(0,218,243,0.14)"
+                strokeWidth="1"
+                strokeDasharray="6 14"
+                className={reduced ? undefined : droneClasses.radarPulse}
+              />
+              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcOuter}`}>
+                <circle
+                  cx="200"
+                  cy="200"
+                  r="168"
+                  stroke="url(#droneAerialScanStroke)"
+                  strokeWidth="1.25"
+                  strokeDasharray="88 320"
+                  strokeLinecap="round"
+                />
+              </g>
+              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcMid}`}>
+                <circle
+                  cx="200"
+                  cy="200"
+                  r="132"
+                  stroke="rgba(0,218,243,0.55)"
+                  strokeWidth="1.5"
+                  strokeDasharray="52 280"
+                  strokeLinecap="round"
+                />
+              </g>
+              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcInner}`}>
+                <circle
+                  cx="200"
+                  cy="200"
+                  r="96"
+                  stroke="rgba(0,218,243,0.7)"
+                  strokeWidth="2"
+                  strokeDasharray="36 220"
+                  strokeLinecap="round"
+                />
+              </g>
+            </svg>
+          </Box>
           </Box>
         </Grid.Col>
 

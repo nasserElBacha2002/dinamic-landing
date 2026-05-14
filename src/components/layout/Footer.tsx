@@ -1,6 +1,6 @@
-import { Anchor, Box, Container, Divider, Grid, Group, Stack, Text, rem } from '@mantine/core';
-import { IconPackages } from '@tabler/icons-react';
+import { Anchor, Box, Container, Divider, Grid, Stack, Text, rem } from '@mantine/core';
 import { MotionSection } from '@/components/animations/MotionSection';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 import { contentMaxWidth } from '@/theme/theme';
 
 const serviceLinks = [
@@ -23,31 +23,21 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <Box component="footer" py={{ base: 'xl', md: '4rem' }} className="ds-bg-footer" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
+    <Box
+      component="footer"
+      py={{ base: 'xl', md: '4rem' }}
+      style={{
+        background: '#ffffff',
+        borderTop: '1px solid #e8eaed',
+        boxShadow: '0 -1px 3px rgba(2, 6, 23, 0.04)',
+      }}
+    >
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionSection>
           <Grid gutter="xl" align="flex-start">
             <Grid.Col span={{ base: 12, md: 5 }}>
               <Stack gap="lg">
-                <Group gap="sm">
-                  <Box
-                    w={40}
-                    h={40}
-                    bg="brand.6"
-                    style={{
-                      borderRadius: rem(12),
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 10px 24px color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent)',
-                    }}
-                  >
-                    <IconPackages size={22} color="white" stroke={1.5} aria-hidden />
-                  </Box>
-                  <Text fz="xl" fw={800} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
-                    Dinamic <Text span c="brand.6" inherit>Systems</Text>
-                  </Text>
-                </Group>
+                <BrandLogo heightPx={44} maxWidthPx={280} />
                 <Text c="dimmed" maw={rem(360)} fw={500}>
                   Servicios profesionales de control de inventarios físicos e integración tecnológica orientada a precisión,
                   trazabilidad y cumplimiento operativo.

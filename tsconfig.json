@@ -20,5 +20,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "api", "vite", "vite.config.ts"]
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["server", "node_modules", "dist"]
 }

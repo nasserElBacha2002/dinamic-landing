@@ -23,7 +23,7 @@ import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration } from '@/components/animations/variants';
 import type { ContactFormValues } from '@/lib/contactFormSchema';
 import { contactFormSchema } from '@/lib/contactFormSchema';
-import { ContactSubmissionError, submitContactConsultation } from '@/lib/submitContactConsultation';
+import { submitContactConsultation } from '@/lib/submitContactConsultation';
 import { operationTypes } from '@/types/content';
 import { contentMaxWidth } from '@/theme/theme';
 
@@ -45,6 +45,7 @@ export function ContactSection() {
       phone: '',
       operation: operationTypes[0],
       message: '',
+      honeypot: '',
     },
   });
 
@@ -52,8 +53,8 @@ export function ContactSection() {
     try {
       await submitContactConsultation(data);
       notifications.show({
-        title: 'Consulta recibida',
-        message: 'Gracias. Nos pondremos en contacto a la brevedad.',
+        title: 'Consulta enviada correctamente',
+        message: 'Gracias por contactarte. Te responderemos a la brevedad.',
         color: 'green',
       });
       reset({
@@ -63,17 +64,12 @@ export function ContactSection() {
         phone: '',
         operation: operationTypes[0],
         message: '',
+        honeypot: '',
       });
-    } catch (e) {
-      const message =
-        e instanceof ContactSubmissionError
-          ? e.message
-          : e instanceof Error
-            ? e.message
-            : 'Intentá de nuevo en unos minutos.';
+    } catch {
       notifications.show({
         title: 'No pudimos enviar la consulta',
-        message,
+        message: 'Intentá nuevamente o escribinos a info@dinamicsystems.com.',
         color: 'red',
       });
     }
@@ -191,6 +187,8 @@ export function ContactSection() {
                 shadow="md"
               >
                 <Stack gap="lg">
+                  {/* type="hidden" evita autofill en inputs de texto ocultos (el honeypot en JSON es `botTrap`). */}
+                  <input type="hidden" {...register('honeypot')} />
                   <Grid gutter="lg">
                     <Grid.Col span={{ base: 12, md: 6 }}>
                       <TextInput label="Nombre completo" placeholder="Ej: Juan Pérez" error={errors.fullName?.message} {...register('fullName')} />

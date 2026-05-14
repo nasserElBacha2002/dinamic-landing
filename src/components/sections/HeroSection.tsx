@@ -6,13 +6,14 @@ import {
   IconReportAnalytics,
 } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import heroWarehouseUrl from '@/assets/images/hero-warehouse.svg?url';
+import heroImage from '@/assets/images/hero.png';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { MetricCard } from '@/components/ui/MetricCard';
-import { wideMaxWidth } from '@/theme/theme';
+import { wideMaxWidth, appHeaderHeightPx } from '@/theme/theme';
+import heroClasses from '@/components/sections/HeroSection.module.css';
 
 const metrics = [
   { title: 'Precisión operativa', icon: IconCircleCheck, accent: 'brand' as const },
@@ -28,31 +29,30 @@ export function HeroSection() {
     <Box
       component="section"
       id="inicio"
-      pos="relative"
-      pt={rem(80)}
-      style={{ minHeight: 'min(92vh, 900px)', display: 'flex', alignItems: 'center' }}
+      className={heroClasses.heroRoot}
+      pt={rem(appHeaderHeightPx)}
     >
-      <Box pos="absolute" inset={0} aria-hidden style={{ overflow: 'hidden' }}>
+      <Box className={heroClasses.heroBackground} aria-hidden>
         <motion.div
-          initial={reduced ? false : { scale: 1.035 }}
+          className={heroClasses.heroImageMotion}
+          initial={reduced ? false : { scale: 1.04 }}
           animate={{ scale: 1 }}
           transition={{ duration: reduced ? 0.15 : 1.05, ease: motionEaseOut }}
-          style={{ position: 'absolute', inset: 0, willChange: 'transform' }}
+          style={{ willChange: reduced ? undefined : 'transform' }}
         >
-          <Box
-            component="img"
-            src={heroWarehouseUrl}
-            alt=""
-            w="100%"
-            h="100%"
-            style={{ objectFit: 'cover' }}
-          />
+          <img src={heroImage} alt="" className={heroClasses.heroImg} draggable={false} />
         </motion.div>
-        {/* TODO: swap hero-warehouse.svg for a licensed warehouse photo (e.g. hero-warehouse.webp) in src/assets/images/ */}
-        <Box pos="absolute" inset={0} className="ds-hero-gradient" />
       </Box>
+      <Box className={heroClasses.heroOverlay} aria-hidden />
 
-      <Container size="xl" w="100%" py={{ base: '3rem', md: '5rem' }} pos="relative" style={{ zIndex: 1 }} maw={wideMaxWidth}>
+      <Container
+        className={heroClasses.heroContent}
+        size="xl"
+        w="100%"
+        py={{ base: '3rem', md: '5rem' }}
+        maw={wideMaxWidth}
+        px={{ base: 'md', md: 'xl' }}
+      >
         <Grid gutter={{ base: 'lg', lg: '3rem' }} align="center">
           <Grid.Col span={{ base: 12, lg: 7 }}>
             <MotionFadeIn trigger="mount" delay={0} duration={motionDuration.base}>
@@ -74,12 +74,7 @@ export function HeroSection() {
                 style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif', letterSpacing: '-0.03em' }}
               >
                 Expertos en{' '}
-                <Text
-                  component="span"
-                  inherit
-                  c="brand.6"
-                  style={{ fontStyle: 'italic' }}
-                >
+                <Text component="span" inherit c="brand.6" style={{ fontStyle: 'italic' }}>
                   inventarios físicos
                 </Text>
               </Text>
@@ -122,28 +117,30 @@ export function HeroSection() {
             </MotionFadeIn>
           </Grid.Col>
           <Grid.Col span={{ base: 12, lg: 5 }}>
-            <Grid gutter="md">
-              {metrics.map((m, index) => {
-                const step = reduced ? 0.02 : 0.08;
-                return (
-                  <Grid.Col key={m.title} span={6}>
-                    <motion.div
-                      initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.12 }}
-                      transition={{
-                        duration: reduced ? 0.15 : motionDuration.base,
-                        delay: index * step,
-                        ease: motionEaseOut,
-                      }}
-                      style={{ height: '100%', width: '100%', minWidth: 0 }}
-                    >
-                      <MetricCard {...m} />
-                    </motion.div>
-                  </Grid.Col>
-                );
-              })}
-            </Grid>
+            <Box className={heroClasses.heroMetricsShell}>
+              <Grid gutter={{ base: 'sm', md: 'md' }}>
+                {metrics.map((m, index) => {
+                  const step = reduced ? 0.02 : 0.08;
+                  return (
+                    <Grid.Col key={m.title} span={6}>
+                      <motion.div
+                        initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.12 }}
+                        transition={{
+                          duration: reduced ? 0.15 : motionDuration.base,
+                          delay: index * step,
+                          ease: motionEaseOut,
+                        }}
+                        style={{ height: '100%', width: '100%', minWidth: 0 }}
+                      >
+                        <MetricCard {...m} surface="hero" />
+                      </motion.div>
+                    </Grid.Col>
+                  );
+                })}
+              </Grid>
+            </Box>
           </Grid.Col>
         </Grid>
       </Container>

@@ -13,22 +13,48 @@ export class ContactSubmissionError extends Error {
 }
 
 function getContactPostUrl(): string {
-  const configured = import.meta.env.VITE_CONTACT_API_URL as string | undefined;
-  if (configured?.trim()) return configured.trim();
-  return '/api/contact';
+  const raw = import.meta.env.VITE_API_BASE_URL as string | undefined;
+  const base = raw?.trim().replace(/\/$/, '');
+  if (!base) {
+    throw new ContactSubmissionError('Falta configurar VITE_API_BASE_URL', 0);
+  }
+  return `${base}/api/contact`;
 }
 
 type ApiErrorBody = { error?: string };
 
+export type ContactApiPayload = {
+  name: string;
+  company: string;
+  email: string;
+  phone?: string;
+  operationType: string;
+  message: string;
+  /** Honeypot: debe ir vacío; el servidor ignora el envío si tiene contenido. */
+  botTrap?: string;
+};
+
+function toApiPayload(data: ContactFormValues): ContactApiPayload {
+  return {
+    name: data.fullName,
+    company: data.company,
+    email: data.email,
+    phone: data.phone,
+    operationType: data.operation,
+    message: data.message,
+    botTrap: data.honeypot ?? '',
+  };
+}
+
 /**
- * POST de la consulta al endpoint `/api/contact` (o `VITE_CONTACT_API_URL`).
+ * POST JSON al backend Express (`VITE_API_BASE_URL` + `/api/contact`).
  */
 export async function submitContactConsultation(data: ContactFormValues): Promise<void> {
   const url = getContactPostUrl();
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+    body: JSON.stringify(toApiPayload(data)),
   });
 
   let body: unknown;
