@@ -72,6 +72,17 @@ Completá al menos:
 
 No commitees `.env`. Contiene secretos (contraseña SMTP, etc.).
 
+**No incluyas `VITE_API_BASE_URL` en el `.env` del servidor.** Esa variable es solo para el build del frontend React (ver [paso 7](#7-frontend-react-hostinger)).
+
+Ejemplo mínimo del `.env` del backend:
+
+```env
+NODE_ENV=production
+PORT=3001
+CORS_ALLOWED_ORIGINS=https://dinamicsystems.com,https://www.dinamicsystems.com
+# + SMTP_* y CONTACT_* con valores reales
+```
+
 ### 3. Levantar el backend con Docker Compose
 
 ```bash
@@ -95,6 +106,8 @@ Respuesta esperada:
 ```
 
 Si SMTP no está configurado, `/health` sigue respondiendo; `/api/contact` devolverá `503`.
+
+**No continúes con Nginx hasta que esta prueba funcione.**
 
 ---
 
@@ -122,6 +135,12 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+Probá por HTTP antes de Certbot:
+
+```bash
+curl http://api-landing.dinamiceducation.com/health
+```
+
 ---
 
 ## DNS
@@ -133,15 +152,17 @@ Creá el registro en la zona DNS de **`dinamiceducation.com`** (no en `dinamicsy
 | Tipo | A |
 | Nombre | `api-landing` |
 | Valor | `<SERVER_PUBLIC_IP>` |
-| TTL | predeterminado |
+| TTL | `300` o automático |
 
 Reemplazá `<SERVER_PUBLIC_IP>` por la IP pública de tu VPS.
 
-Comprobación (desde tu máquina, cuando propague):
+Comprobación (desde tu computadora, cuando propague):
 
 ```bash
-dig +short api-landing.dinamiceducation.com
+nslookup api-landing.dinamiceducation.com
 ```
+
+La IP devuelta debe coincidir con la del servidor.
 
 ---
 
@@ -216,15 +237,53 @@ Errores habituales:
 
 ---
 
-## Frontend (Hostinger)
+## 7. Frontend React (Hostinger)
 
-Al construir el sitio estático en Hostinger, configurá:
+En **tu máquina de desarrollo** (no en el servidor backend), antes de `npm run build`:
+
+```bash
+cp .env.frontend.example .env
+# o agregá manualmente a .env:
+```
 
 ```env
 VITE_API_BASE_URL=https://api-landing.dinamiceducation.com
 ```
 
-Eso hace que el formulario de contacto apunte a `https://api-landing.dinamiceducation.com/api/contact`.
+Generá el build:
+
+```bash
+npm install
+npm run build
+```
+
+Subí el contenido de `dist/` a `public_html` en Hostinger, reemplazando al menos `index.html` y `assets/`.
+
+Vite embebe `VITE_API_BASE_URL` en el bundle en tiempo de build. Si el build se hizo con `http://localhost:3001`, el formulario seguirá apuntando ahí aunque el backend en producción esté bien.
+
+### 8. Validación final del formulario
+
+En DevTools (pestaña Network), la solicitud debe ir a:
+
+```text
+https://api-landing.dinamiceducation.com/api/contact
+```
+
+No debe aparecer `localhost:3001`.
+
+Verificá CORS:
+
+```bash
+curl -i \
+  -H "Origin: https://dinamicsystems.com" \
+  https://api-landing.dinamiceducation.com/health
+```
+
+Debe incluir:
+
+```text
+Access-Control-Allow-Origin: https://dinamicsystems.com
+```
 
 ---
 
@@ -267,8 +326,11 @@ Desde la raíz del repo, sin Docker:
 
 ```bash
 npm install
-cp .env.example .env   # ajustar SMTP y CORS para local
+cp .env.example .env
+echo 'VITE_API_BASE_URL=http://localhost:3001' > .env.local
+# ajustar SMTP en .env para el backend local
 npm run server:dev     # tsx watch en puerto 3001
+# en otra terminal: npm run dev
 ```
 
 Con `NODE_ENV` distinto de `production`, se permiten automáticamente `http://localhost:5173` y `http://localhost:3000` además de `CORS_ALLOWED_ORIGINS`.
