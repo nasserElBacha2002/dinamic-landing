@@ -14,17 +14,47 @@ const projectRoot =
 dotenv.config({ path: path.join(projectRoot, '.env') });
 
 const PORT = Number(process.env.PORT) || 3001;
+const isProduction = process.env.NODE_ENV === 'production';
 
-const allowedOrigins = new Set([
-  'http://localhost:5173',
+const DEV_ORIGINS = ['http://localhost:5173', 'http://localhost:3000'] as const;
+
+/** Frontend (Hostinger); el API vive en api-landing.dinamiceducation.com — no incluir ese dominio aquí. */
+const DEFAULT_PRODUCTION_ORIGINS = [
   'https://dinamicsystems.com',
   'https://www.dinamicsystems.com',
-]);
+] as const;
 
-const extra = process.env.FRONTEND_ORIGIN?.trim();
-if (extra) allowedOrigins.add(extra);
+function parseCorsOrigins(): Set<string> {
+  const origins = new Set<string>();
+  const raw = process.env.CORS_ALLOWED_ORIGINS?.trim();
+
+  if (raw) {
+    for (const entry of raw.split(',')) {
+      const origin = entry.trim();
+      if (origin) origins.add(origin);
+    }
+  } else {
+    for (const origin of DEFAULT_PRODUCTION_ORIGINS) origins.add(origin);
+  }
+
+  if (!isProduction) {
+    for (const origin of DEV_ORIGINS) origins.add(origin);
+  }
+
+  const legacyExtra = process.env.FRONTEND_ORIGIN?.trim();
+  if (legacyExtra) origins.add(legacyExtra);
+
+  return origins;
+}
+
+const allowedOrigins = parseCorsOrigins();
 
 const app = express();
+
+if (isProduction) {
+  app.set('trust proxy', 1);
+}
+
 app.use(express.json({ limit: '64kb' }));
 
 app.use(
@@ -36,14 +66,14 @@ app.use(
       }
       callback(null, allowedOrigins.has(origin));
     },
-    methods: ['POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type'],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     maxAge: 86400,
   }),
 );
 
 app.get('/health', (_req, res) => {
-  res.json({ ok: true });
+  res.status(200).json({ status: 'ok' });
 });
 
 app.post('/api/contact', async (req, res) => {
@@ -83,11 +113,12 @@ app.post('/api/contact', async (req, res) => {
 
 // TODO: add rate limiting (e.g. express-rate-limit) per IP for /api/contact
 
-app.listen(PORT, () => {
-  console.log(`[server] listening on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`[server] API running on port ${PORT} (0.0.0.0), NODE_ENV=${process.env.NODE_ENV ?? 'undefined'}`);
+  console.log(`[server] CORS: ${allowedOrigins.size} allowed origin(s)`);
   if (!isSmtpConfigured()) {
     console.warn(
-      `[server] SMTP incompleto — revisá ${path.join(projectRoot, '.env')} (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS o SMTP_PASSWORD, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL). /api/contact responderá 503 hasta entonces.`,
+      `[server] SMTP incompleto — revisá variables SMTP_* y CONTACT_* en el entorno. /api/contact responderá 503 hasta entonces.`,
     );
   }
 });
