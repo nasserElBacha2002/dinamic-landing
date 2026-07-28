@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** Base URL del backend Express (sin barra final), ej. `http://localhost:3001` */
+  /** Base URL del backend Express (sin barra final), ej. `https://api-landing.dinamiceducation.com` */
   readonly VITE_API_BASE_URL?: string;
 }
 

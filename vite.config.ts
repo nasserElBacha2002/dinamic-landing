@@ -12,4 +12,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  build: {
+    // Needed so prerender can map /src/assets/* → hashed /assets/* for Hostinger.
+    manifest: true,
+  },
+  ssr: {
+    // Bundle Mantine/Framer for SSR so CSS-in-JS and ESM resolve cleanly during prerender.
+    noExternal: ['@mantine/core', '@mantine/hooks', '@mantine/notifications', 'framer-motion', '@emotion/react'],
+  },
 });

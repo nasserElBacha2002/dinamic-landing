@@ -1,38 +1,17 @@
-import { Box } from '@mantine/core';
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
-import { AboutSection } from '@/components/sections/AboutSection';
-import { ArtificialVisionSection } from '@/components/sections/ArtificialVisionSection';
-import { ClientsSection } from '@/components/sections/ClientsSection';
-import { ContactSection } from '@/components/sections/ContactSection';
-import { CtaSection } from '@/components/sections/CtaSection';
-import { DigitalInfrastructureSection } from '@/components/sections/DigitalInfrastructureSection';
-import { DroneInventorySection } from '@/components/sections/DroneInventorySection';
-import { HeroSection } from '@/components/sections/HeroSection';
-import { MethodologySection } from '@/components/sections/MethodologySection';
-import { ServicesMapSection } from '@/components/sections/ServicesMapSection';
-import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
-import { VisionProcessFlowSection } from '@/components/sections/VisionProcessFlowSection';
+import { Route, Routes } from 'react-router-dom';
+import { SiteLayout } from '@/layouts/SiteLayout';
+import { HomePage } from '@/pages/HomePage';
 
+/**
+ * App routes. Only `/` is published in Phase 1.
+ * Future pages mount under SiteLayout without changing chrome/SEO foundations.
+ */
 export default function App() {
   return (
-    <Box component="div" className="ds-bg-page" style={{ overflowX: 'hidden' }}>
-      <Header />
-      <Box component="main">
-        <HeroSection />
-        <AboutSection />
-        <ValueSystemSection />
-        <ServicesMapSection />
-        <DigitalInfrastructureSection />
-        <DroneInventorySection />
-        <ArtificialVisionSection />
-        <VisionProcessFlowSection />
-        <MethodologySection />
-        <ClientsSection />
-        <CtaSection />
-        <ContactSection />
-      </Box>
-      <Footer />
-    </Box>
+    <Routes>
+      <Route element={<SiteLayout />}>
+        <Route path="/" element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 }

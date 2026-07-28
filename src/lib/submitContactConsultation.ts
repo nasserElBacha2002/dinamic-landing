@@ -12,9 +12,14 @@ export class ContactSubmissionError extends Error {
   }
 }
 
+const PRODUCTION_API_BASE_URL = 'https://api-landing.dinamiceducation.com';
+
 function getContactPostUrl(): string {
   const raw = import.meta.env.VITE_API_BASE_URL as string | undefined;
-  const base = raw?.trim().replace(/\/$/, '');
+  const base = (raw?.trim() || (import.meta.env.PROD ? PRODUCTION_API_BASE_URL : undefined))?.replace(
+    /\/$/,
+    '',
+  );
   if (!base) {
     throw new ContactSubmissionError('Falta configurar VITE_API_BASE_URL', 0);
   }

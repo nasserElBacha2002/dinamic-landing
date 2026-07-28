@@ -1,5 +1,5 @@
 import { Anchor, Burger, Drawer, Group, Stack, rem } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { motion } from 'framer-motion';
 import { motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
@@ -18,7 +18,6 @@ const links = [
 
 export function Header() {
   const [opened, { toggle, close }] = useDisclosure(false);
-  const isLg = useMediaQuery('(min-width: 62em)');
   const reduced = usePrefersReducedMotion();
 
   return (
@@ -51,24 +50,22 @@ export function Header() {
           <BrandLogo heightPx={72} maxWidthPx={520} />
         </Anchor>
 
-        {isLg ? (
-          <Group gap="lg" visibleFrom="lg">
-            {links.map((l) => (
-              <Anchor
-                key={l.href}
-                href={l.href}
-                fz="sm"
-                fw={l.href === '#inicio' ? 800 : 600}
-                c={l.href === '#inicio' ? 'brand.6' : 'dimmed'}
-                underline="never"
-                className="ds-focus-ring ds-nav-link"
-                style={{ borderRadius: rem(4), padding: `${rem(4)} ${rem(6)}` }}
-              >
-                {l.label}
-              </Anchor>
-            ))}
-          </Group>
-        ) : null}
+        <Group gap="lg" visibleFrom="lg">
+          {links.map((l) => (
+            <Anchor
+              key={l.href}
+              href={l.href}
+              fz="sm"
+              fw={l.href === '#inicio' ? 800 : 600}
+              c={l.href === '#inicio' ? 'brand.6' : 'dimmed'}
+              underline="never"
+              className="ds-focus-ring ds-nav-link"
+              style={{ borderRadius: rem(4), padding: `${rem(4)} ${rem(6)}` }}
+            >
+              {l.label}
+            </Anchor>
+          ))}
+        </Group>
 
         <Group gap="sm">
           <BrandButton
