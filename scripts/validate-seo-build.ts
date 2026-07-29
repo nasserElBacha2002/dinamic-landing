@@ -1,17 +1,17 @@
 /**
- * Structural SEO/SSG validation for the production dist/ output.
- * Uses cheerio (DOM parse) — not brittle substring-only checks.
+ * Structural SEO/SSG validation for multipage production dist/.
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { load } from 'cheerio';
-import { homeSeo } from '../src/seo/types.ts';
-import { absoluteUrl } from '../src/routes.ts';
+import { interiorContentByRouteId } from '../src/content/registry.ts';
+import { absoluteUrl, getSitemapLocs, publishedRoutes, routesForHomeExplore } from '../src/routes.ts';
+import { PAGE_JSON_LD_SCRIPT_ID } from '../src/seo/jsonLd.ts';
+import { defaultOgImage } from '../src/seo/types.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, '..');
-const distDir = path.join(root, 'dist');
+const distDir = path.join(path.resolve(__dirname, '..'), 'dist');
 
 function fail(message: string): never {
   console.error(`[validate:seo-build] FAIL: ${message}`);
@@ -22,120 +22,201 @@ function ok(message: string): void {
   console.log(`[validate:seo-build] OK: ${message}`);
 }
 
-async function assertFile(rel: string): Promise<void> {
+function distPathForLoc(loc: string): string {
+  if (loc === '/') return path.join(distDir, 'index.html');
+  const rel = loc.replace(/^\//, '').replace(/\/$/, '');
+  return path.join(distDir, rel, 'index.html');
+}
+
+async function assertFile(absOrRel: string, label?: string): Promise<void> {
+  const full = path.isAbsolute(absOrRel) ? absOrRel : path.join(distDir, absOrRel);
   try {
-    await fs.access(path.join(distDir, rel));
-    ok(`exists ${rel}`);
+    await fs.access(full);
+    ok(`exists ${label ?? path.relative(distDir, full)}`);
   } catch {
-    fail(`missing ${rel}`);
+    fail(`missing ${label ?? absOrRel}`);
   }
 }
 
+function collectTypes(node: unknown, types: Set<string>): void {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) {
+    node.forEach((n) => collectTypes(n, types));
+    return;
+  }
+  const obj = node as Record<string, unknown>;
+  if (typeof obj['@type'] === 'string') types.add(obj['@type']);
+  if (Array.isArray(obj['@graph'])) collectTypes(obj['@graph'], types);
+}
+
+async function validateHtmlFile(
+  filePath: string,
+  opts: {
+    title: string;
+    description: string;
+    canonical: string;
+    robots: string;
+    h1Includes: string;
+    requireBreadcrumbs: boolean;
+    schemaTypes: string[];
+    requireJsonLd: boolean;
+    mustIncludeText?: string[];
+    mustIncludeHrefs?: string[];
+  },
+): Promise<void> {
+  const html = await fs.readFile(filePath, 'utf-8');
+  const $ = load(html);
+  const label = path.relative(distDir, filePath);
+
+  if (html.includes('/src/assets/')) fail(`${label}: still has /src/assets/`);
+
+  const titles = $('head title');
+  if (titles.length !== 1) fail(`${label}: expected 1 title, got ${titles.length}`);
+  if (titles.first().text().trim() !== opts.title) fail(`${label}: title mismatch`);
+
+  const descriptions = $('head meta[name="description"]');
+  if (descriptions.length !== 1) fail(`${label}: expected 1 description`);
+  if (descriptions.first().attr('content')?.trim() !== opts.description) fail(`${label}: description mismatch`);
+
+  const canonicals = $('head link[rel="canonical"]');
+  if (canonicals.length !== 1) fail(`${label}: expected 1 canonical`);
+  if (canonicals.first().attr('href')?.trim() !== opts.canonical) fail(`${label}: canonical mismatch`);
+
+  const robots = $('head meta[name="robots"]').attr('content')?.trim();
+  if (robots !== opts.robots) fail(`${label}: robots expected ${opts.robots}, got ${robots}`);
+
+  const ogImage = $('head meta[property="og:image"]').attr('content');
+  if (!ogImage || ogImage !== defaultOgImage) fail(`${label}: og:image invalid`);
+  if (!$('head meta[property="og:title"]').attr('content')) fail(`${label}: missing og:title`);
+
+  const root = $('#root');
+  if (root.length !== 1) fail(`${label}: #root missing`);
+  const rootHtml = root.html()?.trim() ?? '';
+  if (rootHtml.length < 100) fail(`${label}: #root too empty`);
+
+  const h1s = root.find('h1');
+  if (h1s.length !== 1) fail(`${label}: expected 1 H1, got ${h1s.length}`);
+  const h1Text = h1s.first().text().replace(/\s+/g, ' ').trim();
+  if (!h1Text.toLowerCase().includes(opts.h1Includes.toLowerCase())) {
+    fail(`${label}: H1 missing expected text "${opts.h1Includes}" (got "${h1Text}")`);
+  }
+
+  if (opts.requireBreadcrumbs) {
+    const nav = root.find('nav[aria-label="Miga de pan"]');
+    if (nav.length !== 1) fail(`${label}: breadcrumbs nav missing`);
+  }
+
+  if (opts.requireJsonLd) {
+    const rawLd = $(`script#${PAGE_JSON_LD_SCRIPT_ID}[type="application/ld+json"]`).text();
+    if (!rawLd) fail(`${label}: missing #${PAGE_JSON_LD_SCRIPT_ID}`);
+    if (rawLd.includes('<') && !rawLd.includes('\\u003c')) fail(`${label}: unsafe JSON-LD`);
+    let data: unknown;
+    try {
+      data = JSON.parse(rawLd);
+    } catch {
+      fail(`${label}: JSON-LD not valid JSON`);
+    }
+    const types = new Set<string>();
+    collectTypes(data, types);
+    for (const t of opts.schemaTypes) {
+      if (!types.has(t)) fail(`${label}: missing schema @type ${t} (found ${[...types].join(', ')})`);
+    }
+  }
+
+  for (const text of opts.mustIncludeText ?? []) {
+    if (text && !root.text().includes(text)) fail(`${label}: missing visible text "${text}"`);
+  }
+
+  for (const href of opts.mustIncludeHrefs ?? []) {
+    const alt = href.endsWith('/') && href !== '/' ? href.slice(0, -1) : href;
+    const found = rootHtml.includes(`href="${href}"`) || rootHtml.includes(`href="${alt}"`);
+    if (!found) fail(`${label}: missing internal link ${href}`);
+  }
+
+  if (/lorem ipsum|TODO placeholder|próximamente contenido/i.test(root.text())) {
+    fail(`${label}: looks like placeholder content`);
+  }
+
+  ok(`${label}: SEO + content`);
+}
+
 async function main(): Promise<void> {
-  await assertFile('index.html');
   await assertFile('robots.txt');
   await assertFile('sitemap.xml');
   await assertFile('favicon.svg');
   await assertFile('logo.png');
+  await assertFile('404.html');
 
-  const html = await fs.readFile(path.join(distDir, 'index.html'), 'utf-8');
-  const $ = load(html);
+  for (const route of publishedRoutes) {
+    const file = distPathForLoc(route.loc);
+    await assertFile(file, path.relative(distDir, file));
+    const content = interiorContentByRouteId[route.id];
+    const schemaTypes =
+      route.pageType === 'home'
+        ? ['Organization']
+        : route.pageType === 'service'
+          ? ['Organization', 'BreadcrumbList', 'Service']
+          : route.pageType === 'resource'
+            ? ['Organization', 'BreadcrumbList', 'Article']
+            : ['Organization', 'BreadcrumbList'];
 
-  const title = $('head title').first().text().trim();
-  if (!title) fail('missing <title>');
-  if (title !== homeSeo.title) fail(`title mismatch: got "${title}"`);
-  ok(`title: ${title}`);
-
-  const description = $('head meta[name="description"]').attr('content')?.trim();
-  if (!description) fail('missing meta description');
-  if (description !== homeSeo.description) fail('description mismatch');
-  ok('meta description');
-
-  const canonical = $('head link[rel="canonical"]').attr('href')?.trim();
-  if (canonical !== absoluteUrl('/')) fail(`canonical expected ${absoluteUrl('/')}, got ${canonical}`);
-  ok(`canonical: ${canonical}`);
-
-  const ogTitle = $('head meta[property="og:title"]').attr('content');
-  const ogDesc = $('head meta[property="og:description"]').attr('content');
-  const ogUrl = $('head meta[property="og:url"]').attr('content');
-  if (!ogTitle || !ogDesc || !ogUrl) fail('incomplete Open Graph tags');
-  ok('Open Graph basic tags');
-
-  const twCard = $('head meta[name="twitter:card"]').attr('content');
-  if (!twCard) fail('missing twitter:card');
-  ok('Twitter card');
-
-  const jsonLdScripts = $('script[type="application/ld+json"]')
-    .toArray()
-    .map((el) => $(el).text());
-  if (jsonLdScripts.length === 0) fail('missing JSON-LD');
-
-  let foundOrg = false;
-  for (const raw of jsonLdScripts) {
-    let data: unknown;
-    try {
-      data = JSON.parse(raw);
-    } catch {
-      fail('JSON-LD is not valid JSON');
-    }
-    const nodes = Array.isArray(data) ? data : [data];
-    for (const node of nodes) {
-      if (
-        node &&
-        typeof node === 'object' &&
-        '@type' in node &&
-        (node as { '@type': string })['@type'] === 'Organization'
-      ) {
-        foundOrg = true;
-        const org = node as { name?: string; url?: string };
-        if (!org.name || !org.url) fail('Organization JSON-LD missing name/url');
-      }
-    }
+    await validateHtmlFile(file, {
+      title: route.seo.title,
+      description: route.seo.description,
+      canonical: absoluteUrl(route.loc),
+      robots: route.seo.robots ?? 'index, follow',
+      h1Includes:
+        route.pageType === 'home' ? 'inventarios físicos' : (content?.h1 ?? route.seo.title.slice(0, 24)),
+      requireBreadcrumbs: route.pageType !== 'home',
+      schemaTypes,
+      requireJsonLd: true,
+      mustIncludeText:
+        route.pageType === 'home' ? ['Dinamic Systems', 'empresa argentina'] : [content?.h1 ?? ''],
+      mustIncludeHrefs:
+        route.pageType === 'home'
+          ? routesForHomeExplore().map((r) => r.path)
+          : content?.relatedLinks.map((l) => (l.to.includes('#') ? l.to : l.to.replace(/\/$/, '') || '/')),
+    });
   }
-  if (!foundOrg) fail('Organization JSON-LD not found');
-  ok('Organization JSON-LD');
 
-  const root = $('#root');
-  if (root.length !== 1) fail('#root missing');
-  const rootHtml = root.html()?.trim() ?? '';
-  if (rootHtml.length < 200) fail('#root has no meaningful prerendered HTML');
-  ok(`#root prerendered (${rootHtml.length} chars)`);
-
-  const h1s = root.find('h1');
-  if (h1s.length !== 1) fail(`expected exactly 1 H1 inside #root, found ${h1s.length}`);
-  const h1Text = h1s.first().text().replace(/\s+/g, ' ').trim();
-  if (!h1Text) fail('H1 is empty');
-  ok(`H1: ${h1Text}`);
-
-  const bodyText = root.text().replace(/\s+/g, ' ');
-  if (!/Dinamic Systems/i.test(bodyText)) fail('visible text missing "Dinamic Systems"');
-  if (!/empresa argentina/i.test(bodyText) && !/inventarios físicos/i.test(bodyText)) {
-    fail('visible descriptive copy about the company/services missing');
-  }
-  ok('visible company/services copy in #root');
-
-  if (rootHtml.includes('/src/assets/')) {
-    fail('#root still references /src/assets/ (manifest rewrite failed)');
-  }
-  if (!rootHtml.includes('/assets/')) {
-    fail('#root missing hashed /assets/ image URLs');
-  }
-  ok('asset URLs rewritten to /assets/*');
-
-  const faviconHref = $('link[rel="icon"]').first().attr('href');
-  if (!faviconHref) fail('favicon link missing');
-  const faviconFile = faviconHref.replace(/^\//, '');
-  await assertFile(faviconFile);
+  await validateHtmlFile(path.join(distDir, '404.html'), {
+    title: 'Página no encontrada | Dinamic Systems',
+    description: 'La página solicitada no existe o fue movida. Volvé al inicio o explorá nuestros servicios.',
+    canonical: absoluteUrl('/404'),
+    robots: 'noindex, follow',
+    h1Includes: 'No encontramos',
+    requireBreadcrumbs: false,
+    schemaTypes: [],
+    requireJsonLd: false,
+    mustIncludeHrefs: ['/', '/servicios/inventarios-fisicos'],
+  });
 
   const sitemap = await fs.readFile(path.join(distDir, 'sitemap.xml'), 'utf-8');
   const sm = load(sitemap, { xml: true });
   const locs = sm('urlset > url > loc')
     .toArray()
-    .map((el) => sm(el).text().trim());
-  if (locs.length !== 1 || locs[0] !== absoluteUrl('/')) {
-    fail(`sitemap should only list ${absoluteUrl('/')}, got ${JSON.stringify(locs)}`);
+    .map((el) => sm(el).text().trim())
+    .sort();
+  const expected = getSitemapLocs().slice().sort();
+  if (locs.length !== expected.length || locs.some((l, i) => l !== expected[i])) {
+    fail(`sitemap mismatch.\n expected: ${JSON.stringify(expected)}\n got: ${JSON.stringify(locs)}`);
   }
-  ok('sitemap.xml lists only home');
+  if (locs.some((l) => l.includes('404'))) fail('sitemap must not include 404');
+  if (expected.length !== 12) fail(`expected 12 published URLs in sitemap, got ${expected.length}`);
+  ok(`sitemap.xml has exactly ${expected.length} published URLs`);
+
+  try {
+    await fs.access(path.join(distDir, 'informacion-de-privacidad'));
+    fail('dist must not contain informacion-de-privacidad (unpublished legal draft)');
+  } catch {
+    ok('no unpublished legal privacy path in dist');
+  }
+
+  const sampleHtml = await fs.readFile(path.join(distDir, 'index.html'), 'utf-8');
+  if (!sampleHtml.includes('name="twitter:card" content="summary"')) {
+    fail('twitter:card should be summary until a dedicated OG image exists');
+  }
+  ok('twitter:card=summary');
 
   const robots = await fs.readFile(path.join(distDir, 'robots.txt'), 'utf-8');
   if (!/Sitemap:\s*https:\/\/dinamicsystems\.com\/sitemap\.xml/i.test(robots)) {
@@ -146,7 +227,7 @@ async function main(): Promise<void> {
   console.log('[validate:seo-build] all checks passed');
 }
 
-main().catch((err) => {
+main().catch((err: unknown) => {
   console.error('[validate:seo-build] error', err);
   process.exit(1);
 });

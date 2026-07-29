@@ -18,18 +18,21 @@ import {
 import { notifications } from '@mantine/notifications';
 import { IconListNumbers, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration } from '@/components/animations/variants';
 import type { ContactFormValues } from '@/lib/contactFormSchema';
 import { contactFormSchema } from '@/lib/contactFormSchema';
 import { submitContactConsultation } from '@/lib/submitContactConsultation';
+import { trackEvent } from '@/lib/analytics/events';
 import { operationTypes } from '@/types/content';
 import { contentMaxWidth } from '@/theme/theme';
 
 const selectData = operationTypes.map((v) => ({ value: v, label: v }));
 
 export function ContactSection() {
+  const formStartedRef = useRef(false);
   const {
     register,
     handleSubmit,
@@ -49,9 +52,16 @@ export function ContactSection() {
     },
   });
 
+  const markFormStarted = () => {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    trackEvent('contact_form_started');
+  };
+
   const onSubmit = async (data: ContactFormValues) => {
     try {
       await submitContactConsultation(data);
+      trackEvent('contact_form_submitted');
       notifications.show({
         title: 'Consulta enviada correctamente',
         message: 'Gracias por contactarte. Te responderemos a la brevedad.',
@@ -67,6 +77,7 @@ export function ContactSection() {
         honeypot: '',
       });
     } catch {
+      trackEvent('contact_form_error');
       notifications.show({
         title: 'No pudimos enviar la consulta',
         message: 'Intentá nuevamente o escribinos a info@dinamicsystems.com.',
@@ -113,7 +124,14 @@ export function ContactSection() {
                     <Text tt="uppercase" fz={10} fw={800} c="dimmed" style={{ letterSpacing: '0.18em' }}>
                       Email corporativo
                     </Text>
-                    <Anchor href="mailto:info@dinamicsystems.com" fw={800} fz="lg" c="gray.9" underline="hover">
+                    <Anchor
+                      href="mailto:info@dinamicsystems.com"
+                      fw={800}
+                      fz="lg"
+                      c="gray.9"
+                      underline="hover"
+                      onClick={() => trackEvent('contact_email_clicked')}
+                    >
                       info@dinamicsystems.com
                     </Anchor>
                   </Box>
@@ -127,7 +145,14 @@ export function ContactSection() {
                     <Text tt="uppercase" fz={10} fw={800} c="dimmed" style={{ letterSpacing: '0.18em' }}>
                       Teléfono
                     </Text>
-                    <Anchor href="tel:+541144263813" fw={800} fz="lg" c="gray.9" underline="hover">
+                    <Anchor
+                      href="tel:+541144263813"
+                      fw={800}
+                      fz="lg"
+                      c="gray.9"
+                      underline="hover"
+                      onClick={() => trackEvent('contact_phone_clicked')}
+                    >
                       +54 11 4426 3813
                     </Anchor>
                   </Box>
@@ -180,6 +205,7 @@ export function ContactSection() {
               <Paper
                 component="form"
                 onSubmit={handleSubmit(onSubmit)}
+                onFocusCapture={markFormStarted}
                 p={{ base: 'lg', md: 'xl' }}
                 radius="4rem"
                 withBorder

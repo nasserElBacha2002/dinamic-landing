@@ -7,3 +7,14 @@ server/dist
 .env.*
 !.env.example
 !.env.frontend.example
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+phase1-seo-foundations.diff
+review-phase1-fixes.diff
+# Generated local review artifacts (do not version)
+seo-*-evolution.diff
+*-working.diff
+*-status.txt
+/tmp/

@@ -7,6 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
+  // Multipage SSG: do not fall back unknown URLs to dist/index.html (would mismatch 404.html).
+  appType: 'mpa',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

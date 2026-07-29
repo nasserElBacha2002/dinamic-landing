@@ -1,4 +1,4 @@
-import { SITE_ORIGIN, absoluteUrl } from '@/routes';
+import { absoluteUrl, defaultOgImage } from '@/seo/site';
 
 export type PageSeo = {
   title: string;
@@ -12,17 +12,7 @@ export type PageSeo = {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 };
 
-export const defaultOgImage = `${SITE_ORIGIN}/logo.png`;
-
-export const homeSeo: PageSeo = {
-  title: 'Inventarios físicos y autónomos para empresas | Dinamic Systems',
-  description:
-    'Dinamic Systems realiza inventarios físicos y autónomos para empresas de retail, logística, depósitos e industria mediante equipos especializados, software de trazabilidad, visión artificial y drones.',
-  canonicalPath: '/',
-  ogType: 'website',
-  robots: 'index, follow',
-  ogImage: defaultOgImage,
-};
+export { defaultOgImage };
 
 export function resolveCanonical(canonicalPath: string): string {
   return absoluteUrl(canonicalPath);

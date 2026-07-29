@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { PAGE_JSON_LD_SCRIPT_ID, serializeJsonLd } from '@/seo/jsonLd';
 import type { PageSeo } from '@/seo/types';
 import { defaultOgImage, resolveCanonical } from '@/seo/types';
 
@@ -25,7 +26,7 @@ export function SeoHead({ seo }: { seo: PageSeo }) {
     upsertMeta('property', 'og:locale', 'es_AR');
     upsertMeta('property', 'og:site_name', 'Dinamic Systems');
 
-    upsertMeta('name', 'twitter:card', 'summary_large_image');
+    upsertMeta('name', 'twitter:card', 'summary');
     upsertMeta('name', 'twitter:title', seo.title);
     upsertMeta('name', 'twitter:description', seo.description);
     upsertMeta('name', 'twitter:image', ogImage);
@@ -60,13 +61,12 @@ function upsertLink(rel: string, href: string): void {
 }
 
 function upsertJsonLd(data: Record<string, unknown> | Record<string, unknown>[]): void {
-  const id = 'ds-jsonld-organization';
-  let el = document.getElementById(id) as HTMLScriptElement | null;
+  let el = document.getElementById(PAGE_JSON_LD_SCRIPT_ID) as HTMLScriptElement | null;
   if (!el) {
     el = document.createElement('script');
     el.type = 'application/ld+json';
-    el.id = id;
+    el.id = PAGE_JSON_LD_SCRIPT_ID;
     document.head.appendChild(el);
   }
-  el.textContent = JSON.stringify(data);
+  el.textContent = serializeJsonLd(data);
 }

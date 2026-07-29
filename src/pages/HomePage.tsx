@@ -5,16 +5,19 @@ import { ContactSection } from '@/components/sections/ContactSection';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { DigitalInfrastructureSection } from '@/components/sections/DigitalInfrastructureSection';
 import { DroneInventorySection } from '@/components/sections/DroneInventorySection';
+import { ExplorePagesSection } from '@/components/sections/ExplorePagesSection';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { MethodologySection } from '@/components/sections/MethodologySection';
 import { ServicesMapSection } from '@/components/sections/ServicesMapSection';
 import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
 import { VisionProcessFlowSection } from '@/components/sections/VisionProcessFlowSection';
+import { getRouteById } from '@/routes';
 import { SeoHead } from '@/seo/SeoHead';
-import { buildOrganizationJsonLd } from '@/seo/organizationJsonLd';
-import { homeSeo } from '@/seo/types';
+import { toPageSeo } from '@/seo/pageSeo';
 
-const homePageSeo = { ...homeSeo, jsonLd: buildOrganizationJsonLd() };
+const homeRoute = getRouteById('home');
+if (!homeRoute) throw new Error('Home route missing from publishedRoutes');
+const homePageSeo = toPageSeo(homeRoute);
 
 export function HomePage() {
   return (
@@ -24,6 +27,7 @@ export function HomePage() {
       <AboutSection />
       <ValueSystemSection />
       <ServicesMapSection />
+      <ExplorePagesSection />
       <DigitalInfrastructureSection />
       <DroneInventorySection />
       <ArtificialVisionSection />

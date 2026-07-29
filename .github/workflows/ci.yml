@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      # Required for frontend builds (never rely on silent prod fallback in CI).
+      VITE_API_BASE_URL: https://api-landing.dinamiceducation.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build:validated
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --list
+      - run: npm run test:ssg-smoke

@@ -1,27 +1,21 @@
 import { Anchor, Box, Container, Divider, Grid, Stack, Text, rem } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import { MotionSection } from '@/components/animations/MotionSection';
 import { BrandLogo } from '@/components/ui/BrandLogo';
+import { routesInGroup } from '@/routes';
 import { contentMaxWidth } from '@/theme/theme';
 
-const serviceLinks = [
-  { label: 'Inventarios retail', href: '#soluciones' },
-  { label: 'Auditoría de CD', href: '#soluciones' },
-  { label: 'Mapeo de racks', href: '#soluciones' },
-  { label: 'Drones (complementario)', href: '#tecnologia' },
-] as const;
-
 const supportLinks = [
-  { label: 'Metodología', href: '#metodologia' },
-  { label: 'Contacto', href: '#contacto' },
-  { label: 'Clientes', href: '#clientes' },
-] as const;
-
-const legalLinks = [
-  { label: 'Política de privacidad', href: '#' },
-  { label: 'Términos y condiciones', href: '#' },
+  { label: 'Metodología', to: '/#metodologia' },
+  { label: 'Contacto', to: '/#contacto' },
+  { label: 'Clientes', to: '/#clientes' },
 ] as const;
 
 export function Footer() {
+  const services = routesInGroup('servicios', { footer: true });
+  const industries = routesInGroup('industrias', { footer: true });
+  const resources = routesInGroup('recursos', { footer: true });
+
   return (
     <Box
       component="footer"
@@ -35,17 +29,19 @@ export function Footer() {
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionSection>
           <Grid gutter="xl" align="flex-start">
-            <Grid.Col span={{ base: 12, md: 5 }}>
+            <Grid.Col span={{ base: 12, md: 4 }}>
               <Stack gap="lg">
-                <BrandLogo heightPx={44} maxWidthPx={280} />
+                <Anchor component={Link} to="/" underline="never" className="ds-focus-ring">
+                  <BrandLogo heightPx={44} maxWidthPx={280} />
+                </Anchor>
                 <Text c="dimmed" maw={rem(360)} fw={500}>
-                  Servicios profesionales de control de inventarios físicos e integración tecnológica orientada a precisión,
-                  trazabilidad y cumplimiento operativo.
+                  Servicios profesionales de control de inventarios físicos e integración tecnológica orientada a
+                  precisión, trazabilidad y cumplimiento operativo.
                 </Text>
               </Stack>
             </Grid.Col>
 
-            <Grid.Col span={{ base: 12, md: 7 }}>
+            <Grid.Col span={{ base: 12, md: 8 }}>
               <Grid gutter="xl">
                 <Grid.Col span={{ base: 12, xs: 4 }}>
                   <Stack gap="md">
@@ -53,9 +49,41 @@ export function Footer() {
                       Servicios
                     </Text>
                     <Stack gap="sm">
-                      {serviceLinks.map((l) => (
-                        <Anchor key={l.label} href={l.href} fw={700} c="gray.9" underline="hover" className="ds-focus-ring ds-footer-link" style={{ borderRadius: rem(4) }}>
-                          {l.label}
+                      {services.map((r) => (
+                        <Anchor
+                          key={r.id}
+                          component={Link}
+                          to={r.path}
+                          fw={700}
+                          c="gray.9"
+                          underline="hover"
+                          className="ds-focus-ring ds-footer-link"
+                          style={{ borderRadius: rem(4) }}
+                        >
+                          {r.navigation?.label}
+                        </Anchor>
+                      ))}
+                    </Stack>
+                  </Stack>
+                </Grid.Col>
+                <Grid.Col span={{ base: 12, xs: 4 }}>
+                  <Stack gap="md">
+                    <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
+                      Industrias y recursos
+                    </Text>
+                    <Stack gap="sm">
+                      {[...industries, ...resources].map((r) => (
+                        <Anchor
+                          key={r.id}
+                          component={Link}
+                          to={r.path}
+                          fw={700}
+                          c="gray.9"
+                          underline="hover"
+                          className="ds-focus-ring ds-footer-link"
+                          style={{ borderRadius: rem(4) }}
+                        >
+                          {r.navigation?.label}
                         </Anchor>
                       ))}
                     </Stack>
@@ -68,24 +96,28 @@ export function Footer() {
                     </Text>
                     <Stack gap="sm">
                       {supportLinks.map((l) => (
-                        <Anchor key={l.label} href={l.href} fw={700} c="gray.9" underline="hover" className="ds-focus-ring ds-footer-link" style={{ borderRadius: rem(4) }}>
+                        <Anchor
+                          key={l.to}
+                          href={l.to}
+                          fw={700}
+                          c="gray.9"
+                          underline="hover"
+                          className="ds-focus-ring ds-footer-link"
+                          style={{ borderRadius: rem(4) }}
+                        >
                           {l.label}
                         </Anchor>
                       ))}
-                    </Stack>
-                  </Stack>
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, xs: 4 }}>
-                  <Stack gap="md">
-                    <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
-                      Legal
-                    </Text>
-                    <Stack gap="sm">
-                      {legalLinks.map((l) => (
-                        <Anchor key={l.label} href={l.href} fw={700} c="gray.9" underline="hover" className="ds-focus-ring ds-footer-link" style={{ borderRadius: rem(4) }}>
-                          {l.label}
-                        </Anchor>
-                      ))}
+                      <Anchor
+                        href="mailto:info@dinamicsystems.com"
+                        fw={700}
+                        c="gray.9"
+                        underline="hover"
+                        className="ds-focus-ring ds-footer-link"
+                        style={{ borderRadius: rem(4) }}
+                      >
+                        info@dinamicsystems.com
+                      </Anchor>
                     </Stack>
                   </Stack>
                 </Grid.Col>

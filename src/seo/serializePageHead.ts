@@ -1,4 +1,5 @@
 import type { PageSeo } from '@/seo/types';
+import { PAGE_JSON_LD_SCRIPT_ID, serializeJsonLd } from '@/seo/jsonLd';
 import { defaultOgImage, resolveCanonical } from '@/seo/types';
 
 /**
@@ -23,7 +24,7 @@ export function serializePageHead(seo: PageSeo): string {
     `<meta property="og:image" content="${escapeAttr(ogImage)}" />`,
     `<meta property="og:locale" content="es_AR" />`,
     `<meta property="og:site_name" content="Dinamic Systems" />`,
-    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:card" content="summary" />`,
     `<meta name="twitter:title" content="${escapeAttr(seo.title)}" />`,
     `<meta name="twitter:description" content="${escapeAttr(seo.description)}" />`,
     `<meta name="twitter:image" content="${escapeAttr(ogImage)}" />`,
@@ -31,7 +32,7 @@ export function serializePageHead(seo: PageSeo): string {
 
   if (seo.jsonLd) {
     lines.push(
-      `<script type="application/ld+json" id="ds-jsonld-organization">${JSON.stringify(seo.jsonLd)}</script>`,
+      `<script type="application/ld+json" id="${PAGE_JSON_LD_SCRIPT_ID}">${serializeJsonLd(seo.jsonLd)}</script>`,
     );
   }
 

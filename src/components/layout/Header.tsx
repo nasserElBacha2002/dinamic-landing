@@ -1,24 +1,64 @@
-import { Anchor, Burger, Drawer, Group, Stack, rem } from '@mantine/core';
+import { Anchor, Burger, Drawer, Group, Menu, Stack, Text, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { IconChevronDown } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import { motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
 import { BrandButton } from '@/components/ui/BrandButton';
 import { BrandLogo } from '@/components/ui/BrandLogo';
+import { routesInGroup } from '@/routes';
 import { appHeaderHeightPx, contentMaxWidth } from '@/theme/theme';
 
-const links = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Quiénes Somos', href: '#quienes-somos' },
-  { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Metodología', href: '#metodologia' },
-  { label: 'Tecnología', href: '#tecnologia' },
-  { label: 'Clientes', href: '#clientes' },
+const primaryLinks = [
+  { label: 'Inicio', to: '/' },
+  { label: 'Quiénes Somos', to: '/#quienes-somos' },
 ] as const;
+
+function NavAnchor({
+  to,
+  label,
+  active,
+  onNavigate,
+}: {
+  to: string;
+  label: string;
+  active?: boolean;
+  onNavigate?: () => void;
+}) {
+  const shared = {
+    onClick: onNavigate,
+    fz: 'sm' as const,
+    fw: (active ? 800 : 600) as 800 | 600,
+    c: (active ? 'brand.6' : 'dimmed') as 'brand.6' | 'dimmed',
+    underline: 'never' as const,
+    className: 'ds-focus-ring ds-nav-link',
+    style: { borderRadius: rem(4), padding: `${rem(4)} ${rem(6)}` },
+  };
+
+  if (to.includes('#')) {
+    return (
+      <Anchor component="a" href={to} {...shared}>
+        {label}
+      </Anchor>
+    );
+  }
+
+  return (
+    <Anchor component={Link} to={to} {...shared}>
+      {label}
+    </Anchor>
+  );
+}
 
 export function Header() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const reduced = usePrefersReducedMotion();
+  const location = useLocation();
+  const services = routesInGroup('servicios', { header: true });
+  const industries = routesInGroup('industrias', { header: true });
+  const resources = routesInGroup('recursos', { header: true });
+  const onHome = location.pathname === '/';
 
   return (
     <motion.header
@@ -46,31 +86,121 @@ export function Header() {
         mx="auto"
         w="100%"
       >
-        <Anchor href="#inicio" underline="never" className="ds-focus-ring" style={{ borderRadius: rem(8) }}>
+        <Anchor component={Link} to="/" underline="never" className="ds-focus-ring" style={{ borderRadius: rem(8) }}>
           <BrandLogo heightPx={72} maxWidthPx={520} />
         </Anchor>
 
-        <Group gap="lg" visibleFrom="lg">
-          {links.map((l) => (
-            <Anchor
-              key={l.href}
-              href={l.href}
-              fz="sm"
-              fw={l.href === '#inicio' ? 800 : 600}
-              c={l.href === '#inicio' ? 'brand.6' : 'dimmed'}
-              underline="never"
-              className="ds-focus-ring ds-nav-link"
-              style={{ borderRadius: rem(4), padding: `${rem(4)} ${rem(6)}` }}
-            >
-              {l.label}
-            </Anchor>
+        <Group gap="md" visibleFrom="lg">
+          {primaryLinks.map((l) => (
+            <NavAnchor key={l.to} to={l.to} label={l.label} active={l.to === '/' && onHome} />
           ))}
+
+          <Menu trigger="click-hover" openDelay={80} closeDelay={120} withinPortal>
+            <Menu.Target>
+              <Anchor
+                component="button"
+                type="button"
+                fz="sm"
+                fw={location.pathname.startsWith('/servicios') ? 800 : 600}
+                c={location.pathname.startsWith('/servicios') ? 'brand.6' : 'dimmed'}
+                underline="never"
+                className="ds-focus-ring ds-nav-link"
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  borderRadius: rem(4),
+                  padding: `${rem(4)} ${rem(6)}`,
+                }}
+              >
+                Servicios <IconChevronDown size={14} aria-hidden />
+              </Anchor>
+            </Menu.Target>
+            <Menu.Dropdown>
+              {services.map((r) => (
+                <Menu.Item key={r.id} component={Link} to={r.path}>
+                  {r.navigation?.label}
+                </Menu.Item>
+              ))}
+            </Menu.Dropdown>
+          </Menu>
+
+          <Menu trigger="click-hover" openDelay={80} closeDelay={120} withinPortal>
+            <Menu.Target>
+              <Anchor
+                component="button"
+                type="button"
+                fz="sm"
+                fw={location.pathname.startsWith('/industrias') ? 800 : 600}
+                c={location.pathname.startsWith('/industrias') ? 'brand.6' : 'dimmed'}
+                underline="never"
+                className="ds-focus-ring ds-nav-link"
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  borderRadius: rem(4),
+                  padding: `${rem(4)} ${rem(6)}`,
+                }}
+              >
+                Industrias <IconChevronDown size={14} aria-hidden />
+              </Anchor>
+            </Menu.Target>
+            <Menu.Dropdown>
+              {industries.map((r) => (
+                <Menu.Item key={r.id} component={Link} to={r.path}>
+                  {r.navigation?.label}
+                </Menu.Item>
+              ))}
+            </Menu.Dropdown>
+          </Menu>
+
+          {resources.length > 0 ? (
+            <Menu trigger="click-hover" openDelay={80} closeDelay={120} withinPortal>
+              <Menu.Target>
+                <Anchor
+                  component="button"
+                  type="button"
+                  fz="sm"
+                  fw={location.pathname.startsWith('/recursos') ? 800 : 600}
+                  c={location.pathname.startsWith('/recursos') ? 'brand.6' : 'dimmed'}
+                  underline="never"
+                  className="ds-focus-ring ds-nav-link"
+                  style={{
+                    border: 'none',
+                    background: 'transparent',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    borderRadius: rem(4),
+                    padding: `${rem(4)} ${rem(6)}`,
+                  }}
+                >
+                  Recursos <IconChevronDown size={14} aria-hidden />
+                </Anchor>
+              </Menu.Target>
+              <Menu.Dropdown>
+                {resources.map((r) => (
+                  <Menu.Item key={r.id} component={Link} to={r.path}>
+                    {r.navigation?.label}
+                  </Menu.Item>
+                ))}
+              </Menu.Dropdown>
+            </Menu>
+          ) : null}
         </Group>
 
         <Group gap="sm">
           <BrandButton
             component="a"
-            href="#contacto"
+            href="/#contacto"
             visibleFrom="lg"
             size="md"
             px="xl"
@@ -85,12 +215,32 @@ export function Header() {
 
       <Drawer opened={opened} onClose={close} position="right" title="Menú" padding="md" size="sm">
         <Stack gap="md">
-          {links.map((l) => (
-            <Anchor key={l.href} href={l.href} fw={700} onClick={close} className="ds-footer-link">
-              {l.label}
-            </Anchor>
+          {primaryLinks.map((l) => (
+            <NavAnchor key={l.to} to={l.to} label={l.label} onNavigate={close} />
           ))}
-          <BrandButton component="a" href="#contacto" fullWidth onClick={close} className="ds-header-cta">
+          <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.18em' }}>
+            Servicios
+          </Text>
+          {services.map((r) => (
+            <NavAnchor key={r.id} to={r.path} label={r.navigation?.label ?? r.id} onNavigate={close} />
+          ))}
+          <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.18em' }}>
+            Industrias
+          </Text>
+          {industries.map((r) => (
+            <NavAnchor key={r.id} to={r.path} label={r.navigation?.label ?? r.id} onNavigate={close} />
+          ))}
+          {resources.length > 0 ? (
+            <>
+              <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.18em' }}>
+                Recursos
+              </Text>
+              {resources.map((r) => (
+                <NavAnchor key={r.id} to={r.path} label={r.navigation?.label ?? r.id} onNavigate={close} />
+              ))}
+            </>
+          ) : null}
+          <BrandButton component="a" href="/#contacto" fullWidth onClick={close} className="ds-header-cta">
             Contacto
           </BrandButton>
         </Stack>

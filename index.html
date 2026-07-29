@@ -5,7 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Title/description/canonical/OG are injected by SeoHead during prerender (and at runtime via react-helmet-async). -->
+    <!--
+      Production head (title, description, canonical, OG, Twitter, JSON-LD) is injected
+      at build time by scripts/prerender.ts via src/seo/serializePageHead.ts.
+      After hydration, src/seo/SeoHead.tsx keeps document head in sync on the client.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

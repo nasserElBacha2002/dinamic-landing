@@ -7,7 +7,8 @@ html {
 }
 
 section[id] {
-  scroll-margin-top: 6rem;
+  /* Sticky header is 96px (6rem); extra offset for breathing room */
+  scroll-margin-top: 7rem;
 }
 
 *,
