@@ -114,14 +114,12 @@ export function DroneInventorySection() {
               mb="xl"
               style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
             >
-              Inventario aéreo{' '}
-              <Text component="span" inherit c="cyan.4" style={{ fontStyle: 'italic' }}>
-                autónomo
-              </Text>
+              Inventarios con drones para posiciones en altura
             </Text>
             <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" fw={500} lh={1.75} maw={rem(560)} mb="xl">
-              Solución complementaria para depósitos, racks y posiciones en altura. Incorporamos drones autónomos para
-              relevar ubicaciones logísticas, capturar etiquetas y reducir la exposición operativa en zonas elevadas.
+              Según la estructura del depósito, la altura de las posiciones, la visibilidad de las etiquetas y las
+              condiciones de seguridad, puede evaluarse el uso de drones para apoyar el relevamiento de posiciones en
+              altura. Es una modalidad complementaria: no aplica a todos los depósitos ni reemplaza el trabajo humano.
             </Text>
 
             <Grid gutter="lg">
@@ -146,7 +144,7 @@ export function DroneInventorySection() {
                       Escaneo de posiciones
                     </Text>
                     <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
-                      Asociación ubicación-producto y lectura de etiquetas con alta precisión.
+                      Apoyo para asociar ubicación y producto con lectura de etiquetas visibles, sujeto a evaluación previa.
                     </Text>
                   </Paper>
                 </motion.div>
@@ -169,10 +167,10 @@ export function DroneInventorySection() {
                       <IconShieldLock stroke={1.25} />
                     </ThemeIcon>
                     <Text fw={800} fz="lg" mt="md" mb="xs">
-                      Reducción de exposición
+                      Menor exposición en altura
                     </Text>
                     <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
-                      Minimiza el riesgo humano en tareas de altura mediante relevamiento aéreo.
+                      Puede reducir la exposición del personal en tareas de altura cuando el entorno lo permite.
                     </Text>
                   </Paper>
                 </motion.div>

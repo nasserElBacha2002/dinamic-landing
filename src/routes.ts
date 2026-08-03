@@ -46,9 +46,9 @@ export const publishedRoutes = [
     pageType: 'home',
     breadcrumbLabels: [],
     seo: {
-      title: 'Inventarios físicos y autónomos para empresas | Dinamic Systems',
+      title: 'Inventarios físicos para depósitos y empresas | Dinamic Systems',
       description:
-        'Dinamic Systems realiza inventarios físicos y autónomos para empresas de retail, logística, depósitos e industria mediante equipos especializados, software de trazabilidad, visión artificial y drones.',
+        'Dinamic Systems realiza inventarios físicos en Argentina para depósitos, retail, centros de distribución y logística, con conteos, reconteos, control por ubicación y trazabilidad digital.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,

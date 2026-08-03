@@ -25,7 +25,7 @@ export function ExplorePagesSection() {
               Servicios, industrias y recursos
             </Text>
             <Text c="dimmed" fw={500} lh={1.7}>
-              Páginas prioritarias sobre inventarios físicos, drones y contextos de depósito o retail.
+              Páginas prioritarias sobre inventarios físicos, depósitos, retail y recursos operativos.
             </Text>
           </Stack>
           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">

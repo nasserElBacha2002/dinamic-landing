@@ -9,7 +9,7 @@ import { contentMaxWidth } from '@/theme/theme';
 
 export function ServicesMapSection() {
   return (
-    <Box component="section" id="soluciones" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
+    <Box component="section" id="servicios" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
         <MotionSection>
           <Group justify="space-between" align="flex-end" gap="md" mb={{ base: 'xl', md: '3rem' }} wrap="wrap">

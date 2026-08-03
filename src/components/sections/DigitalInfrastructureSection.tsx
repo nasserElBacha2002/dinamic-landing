@@ -60,7 +60,7 @@ export function DigitalInfrastructureSection() {
           <SectionHeader
             align="center"
             title="Infraestructura digital de precisión"
-            subtitle="Nuestro ecosistema tecnológico propio garantiza la integridad del dato desde la captura hasta su reporte final."
+            subtitle="Nuestro ecosistema tecnológico permite registrar, validar y organizar la información del operativo desde la captura hasta el reporte."
           />
         </MotionFadeIn>
 
@@ -180,11 +180,12 @@ export function DigitalInfrastructureSection() {
                       </Group>
                     </motion.div>
                     <Text component="h3" fz={{ base: rem(26), md: rem(32) }} fw={800} c="white" lh={1.15} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
-                      Visibilidad operativa del inventario en tiempo real
+                      Visibilidad operativa del inventario
                     </Text>
                     <Text c="gray.4" fw={500} lh={1.7}>
-                      Monitoreo de avance, cobertura por sector y trazabilidad de capturas. Reportes orientados a auditoría y
-                      decisiones operativas, sin métricas promocionales no sustentadas.
+                      La captura digital permite realizar seguimiento del avance, registrar observaciones y mantener
+                      trazabilidad por sector o ubicación. Integración o exportación de datos según el alcance del
+                      proyecto.
                     </Text>
                     <SimpleGrid cols={2} spacing="md">
                       {dashboardRows.map((row, ri) => (

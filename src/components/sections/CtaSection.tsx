@@ -24,7 +24,8 @@ export function CtaSection() {
           </MotionFadeIn>
           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.1}>
             <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" maw={rem(900)} fw={500} lh={1.75}>
-              Coordinemos una reunión para analizar tus procesos actuales, necesidades operativas y oportunidades de mejora.
+              Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
+              alcance y la metodología posible.
             </Text>
           </MotionFadeIn>
           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.22}>
@@ -39,7 +40,7 @@ export function CtaSection() {
               className="ds-focus-ring ds-header-cta"
               style={{ letterSpacing: '0.18em' }}
             >
-              Agendar reunión
+              Solicitar evaluación de inventario
             </BrandButton>
           </MotionFadeIn>
         </Stack>

@@ -19,7 +19,7 @@ export function buildOrganizationJsonLd(): Record<string, unknown> {
     url: `${SITE_ORIGIN}/`,
     logo: `${SITE_ORIGIN}/logo.png`,
     description:
-      'Empresa argentina especializada en servicios profesionales de control de inventarios físicos para retail, logística y distribución.',
+      'Empresa argentina especializada en la planificación y ejecución de inventarios físicos para depósitos, centros de distribución, retail y operaciones logísticas.',
     email: 'info@dinamicsystems.com',
     telephone: '+54-11-4426-3813',
     address: {

@@ -108,11 +108,11 @@ export function ContactSection() {
                 ¿Hablamos?
               </Text>
               <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
-                Hablemos de tu operación
+                Solicitá una evaluación para tu inventario
               </Text>
               <Text mt="lg" c="dimmed" fw={500} lh={1.75}>
-                Contanos sobre tu tienda, depósito o centro de distribución. Nuestro equipo puede ayudarte a definir una
-                solución de inventario precisa, trazable y escalable.
+                Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
+                alcance y la metodología posible.
               </Text>
 
               <Stack gap="xl" mt="xl">
@@ -253,9 +253,14 @@ export function ContactSection() {
                       />
                     )}
                   />
-                  <Textarea label="Mensaje" placeholder="Contanos brevemente qué tipo de control necesitás realizar" error={errors.message?.message} {...register('message')} />
+                  <Textarea
+                    label="Mensaje"
+                    placeholder="Ubicación, tipo de almacenamiento y volumen aproximado de productos o ubicaciones"
+                    error={errors.message?.message}
+                    {...register('message')}
+                  />
                   <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" className="ds-focus-ring ds-submit-cta" style={{ letterSpacing: '0.16em' }}>
-                    Enviar consulta técnica
+                    Enviar solicitud de evaluación
                   </Button>
                 </Stack>
               </Paper>

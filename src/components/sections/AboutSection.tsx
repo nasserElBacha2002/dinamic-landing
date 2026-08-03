@@ -27,12 +27,13 @@ export function AboutSection() {
               <MotionFadeIn direction="left" duration={motionDuration.section}>
                 <SectionHeader eyebrow="Sobre nosotros" title="Quiénes Somos" />
                 <Text fz={{ base: 'lg', md: 'xl' }} fw={600} c="gray.9" lh={1.7} mb="md">
-                  Dinamic Systems es una empresa argentina especializada en servicios profesionales de control de
-                  inventarios físicos para empresas de retail, logística y distribución.
+                  Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
+                  físicos para depósitos, centros de distribución, retail y operaciones logísticas.
                 </Text>
                 <Text fz="lg" c="dimmed" lh={1.75} fw={500} mb="xl">
-                  Acompañamos a organizaciones que necesitan exactitud, trazabilidad y control operativo real. Nuestra
-                  metodología estructurada garantiza precisión, cumplimiento en tiempo y forma y resultados confiables.
+                  Acompañamos a organizaciones que necesitan exactitud de stock, trazabilidad de capturas y control
+                  operativo. Trabajamos con metodología estructurada, supervisión en campo y reportes orientados a
+                  auditoría.
                 </Text>
                 <SimpleGrid cols={2} spacing="xl" pt="xl" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
                   <Box>

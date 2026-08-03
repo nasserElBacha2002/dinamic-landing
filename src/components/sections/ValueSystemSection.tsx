@@ -11,13 +11,13 @@ import { contentMaxWidth } from '@/theme/theme';
 const pillars = [
   {
     title: 'Precisión operativa',
-    body: 'Eliminamos discrepancias mediante procesos de auditoría rigurosos y doble verificación.',
+    body: 'Detectamos y validamos diferencias mediante conteos controlados, reconteos y trazabilidad operativa.',
     icon: IconUserCheck,
     ring: 'brand' as const,
   },
   {
     title: 'Trazabilidad',
-    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad total.',
+    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad por ubicación.',
     icon: IconRoute,
     ring: 'cyan' as const,
   },
@@ -40,7 +40,7 @@ export function ValueSystemSection() {
             align="center"
             eyebrow="Metodología propia"
             title="Nuestro sistema de valor"
-            subtitle="Cada operación se estructura para asegurar exactitud, seguimiento y cumplimiento de los objetivos del cliente."
+            subtitle="Cada operación se estructura para orientar exactitud, seguimiento y cumplimiento de los objetivos acordados con el cliente."
           />
         </MotionFadeIn>
 

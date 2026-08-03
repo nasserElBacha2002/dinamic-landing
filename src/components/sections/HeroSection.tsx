@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Group, Text, rem } from '@mantine/core';
 import {
   IconChartArcs,
-  IconCircleCheck,
   IconMapPin,
+  IconRefresh,
   IconReportAnalytics,
 } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
@@ -16,10 +16,10 @@ import { wideMaxWidth, appHeaderHeightPx } from '@/theme/theme';
 import heroClasses from '@/components/sections/HeroSection.module.css';
 
 const metrics = [
-  { title: 'Precisión operativa', icon: IconCircleCheck, accent: 'brand' as const },
-  { title: 'Trazabilidad digital', icon: IconChartArcs, accent: 'cyan' as const },
   { title: 'Control por ubicación', icon: IconMapPin, accent: 'brand' as const },
-  { title: 'Reportes auditables', icon: IconReportAnalytics, accent: 'cyan' as const },
+  { title: 'Reconteos', icon: IconRefresh, accent: 'cyan' as const },
+  { title: 'Trazabilidad de capturas', icon: IconChartArcs, accent: 'brand' as const },
+  { title: 'Reportes por sector', icon: IconReportAnalytics, accent: 'cyan' as const },
 ];
 
 export function HeroSection() {
@@ -59,31 +59,28 @@ export function HeroSection() {
               <Group gap="sm" mb="xl">
                 <Box w={32} h={3} bg="brand.6" style={{ borderRadius: 2 }} />
                 <Text tt="uppercase" fw={800} size="sm" c="dimmed" style={{ letterSpacing: '0.2em' }}>
-                  Control de inventarios físicos
+                  Inventarios físicos para empresas en Argentina
                 </Text>
               </Group>
             </MotionFadeIn>
             <MotionFadeIn trigger="mount" delay={0.12} duration={motionDuration.section}>
               <Text
                 component="h1"
-                fz={{ base: rem(40), sm: rem(52), md: rem(64) }}
+                fz={{ base: rem(36), sm: rem(48), md: rem(58) }}
                 fw={800}
-                lh={1.05}
+                lh={1.08}
                 c="gray.9"
                 mb="xl"
                 style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif', letterSpacing: '-0.03em' }}
               >
-                Expertos en{' '}
-                <Text component="span" inherit c="brand.6" style={{ fontStyle: 'italic' }}>
-                  inventarios físicos
-                </Text>
+                Inventarios físicos para depósitos, retail y operaciones logísticas
               </Text>
             </MotionFadeIn>
             <MotionFadeIn trigger="mount" delay={0.24} duration={motionDuration.base}>
               <Text fz={{ base: 'md', md: 'xl' }} c="dimmed" maw={rem(640)} fw={500} lh={1.7} mb="xl">
-                Brindamos servicios profesionales de control de inventarios físicos para empresas de retail,
-                logística y distribución, combinando metodología operativa, trazabilidad y herramientas digitales
-                adaptadas a cada operación.
+                Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
+                físicos. Realizamos conteos de mercadería, control por ubicación, reconteos y revisión de diferencias en
+                depósitos, centros de distribución, locales y operaciones logísticas.
               </Text>
             </MotionFadeIn>
             <MotionFadeIn trigger="mount" delay={0.36} duration={motionDuration.base}>
@@ -97,11 +94,11 @@ export function HeroSection() {
                   fz="lg"
                   className="ds-header-cta"
                 >
-                  Solicitar reunión
+                  Solicitar evaluación de inventario
                 </BrandButton>
                 <BrandButton
                   component="a"
-                  href="#soluciones"
+                  href="#servicios"
                   variant="outline"
                   color="cyan"
                   size="lg"
@@ -111,7 +108,7 @@ export function HeroSection() {
                   className="ds-focus-ring"
                   style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}
                 >
-                  Ver soluciones
+                  Conocer nuestros servicios
                 </BrandButton>
               </Group>
             </MotionFadeIn>
