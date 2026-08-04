@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Paper, SimpleGrid, Text, rem } from '@mantine/core';
 import { IconShieldCheck } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import quienesSomosUrl from '@/assets/images/quienes-somos.png';
+import quienesSomosUrl from '@/assets/images/quienes-somos.webp';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { MotionSection } from '@/components/animations/MotionSection';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
@@ -74,6 +74,8 @@ export function AboutSection() {
                       alt="Equipo y operaciones Dinamic Systems"
                       loading="lazy"
                       decoding="async"
+                      width={1536}
+                      height={1024}
                       w="100%"
                       h="100%"
                       style={{

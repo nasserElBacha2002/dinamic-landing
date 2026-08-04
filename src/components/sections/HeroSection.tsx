@@ -6,7 +6,7 @@ import {
   IconReportAnalytics,
 } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
-import heroImage from '@/assets/images/hero.png';
+import heroImage from '@/assets/images/hero.webp';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration, motionEaseOut } from '@/components/animations/variants';
 import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
@@ -40,7 +40,7 @@ export function HeroSection() {
           transition={{ duration: reduced ? 0.15 : 1.05, ease: motionEaseOut }}
           style={{ willChange: reduced ? undefined : 'transform' }}
         >
-          <img src={heroImage} alt="" className={heroClasses.heroImg} draggable={false} />
+          <img src={heroImage} alt="" className={heroClasses.heroImg} draggable={false} width={1672} height={941} fetchPriority="high" />
         </motion.div>
       </Box>
       <Box className={heroClasses.heroOverlay} aria-hidden />

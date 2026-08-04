@@ -17,7 +17,7 @@ import { MotionStagger } from '@/components/animations/MotionStagger';
 import { motionDuration } from '@/components/animations/variants';
 import { digitalFlowSteps } from '@/data/digitalFlow';
 import { contentMaxWidth } from '@/theme/theme';
-import auditoriaImage from '@/assets/images/auditoria.png';
+import auditoriaImage from '@/assets/images/auditoria.webp';
 
 const modalities = [
   {
@@ -158,6 +158,8 @@ export function TechnologyComplementSection() {
               alt="Evidencia visual para validación de inventario"
               loading="lazy"
               decoding="async"
+              width={1448}
+              height={1086}
               w="100%"
               display="block"
               style={{ aspectRatio: '16 / 10', objectFit: 'cover' }}
