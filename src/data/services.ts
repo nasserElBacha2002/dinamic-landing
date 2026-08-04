@@ -1,46 +1,46 @@
 import {
   IconAnalyze,
-  IconBuildingWarehouse,
-  IconForklift,
-  IconShoppingBag,
+  IconClipboardCheck,
+  IconDrone,
+  IconRefresh,
 } from '@tabler/icons-react';
 import type { ServiceItem } from '@/types/content';
 
 export const services: ServiceItem[] = [
   {
-    id: 'tiendas',
-    title: 'Tiendas',
-    description:
-      'Inventario físico integral en piso de venta y depósitos internos de retail. Especialistas en control operativo real.',
-    bullets: ['CONTEO CIEGO', 'TRAZABILIDAD'],
+    id: 'inventarios-fisicos',
+    title: 'Inventarios físicos',
+    description: 'Planificación, conteo, reconteos y entrega de resultados auditables.',
+    bullets: ['CONTEO', 'RECONTEOS'],
     accent: 'brand',
-    icon: IconShoppingBag,
+    icon: IconClipboardCheck,
+    to: '/servicios/inventarios-fisicos/',
   },
   {
-    id: 'cd-logistica',
-    title: 'CD & Logística',
-    description:
-      'Inventarios masivos de alta rotación con relevamiento por ubicación en superficies industriales.',
-    bullets: ['AUDITORÍA PICKING', 'VALIDACIÓN PALLETS'],
+    id: 'inventarios-ciclicos',
+    title: 'Inventarios cíclicos',
+    description: 'Conteos periódicos por criticidad, rotación o ubicación.',
+    bullets: ['PERIODICIDAD', 'PRIORIZACIÓN'],
     accent: 'cyan',
-    icon: IconForklift,
+    icon: IconRefresh,
+    to: '/servicios/inventarios-ciclicos/',
   },
   {
-    id: 'depositos',
-    title: 'Depósitos',
-    description:
-      'Integridad de stock y gestión de ubicaciones críticas mediante mapeo dinámico de racks y control físico.',
-    bullets: ['MAPEO DE RACKS', 'RELEVAMIENTO'],
+    id: 'auditoria-inventarios',
+    title: 'Auditoría de inventarios',
+    description: 'Revisión de procedimientos, conteos, reconteos y evidencia documentada.',
+    bullets: ['EVIDENCIA', 'MUESTREO'],
     accent: 'brand',
-    icon: IconBuildingWarehouse,
-  },
-  {
-    id: 'consultoria',
-    title: 'Consultoría',
-    description:
-      'Relevamientos estructurados y mapeo para la optimización de trazabilidad y activos logísticos.',
-    bullets: ['AUDITORÍA ACTIVOS', 'OPTIMIZACIÓN'],
-    accent: 'cyan',
     icon: IconAnalyze,
+    to: '/servicios/auditoria-de-inventarios/',
+  },
+  {
+    id: 'inventarios-drones',
+    title: 'Inventarios con drones',
+    description: 'Modalidad complementaria para depósitos y posiciones en altura.',
+    bullets: ['ALTURA', 'COMPLEMENTARIO'],
+    accent: 'cyan',
+    icon: IconDrone,
+    to: '/servicios/inventarios-con-drones/',
   },
 ];

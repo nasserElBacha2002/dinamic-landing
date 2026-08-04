@@ -15,7 +15,7 @@ export function ClientsSection() {
           <SectionHeader
             align="center"
             title="Empresas que confían en nosotros"
-            subtitle="Empresas de retail, logística, distribución, indumentaria, farmacias y consumo masivo confían en Dinamic Systems para optimizar sus procesos de inventario."
+            subtitle="Empresas de retail, logística, distribución, indumentaria, farmacias y consumo masivo que trabajan con Dinamic Systems en inventarios físicos."
           />
         </MotionFadeIn>
 

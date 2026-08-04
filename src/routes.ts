@@ -96,7 +96,6 @@ export const publishedRoutes = [
       group: 'servicios',
       showInHeader: true,
       showInFooter: true,
-      showOnHome: true,
     },
   },
   {
@@ -117,6 +116,7 @@ export const publishedRoutes = [
       label: 'Inventarios cíclicos',
       group: 'servicios',
       showInFooter: true,
+      showOnHome: true,
     },
   },
   {
@@ -137,6 +137,7 @@ export const publishedRoutes = [
       label: 'Auditoría de inventarios',
       group: 'servicios',
       showInFooter: true,
+      showOnHome: true,
     },
   },
   {
@@ -241,6 +242,7 @@ export const publishedRoutes = [
     navigation: {
       label: 'Preparar un depósito para un inventario',
       group: 'recursos',
+      showOnHome: true,
     },
   },
   {
@@ -260,6 +262,7 @@ export const publishedRoutes = [
     navigation: {
       label: 'Inventario general vs. cíclico',
       group: 'recursos',
+      showOnHome: true,
     },
   },
   {

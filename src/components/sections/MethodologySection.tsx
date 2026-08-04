@@ -19,14 +19,14 @@ export function MethodologySection() {
           <SectionHeader
             align="center"
             eyebrow="Proceso de trabajo"
-            title="Metodología de Implementación"
-            subtitle="Cada inventario se planifica, ejecuta y valida bajo una metodología estructurada, orientada a precisión, trazabilidad y cumplimiento."
+            title="Cómo se realiza el inventario"
+            subtitle="Cada inventario se planifica, ejecuta y valida con una metodología orientada a cobertura, trazabilidad de capturas y cumplimiento de los objetivos acordados."
           />
         </MotionFadeIn>
 
         <MotionSection style={{ marginTop: rem(32) }}>
           <Box pos="relative">
-            <Box visibleFrom="lg" pos="absolute" top="42%" left="6%" right="6%" h={2} style={{ transform: 'translateY(-50%)', zIndex: 0, overflow: 'hidden' }}>
+            <Box visibleFrom="lg" pos="absolute" top="42%" left="4%" right="4%" h={2} style={{ transform: 'translateY(-50%)', zIndex: 0, overflow: 'hidden' }}>
               {!reduced ? (
                 <motion.div
                   variants={lineReveal}
@@ -45,7 +45,7 @@ export function MethodologySection() {
               )}
             </Box>
 
-            <SimpleGrid cols={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 'lg', lg: 'xl' }} pos="relative" style={{ zIndex: 1 }}>
+            <SimpleGrid cols={{ base: 1, sm: 2, lg: 5 }} spacing={{ base: 'lg', lg: 'md' }} pos="relative" style={{ zIndex: 1 }}>
               {methodologySteps.map((step, idx) => (
                 <motion.div
                   key={step.id}
@@ -62,18 +62,18 @@ export function MethodologySection() {
                   viewport={{ once: true, amount: 0.18 }}
                   transition={{
                     duration: motionDuration.section,
-                    delay: reduced ? 0 : 0.1 + idx * 0.12,
+                    delay: reduced ? 0 : 0.08 + idx * 0.08,
                     ease: motionEaseOut,
                   }}
                 >
                   <Card
-                    p={{ base: 'lg', md: 'xl' }}
+                    p={{ base: 'lg', md: 'lg' }}
                     radius="2.5rem"
                     withBorder
-                    mt={{ lg: step.highlight ? rem(48) : 0 }}
+                    mt={{ lg: step.highlight ? rem(36) : 0 }}
                     classNames={{ root: methodologyClasses.card }}
                     data-highlight={step.highlight ? 'true' : undefined}
-                    style={{ minHeight: rem(300) }}
+                    style={{ minHeight: rem(280) }}
                   >
                     <Box
                       className={`${methodologyClasses.badge} ${step.highlight ? methodologyClasses.badgeHighlight : ''}`}

@@ -72,6 +72,8 @@ export function AboutSection() {
                       component="img"
                       src={quienesSomosUrl}
                       alt="Equipo y operaciones Dinamic Systems"
+                      loading="lazy"
+                      decoding="async"
                       w="100%"
                       h="100%"
                       style={{

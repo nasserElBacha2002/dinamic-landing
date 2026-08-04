@@ -7,6 +7,8 @@ export interface ServiceItem {
   bullets: string[];
   accent: 'brand' | 'cyan';
   icon: TablerIcon;
+  /** Published route with trailing slash */
+  to: string;
 }
 
 export interface MethodologyStep {

@@ -141,7 +141,7 @@ async function prerender(): Promise<void> {
       const content = interiorContentByRouteId[route.id];
       const seo = toPageSeo(route, content);
       const headHtml = serializePageHead(seo);
-      const expect = route.pageType === 'home' ? 'Expertos' : content?.h1.slice(0, 24);
+      const expect = route.pageType === 'home' ? 'Inventarios físicos para depósitos' : content?.h1.slice(0, 24);
       await writePage(mod, template, manifest, route.path, await resolveOutFile(route.loc), headHtml, expect);
     }
 

@@ -16,15 +16,22 @@ export function ServicesMapSection() {
             <Box maw={rem(900)}>
               <MotionFadeIn direction="none" duration={motionDuration.base}>
                 <Text tt="uppercase" size="xs" fw={800} c="brand.6" mb="sm" style={{ letterSpacing: '0.22em' }}>
-                  Alcance de servicios
+                  Servicios principales
                 </Text>
-                <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
-                  Mapa Operativo de Servicios
+                <Text
+                  component="h2"
+                  fz={{ base: rem(32), sm: rem(40) }}
+                  fw={800}
+                  c="gray.9"
+                  lh={1.1}
+                  style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+                >
+                  Inventarios físicos y modalidades de control
                 </Text>
               </MotionFadeIn>
               <Text mt="md" fz="lg" c="dimmed" fw={500} maw={rem(720)} display={{ base: 'block', md: 'none' }}>
-                Adaptamos nuestra metodología de inventario al tipo de operación, volumen, ubicación y necesidad de control
-                de cada cliente.
+                Adaptamos la metodología al tipo de operación, volumen, ubicaciones y necesidad de control de cada
+                empresa.
               </Text>
             </Box>
             <Group gap="xs" visibleFrom="md">
@@ -34,8 +41,7 @@ export function ServicesMapSection() {
             </Group>
           </Group>
           <Text mb={{ base: 'xl', md: '3rem' }} fz="lg" c="dimmed" fw={500} maw={rem(720)} visibleFrom="md">
-            Adaptamos nuestra metodología de inventario al tipo de operación, volumen, ubicación y necesidad de control de
-            cada cliente.
+            Adaptamos la metodología al tipo de operación, volumen, ubicaciones y necesidad de control de cada empresa.
           </Text>
 
           <SimpleGrid cols={{ base: 1, md: 2, lg: 4 }} spacing="lg">

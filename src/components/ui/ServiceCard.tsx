@@ -1,4 +1,5 @@
 import { Box, Group, Paper, Stack, Text, ThemeIcon } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import type { ServiceItem } from '@/types/content';
 import classes from '@/components/ui/ServiceCard.module.css';
 
@@ -7,11 +8,13 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ service }: ServiceCardProps) {
-  const { title, description, bullets, accent, icon: Icon } = service;
+  const { title, description, bullets, accent, icon: Icon, to } = service;
   const color = accent === 'brand' ? 'brand' : 'cyan';
 
   return (
     <Paper
+      component={Link}
+      to={to}
       data-accent={accent}
       p={{ base: 'lg', md: 'xl' }}
       radius="2.5rem"
@@ -20,11 +23,15 @@ export function ServiceCard({ service }: ServiceCardProps) {
       classNames={{
         root: classes.card,
       }}
+      className="ds-focus-ring"
       style={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
+        textDecoration: 'none',
+        color: 'inherit',
       }}
+      aria-label={`${title}: ${description}`}
     >
       <ThemeIcon
         className={classes.iconWrap}

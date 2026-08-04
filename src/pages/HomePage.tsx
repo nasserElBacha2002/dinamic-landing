@@ -1,16 +1,16 @@
 import { AboutSection } from '@/components/sections/AboutSection';
-import { ArtificialVisionSection } from '@/components/sections/ArtificialVisionSection';
 import { ClientsSection } from '@/components/sections/ClientsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { CtaSection } from '@/components/sections/CtaSection';
-import { DigitalInfrastructureSection } from '@/components/sections/DigitalInfrastructureSection';
-import { DroneInventorySection } from '@/components/sections/DroneInventorySection';
 import { ExplorePagesSection } from '@/components/sections/ExplorePagesSection';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { IndustriesSection } from '@/components/sections/IndustriesSection';
 import { MethodologySection } from '@/components/sections/MethodologySection';
 import { ServicesMapSection } from '@/components/sections/ServicesMapSection';
+import { StockDifferencesSection } from '@/components/sections/StockDifferencesSection';
+import { TechnologyComplementSection } from '@/components/sections/TechnologyComplementSection';
 import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
-import { VisionProcessFlowSection } from '@/components/sections/VisionProcessFlowSection';
+import { WarehouseIntentSection } from '@/components/sections/WarehouseIntentSection';
 import { getRouteById } from '@/routes';
 import { SeoHead } from '@/seo/SeoHead';
 import { toPageSeo } from '@/seo/pageSeo';
@@ -27,13 +27,13 @@ export function HomePage() {
       <AboutSection />
       <ValueSystemSection />
       <ServicesMapSection />
-      <ExplorePagesSection />
-      <DigitalInfrastructureSection />
-      <DroneInventorySection />
-      <ArtificialVisionSection />
-      <VisionProcessFlowSection />
+      <IndustriesSection />
       <MethodologySection />
+      <WarehouseIntentSection />
+      <StockDifferencesSection />
+      <TechnologyComplementSection />
       <ClientsSection />
+      <ExplorePagesSection />
       <CtaSection />
       <ContactSection />
     </>
