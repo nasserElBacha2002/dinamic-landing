@@ -1,0 +1,41 @@
+ audit/geo-external-pages-inventory.md              |  28 ++++
+ audit/landing-main-hardening-report.md             |  30 ++++
+ audit/landing-main-performance-before-after.md     |  19 +++
+ audit/landing-main-release-validation.md           |  61 +++++++
+ .../landing-main-stage-3-implementation-report.md  |  34 ++++
+ .../landing-main-stage-4-implementation-report.md  |  30 ++++
+ scripts/validate-seo-build.ts                      |  31 +++-
+ server/index.ts                                    |  33 +++-
+ server/mailer.ts                                   |  25 ++-
+ server/rateLimit.ts                                |  71 ++++++++
+ server/schemas/contactSchema.ts                    |   8 +-
+ src/assets/images/auditoria.webp                   | Bin 0 -> 145660 bytes
+ src/assets/images/hero.webp                        | Bin 0 -> 108476 bytes
+ src/assets/images/quienes-somos.webp               | Bin 0 -> 117964 bytes
+ src/components/sections/AboutSection.tsx           |   4 +-
+ src/components/sections/ContactSection.tsx         | 186 +++++++++++++++++----
+ src/components/sections/FaqSection.module.css      |  48 ++++++
+ src/components/sections/FaqSection.tsx             |  65 +++++++
+ src/components/sections/HeroSection.tsx            |   4 +-
+ .../sections/TechnologyComplementSection.tsx       |   4 +-
+ src/components/ui/LogoCard.module.css              |  19 +++
+ src/components/ui/LogoCard.tsx                     |  13 +-
+ src/content/home/faq.ts                            |  53 ++++++
+ .../industries/depositosCentrosDistribucion.ts     |   2 +-
+ .../industries/operadoresLogisticosIndustria.ts    |   2 +-
+ src/content/industries/retailCadenasSucursales.ts  |   2 +-
+ .../resources/inventarioGeneralVsCiclico.ts        |   2 +-
+ src/content/services/auditoriaDeInventarios.ts     |   2 +-
+ src/content/services/inventariosCiclicos.ts        |   2 +-
+ src/content/services/inventariosConDrones.ts       |   2 +-
+ src/content/services/inventariosFisicos.ts         |   2 +-
+ src/lib/analytics/events.ts                        |   1 +
+ src/lib/contactFormSchema.ts                       |  16 +-
+ src/lib/submitContactConsultation.ts               |  17 +-
+ src/pages/HomePage.tsx                             |   3 +
+ src/seo/organizationJsonLd.ts                      |  12 +-
+ src/seo/pageSeo.ts                                 |  26 ++-
+ src/seo/schemas.ts                                 |  54 +++++-
+ src/theme/formControls.module.css                  |  37 ++++
+ src/theme/theme.ts                                 |  46 +----
+ 40 files changed, 878 insertions(+), 116 deletions(-)

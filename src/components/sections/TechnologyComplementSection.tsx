@@ -2,7 +2,6 @@ import {
   Anchor,
   Box,
   Container,
-  Group,
   Paper,
   SimpleGrid,
   Stack,
@@ -31,6 +30,7 @@ const modalities = [
     body: 'Apoyo opcional para evidencia visual y detección de elementos visibles en casos específicos.',
     icon: IconEye,
     accent: 'cyan' as const,
+    showImage: true,
   },
   {
     title: 'Drones en altura',
@@ -108,7 +108,7 @@ export function TechnologyComplementSection() {
                 radius="2rem"
                 withBorder
                 bg="gray.0"
-                style={{ height: '100%' }}
+                style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
               >
                 <ThemeIcon
                   size={48}
@@ -122,9 +122,34 @@ export function TechnologyComplementSection() {
                 <Text fw={800} fz="lg" c="gray.9" mb="sm">
                   {item.title}
                 </Text>
-                <Text fz="sm" c="dimmed" fw={500} lh={1.65} mb={'to' in item ? 'md' : 0}>
+                <Text fz="sm" c="dimmed" fw={500} lh={1.65} mb={'showImage' in item && item.showImage ? 'md' : 'to' in item ? 'md' : 0}>
                   {item.body}
                 </Text>
+                {'showImage' in item && item.showImage ? (
+                  <Box
+                    mt="auto"
+                    style={{
+                      borderRadius: rem(16),
+                      overflow: 'hidden',
+                      border: '1px solid color-mix(in srgb, #c4c6cf 40%, transparent)',
+                      maxHeight: rem(148),
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={auditoriaImage}
+                      alt="Evidencia visual para validación de inventario"
+                      loading="lazy"
+                      decoding="async"
+                      width={480}
+                      height={148}
+                      w="100%"
+                      h={rem(148)}
+                      display="block"
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    />
+                  </Box>
+                ) : null}
                 {'to' in item && item.to ? (
                   <Anchor
                     component={Link}
@@ -133,6 +158,7 @@ export function TechnologyComplementSection() {
                     c="brand.7"
                     underline="hover"
                     className="ds-focus-ring"
+                    mt="md"
                   >
                     {item.linkLabel}
                   </Anchor>
@@ -142,32 +168,7 @@ export function TechnologyComplementSection() {
           </MotionStagger>
         </SimpleGrid>
 
-        <Group justify="center">
-          <Box
-            maw={rem(720)}
-            w="100%"
-            style={{
-              borderRadius: rem(28),
-              overflow: 'hidden',
-              boxShadow: '0 18px 48px rgba(2, 6, 23, 0.1)',
-            }}
-          >
-            <Box
-              component="img"
-              src={auditoriaImage}
-              alt="Evidencia visual para validación de inventario"
-              loading="lazy"
-              decoding="async"
-              width={1448}
-              height={1086}
-              w="100%"
-              display="block"
-              style={{ aspectRatio: '16 / 10', objectFit: 'cover' }}
-            />
-          </Box>
-        </Group>
-
-        <Text mt="xl" ta="center" c="dimmed" fw={500} fz="sm" maw={rem(720)} mx="auto">
+        <Text ta="center" c="dimmed" fw={500} fz="sm" maw={rem(720)} mx="auto">
           Nuestro ecosistema tecnológico permite registrar, validar y organizar la información del operativo. Integración
           o exportación de datos según el alcance del proyecto.
         </Text>
