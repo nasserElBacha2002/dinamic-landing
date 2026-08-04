@@ -6,6 +6,7 @@
 export type AnalyticsEventName =
   | 'contact_form_started'
   | 'contact_form_submitted'
+  | 'contact_form_success'
   | 'contact_form_error'
   | 'contact_email_clicked'
   | 'contact_phone_clicked'

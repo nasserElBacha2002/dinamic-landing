@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import { sendContactEmail, isSmtpConfigured } from './mailer.js';
+import { createRateLimiter } from './rateLimit.js';
 import { contactApiBodySchema } from './schemas/contactSchema.js';
 
 /** Raíz del repo (sirve con `tsx server/index.ts` y con `node server/dist/index.js`). */
@@ -49,6 +50,13 @@ function parseCorsOrigins(): Set<string> {
 
 const allowedOrigins = parseCorsOrigins();
 
+const contactRateLimit = Number(process.env.CONTACT_RATE_LIMIT) || 8;
+const contactRateWindowMs = Number(process.env.CONTACT_RATE_WINDOW_MS) || 15 * 60 * 1000;
+const checkContactRateLimit = createRateLimiter({
+  limit: contactRateLimit,
+  windowMs: contactRateWindowMs,
+});
+
 const app = express();
 
 if (isProduction) {
@@ -76,7 +84,27 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
+function clientIp(req: express.Request): string {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string' && forwarded.trim()) {
+    return forwarded.split(',')[0]?.trim() || req.ip || 'unknown';
+  }
+  if (Array.isArray(forwarded) && forwarded[0]) {
+    return forwarded[0].split(',')[0]?.trim() || req.ip || 'unknown';
+  }
+  return req.ip || 'unknown';
+}
+
 app.post('/api/contact', async (req, res) => {
+  const rate = checkContactRateLimit(clientIp(req));
+  if (!rate.allowed) {
+    if (rate.retryAfterSec) {
+      res.setHeader('Retry-After', String(rate.retryAfterSec));
+    }
+    res.status(429).json({ error: 'Demasiadas solicitudes. Intentá nuevamente más tarde.' });
+    return;
+  }
+
   const parsed = contactApiBodySchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: 'Los datos enviados no son válidos.' });
@@ -111,11 +139,12 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// TODO: add rate limiting (e.g. express-rate-limit) per IP for /api/contact
-
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`[server] API running on port ${PORT} (0.0.0.0), NODE_ENV=${process.env.NODE_ENV ?? 'undefined'}`);
   console.log(`[server] CORS: ${allowedOrigins.size} allowed origin(s)`);
+  console.log(
+    `[server] Contact rate limit: ${contactRateLimit} req / ${Math.round(contactRateWindowMs / 60000)} min (in-memory, single instance)`,
+  );
   if (!isSmtpConfigured()) {
     console.warn(
       `[server] SMTP incompleto — revisá variables SMTP_* y CONTACT_* en el entorno. /api/contact responderá 503 hasta entonces.`,

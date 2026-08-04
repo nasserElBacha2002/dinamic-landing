@@ -18,38 +18,57 @@ import {
 import { notifications } from '@mantine/notifications';
 import { IconListNumbers, IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef } from 'react';
+import { useId, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
 import { motionDuration } from '@/components/animations/variants';
 import type { ContactFormValues } from '@/lib/contactFormSchema';
-import { contactFormSchema } from '@/lib/contactFormSchema';
+import {
+  contactFormSchema,
+  operationActiveDuringCountLabels,
+  operationActiveDuringCountValues,
+} from '@/lib/contactFormSchema';
 import { submitContactConsultation } from '@/lib/submitContactConsultation';
 import { trackEvent } from '@/lib/analytics/events';
 import { operationTypes } from '@/types/content';
 import { contentMaxWidth } from '@/theme/theme';
 
 const selectData = operationTypes.map((v) => ({ value: v, label: v }));
+const operationActiveData = [
+  { value: '', label: 'Sin indicar' },
+  ...operationActiveDuringCountValues.map((value) => ({
+    value,
+    label: operationActiveDuringCountLabels[value],
+  })),
+];
+
+const emptyFormValues: ContactFormValues = {
+  fullName: '',
+  company: '',
+  email: '',
+  phone: '',
+  operation: operationTypes[0],
+  locality: '',
+  operationActiveDuringCount: '',
+  message: '',
+  honeypot: '',
+};
 
 export function ContactSection() {
   const formStartedRef = useRef(false);
+  const statusId = useId();
+  const privacyNoteId = useId();
+  const statusRef = useRef<HTMLParagraphElement>(null);
   const {
     register,
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
     reset,
+    setFocus,
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      fullName: '',
-      company: '',
-      email: '',
-      phone: '',
-      operation: operationTypes[0],
-      message: '',
-      honeypot: '',
-    },
+    defaultValues: emptyFormValues,
   });
 
   const markFormStarted = () => {
@@ -58,32 +77,49 @@ export function ContactSection() {
     trackEvent('contact_form_started');
   };
 
+  const announceStatus = (message: string) => {
+    if (statusRef.current) {
+      statusRef.current.textContent = message;
+    }
+  };
+
   const onSubmit = async (data: ContactFormValues) => {
     try {
       await submitContactConsultation(data);
-      trackEvent('contact_form_submitted');
+      trackEvent('contact_form_submitted', { operation: data.operation });
+      trackEvent('contact_form_success', { operation: data.operation });
+      const successMessage = 'Recibimos tu solicitud. Nuestro equipo revisará la información y se pondrá en contacto.';
+      announceStatus(successMessage);
       notifications.show({
-        title: 'Consulta enviada correctamente',
-        message: 'Gracias por contactarte. Te responderemos a la brevedad.',
+        title: 'Solicitud enviada',
+        message: successMessage,
         color: 'green',
       });
-      reset({
-        fullName: '',
-        company: '',
-        email: '',
-        phone: '',
-        operation: operationTypes[0],
-        message: '',
-        honeypot: '',
-      });
+      reset(emptyFormValues);
+      statusRef.current?.focus();
     } catch {
-      trackEvent('contact_form_error');
+      trackEvent('contact_form_error', { operation: data.operation });
+      const errorMessage = 'No pudimos enviar la solicitud. Revisá los datos o intentá nuevamente.';
+      announceStatus(errorMessage);
       notifications.show({
-        title: 'No pudimos enviar la consulta',
-        message: 'Intentá nuevamente o escribinos a info@dinamicsystems.com.',
+        title: 'No pudimos enviar la solicitud',
+        message: `${errorMessage} También podés escribirnos a info@dinamicsystems.com.`,
         color: 'red',
       });
+      const firstError = (['fullName', 'company', 'email', 'phone', 'operation', 'locality', 'message'] as const).find(
+        (key) => errors[key],
+      );
+      if (firstError) setFocus(firstError);
+      else setFocus('fullName');
     }
+  };
+
+  const onInvalid = () => {
+    announceStatus('Revisá los campos marcados antes de enviar la solicitud.');
+    const firstError = (['fullName', 'company', 'email', 'phone', 'operation', 'locality', 'message'] as const).find(
+      (key) => errors[key],
+    );
+    if (firstError) setFocus(firstError);
   };
 
   return (
@@ -105,7 +141,7 @@ export function ContactSection() {
           <Grid.Col span={{ base: 12, lg: 5 }}>
             <MotionFadeIn direction="left" duration={motionDuration.section}>
               <Text tt="uppercase" size="xs" fw={800} c="brand.5" mb="md" style={{ letterSpacing: '0.28em' }}>
-                ¿Hablamos?
+                Evaluación de inventario
               </Text>
               <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
                 Solicitá una evaluación para tu inventario
@@ -204,23 +240,48 @@ export function ContactSection() {
             <MotionFadeIn direction="right" duration={motionDuration.section} delay={0.06}>
               <Paper
                 component="form"
-                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                onSubmit={handleSubmit(onSubmit, onInvalid)}
                 onFocusCapture={markFormStarted}
                 p={{ base: 'lg', md: 'xl' }}
                 radius="4rem"
                 withBorder
                 bg="color-mix(in srgb, var(--mantine-color-cyan-0) 18%, var(--mantine-color-gray-0))"
                 shadow="md"
+                aria-describedby={`${privacyNoteId} ${statusId}`}
               >
                 <Stack gap="lg">
+                  <Text
+                    component="p"
+                    ref={statusRef}
+                    id={statusId}
+                    role="status"
+                    aria-live="polite"
+                    tabIndex={-1}
+                    fz="sm"
+                    c="dimmed"
+                    style={{ outline: 'none', minHeight: rem(20) }}
+                  />
                   {/* type="hidden" evita autofill en inputs de texto ocultos (el honeypot en JSON es `botTrap`). */}
-                  <input type="hidden" {...register('honeypot')} />
+                  <input type="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" {...register('honeypot')} />
                   <Grid gutter="lg">
                     <Grid.Col span={{ base: 12, md: 6 }}>
-                      <TextInput label="Nombre completo" placeholder="Ej: Juan Pérez" error={errors.fullName?.message} {...register('fullName')} />
+                      <TextInput
+                        label="Nombre completo"
+                        placeholder="Ej: Juan Pérez"
+                        autoComplete="name"
+                        error={errors.fullName?.message}
+                        {...register('fullName')}
+                      />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, md: 6 }}>
-                      <TextInput label="Empresa" placeholder="Nombre de su organización" error={errors.company?.message} {...register('company')} />
+                      <TextInput
+                        label="Empresa"
+                        placeholder="Nombre de su organización"
+                        autoComplete="organization"
+                        error={errors.company?.message}
+                        {...register('company')}
+                      />
                     </Grid.Col>
                   </Grid>
                   <Grid gutter="lg">
@@ -229,12 +290,22 @@ export function ContactSection() {
                         label="Email profesional"
                         placeholder="email@empresa.com"
                         type="email"
+                        autoComplete="email"
+                        inputMode="email"
                         error={errors.email?.message}
                         {...register('email')}
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, md: 6 }}>
-                      <TextInput label="Teléfono" placeholder="+54 …" error={errors.phone?.message} {...register('phone')} />
+                      <TextInput
+                        label="Teléfono"
+                        placeholder="+54 …"
+                        type="tel"
+                        autoComplete="tel"
+                        inputMode="tel"
+                        error={errors.phone?.message}
+                        {...register('phone')}
+                      />
                     </Grid.Col>
                   </Grid>
                   <Controller
@@ -242,7 +313,7 @@ export function ContactSection() {
                     control={control}
                     render={({ field }) => (
                       <Select
-                        label="Operación"
+                        label="Tipo de operación"
                         data={selectData}
                         error={errors.operation?.message}
                         value={field.value}
@@ -253,13 +324,58 @@ export function ContactSection() {
                       />
                     )}
                   />
+                  <Grid gutter="lg">
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <TextInput
+                        label="Localidad o provincia"
+                        placeholder="Ej.: CABA, Córdoba, Rosario"
+                        description="Opcional"
+                        autoComplete="address-level1"
+                        error={errors.locality?.message}
+                        {...register('locality')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, md: 6 }}>
+                      <Controller
+                        name="operationActiveDuringCount"
+                        control={control}
+                        render={({ field }) => (
+                          <Select
+                            label="¿La operación debe continuar durante el conteo?"
+                            description="Opcional"
+                            data={operationActiveData}
+                            clearable
+                            value={field.value || null}
+                            onChange={(value) => field.onChange(value ?? '')}
+                            onBlur={field.onBlur}
+                            name={field.name}
+                            ref={field.ref}
+                            error={errors.operationActiveDuringCount?.message}
+                          />
+                        )}
+                      />
+                    </Grid.Col>
+                  </Grid>
                   <Textarea
                     label="Mensaje"
-                    placeholder="Ubicación, tipo de almacenamiento y volumen aproximado de productos o ubicaciones"
+                    placeholder="Contanos qué tipo de mercadería almacenan, el volumen aproximado, cómo está organizado el depósito y cuándo necesitan realizar el inventario."
                     error={errors.message?.message}
                     {...register('message')}
                   />
-                  <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" className="ds-focus-ring ds-submit-cta" style={{ letterSpacing: '0.16em' }}>
+                  <Text id={privacyNoteId} fz="sm" c="dimmed" fw={500}>
+                    Usaremos estos datos únicamente para responder tu consulta.
+                  </Text>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    size="lg"
+                    h={rem(72)}
+                    loading={isSubmitting}
+                    tt="uppercase"
+                    fz="sm"
+                    className="ds-focus-ring ds-submit-cta"
+                    style={{ letterSpacing: '0.16em' }}
+                  >
                     Enviar solicitud de evaluación
                   </Button>
                 </Stack>

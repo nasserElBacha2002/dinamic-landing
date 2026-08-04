@@ -1,4 +1,5 @@
-import type { ContactFormValues } from '@/lib/contactFormSchema';
+import type { ContactFormValues, OperationActiveDuringCount } from '@/lib/contactFormSchema';
+import { operationActiveDuringCountValues } from '@/lib/contactFormSchema';
 
 export class ContactSubmissionError extends Error {
   readonly status: number;
@@ -57,11 +58,19 @@ export type ContactApiPayload = {
   phone?: string;
   operationType: string;
   message: string;
+  locality?: string;
+  operationActiveDuringCount?: OperationActiveDuringCount;
   /** Honeypot: debe ir vacío; el servidor ignora el envío si tiene contenido. */
   botTrap?: string;
 };
 
-function toApiPayload(data: ContactFormValues): ContactApiPayload {
+function isOperationActiveValue(value: string): value is OperationActiveDuringCount {
+  return (operationActiveDuringCountValues as readonly string[]).includes(value);
+}
+
+export function toApiPayload(data: ContactFormValues): ContactApiPayload {
+  const locality = data.locality?.trim();
+  const active = data.operationActiveDuringCount?.trim() ?? '';
   return {
     name: data.fullName,
     company: data.company,
@@ -69,6 +78,8 @@ function toApiPayload(data: ContactFormValues): ContactApiPayload {
     phone: data.phone,
     operationType: data.operation,
     message: data.message,
+    ...(locality ? { locality } : {}),
+    ...(isOperationActiveValue(active) ? { operationActiveDuringCount: active } : {}),
     botTrap: data.honeypot ?? '',
   };
 }
@@ -95,7 +106,7 @@ export async function submitContactConsultation(data: ContactFormValues): Promis
     const msg =
       typeof body === 'object' && body !== null && 'error' in body && typeof (body as ApiErrorBody).error === 'string'
         ? (body as ApiErrorBody).error!
-        : 'No se pudo enviar la consulta';
+        : 'No se pudo enviar la solicitud';
     throw new ContactSubmissionError(msg, response.status, body);
   }
 }

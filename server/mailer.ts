@@ -3,6 +3,12 @@ import type { ContactApiBody } from './schemas/contactSchema.js';
 
 export type ContactMailPayload = Omit<ContactApiBody, 'botTrap'>;
 
+const OPERATION_ACTIVE_LABELS: Record<string, string> = {
+  yes: 'Sí',
+  no: 'No',
+  to_define: 'A definir',
+};
+
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, '&amp;')
@@ -14,13 +20,19 @@ function escapeHtml(text: string): string {
 
 function buildText(data: ContactMailPayload): string {
   const lines = [
-    'Nueva consulta desde la web de Dinamic Systems',
+    'Nueva solicitud de evaluación de inventario — Dinamic Systems',
     '',
     `Nombre completo: ${data.name}`,
     `Empresa: ${data.company}`,
     `Email: ${data.email}`,
     `Teléfono: ${data.phone?.trim() ? data.phone : '(no informado)'}`,
     `Tipo de operación: ${data.operationType}`,
+    `Localidad o provincia: ${data.locality?.trim() ? data.locality.trim() : '(no informado)'}`,
+    `Operación activa durante el conteo: ${
+      data.operationActiveDuringCount
+        ? OPERATION_ACTIVE_LABELS[data.operationActiveDuringCount] ?? data.operationActiveDuringCount
+        : '(no informado)'
+    }`,
     '',
     'Mensaje:',
     data.message,
@@ -35,6 +47,13 @@ function buildHtml(data: ContactMailPayload): string {
     ['Email', data.email],
     ['Teléfono', data.phone?.trim() ? data.phone : '(no informado)'],
     ['Tipo de operación', data.operationType],
+    ['Localidad o provincia', data.locality?.trim() ? data.locality.trim() : '(no informado)'],
+    [
+      'Operación activa durante el conteo',
+      data.operationActiveDuringCount
+        ? OPERATION_ACTIVE_LABELS[data.operationActiveDuringCount] ?? data.operationActiveDuringCount
+        : '(no informado)',
+    ],
     ['Mensaje', data.message],
   ];
   const body = rows
@@ -43,7 +62,7 @@ function buildHtml(data: ContactMailPayload): string {
         `<tr><td style="padding:10px 14px;border:1px solid #e5e7eb;font-weight:600;width:180px;background:#f8fafc">${escapeHtml(label)}</td><td style="padding:10px 14px;border:1px solid #e5e7eb">${escapeHtml(value).replace(/\n/g, '<br/>')}</td></tr>`,
     )
     .join('');
-  return `<!DOCTYPE html><html><body style="font-family:system-ui,-apple-system,sans-serif;font-size:15px;color:#0f172a;line-height:1.5"><p style="margin:0 0 16px;font-weight:700">Nueva consulta desde la web de Dinamic Systems</p><table style="border-collapse:collapse;max-width:640px">${body}</table></body></html>`;
+  return `<!DOCTYPE html><html><body style="font-family:system-ui,-apple-system,sans-serif;font-size:15px;color:#0f172a;line-height:1.5"><p style="margin:0 0 16px;font-weight:700">Nueva solicitud de evaluación de inventario — Dinamic Systems</p><table style="border-collapse:collapse;max-width:640px">${body}</table></body></html>`;
 }
 
 let transporter: nodemailer.Transporter | null = null;
@@ -91,7 +110,7 @@ export async function sendContactEmail(data: ContactMailPayload): Promise<{ mess
     from,
     to,
     replyTo: data.email,
-    subject: 'Nueva consulta desde la web de Dinamic Systems',
+    subject: 'Nueva solicitud de evaluación de inventario — Dinamic Systems',
     text: buildText(data),
     html: buildHtml(data),
   });
