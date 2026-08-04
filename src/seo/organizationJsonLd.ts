@@ -9,9 +9,9 @@ import { SITE_ORIGIN } from '@/seo/site';
  */
 export const ORGANIZATION_ID = `${SITE_ORIGIN}/#organization`;
 
-export function buildOrganizationJsonLd(): Record<string, unknown> {
+/** Organization node for @graph (no @context — graph provides it). */
+export function buildOrganizationNode(): Record<string, unknown> {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': ORGANIZATION_ID,
     name: 'Dinamic Systems',
@@ -41,6 +41,14 @@ export function buildOrganizationJsonLd(): Record<string, unknown> {
         availableLanguage: ['Spanish'],
       },
     ],
+  };
+}
+
+/** @deprecated Prefer graph node via buildOrganizationNode + buildJsonLdGraph */
+export function buildOrganizationJsonLd(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    ...buildOrganizationNode(),
   };
 }
 

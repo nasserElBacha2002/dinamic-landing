@@ -1,5 +1,11 @@
 import { ORGANIZATION_ID } from '@/seo/organizationJsonLd';
-import { defaultOgImage } from '@/seo/site';
+import { defaultOgImage, SITE_ORIGIN } from '@/seo/site';
+import type { FaqItem } from '@/content/types';
+
+export const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
+export const WEBPAGE_ID = `${SITE_ORIGIN}/#webpage`;
+export const HOME_SERVICE_ID = `${SITE_ORIGIN}/#service`;
+export const FAQ_ID = `${SITE_ORIGIN}/#faq`;
 
 export type BreadcrumbCrumb = {
   name: string;
@@ -22,9 +28,11 @@ export function buildServiceJsonLd(input: {
   name: string;
   description: string;
   url: string;
+  id?: string;
 }): Record<string, unknown> {
   return {
     '@type': 'Service',
+    ...(input.id ? { '@id': input.id } : {}),
     name: input.name,
     description: input.description,
     url: input.url,
@@ -33,6 +41,50 @@ export function buildServiceJsonLd(input: {
       '@type': 'Country',
       name: 'Argentina',
     },
+  };
+}
+
+export function buildWebSiteJsonLd(): Record<string, unknown> {
+  return {
+    '@type': 'WebSite',
+    '@id': WEBSITE_ID,
+    url: `${SITE_ORIGIN}/`,
+    name: 'Dinamic Systems',
+    inLanguage: 'es-AR',
+    publisher: { '@id': ORGANIZATION_ID },
+  };
+}
+
+export function buildWebPageJsonLd(input: {
+  name: string;
+  description: string;
+  url: string;
+}): Record<string, unknown> {
+  return {
+    '@type': 'WebPage',
+    '@id': WEBPAGE_ID,
+    url: input.url,
+    name: input.name,
+    description: input.description,
+    inLanguage: 'es-AR',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORGANIZATION_ID },
+    mainEntity: { '@id': HOME_SERVICE_ID },
+  };
+}
+
+export function buildFaqPageJsonLd(items: FaqItem[]): Record<string, unknown> {
+  return {
+    '@type': 'FAQPage',
+    '@id': FAQ_ID,
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   };
 }
 

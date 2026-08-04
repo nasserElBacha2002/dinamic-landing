@@ -3,6 +3,7 @@ import { ClientsSection } from '@/components/sections/ClientsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { ExplorePagesSection } from '@/components/sections/ExplorePagesSection';
+import { FaqSection } from '@/components/sections/FaqSection';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { IndustriesSection } from '@/components/sections/IndustriesSection';
 import { MethodologySection } from '@/components/sections/MethodologySection';
@@ -11,6 +12,7 @@ import { StockDifferencesSection } from '@/components/sections/StockDifferencesS
 import { TechnologyComplementSection } from '@/components/sections/TechnologyComplementSection';
 import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
 import { WarehouseIntentSection } from '@/components/sections/WarehouseIntentSection';
+import { homeFaqItems } from '@/content/home/faq';
 import { getRouteById } from '@/routes';
 import { SeoHead } from '@/seo/SeoHead';
 import { toPageSeo } from '@/seo/pageSeo';
@@ -34,6 +36,7 @@ export function HomePage() {
       <TechnologyComplementSection />
       <ClientsSection />
       <ExplorePagesSection />
+      <FaqSection items={homeFaqItems} />
       <CtaSection />
       <ContactSection />
     </>

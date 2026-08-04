@@ -1,12 +1,17 @@
 import type { InteriorPageContent, ResourcePageContent } from '@/content/types';
+import { homeFaqItems } from '@/content/home/faq';
 import { absoluteUrl, type PublishedRoute } from '@/routes';
 import {
   buildArticleJsonLd,
   buildBreadcrumbJsonLd,
+  buildFaqPageJsonLd,
   buildJsonLdGraph,
   buildServiceJsonLd,
+  buildWebPageJsonLd,
+  buildWebSiteJsonLd,
+  HOME_SERVICE_ID,
 } from '@/seo/schemas';
-import { buildOrganizationJsonLd, buildOrganizationReferenceNode } from '@/seo/organizationJsonLd';
+import { buildOrganizationNode, buildOrganizationReferenceNode } from '@/seo/organizationJsonLd';
 import type { PageSeo } from '@/seo/types';
 
 export type UiBreadcrumb = {
@@ -42,7 +47,24 @@ export function buildJsonLdForRoute(
   content?: InteriorPageContent,
 ): Record<string, unknown> | Record<string, unknown>[] {
   if (route.pageType === 'home') {
-    return buildOrganizationJsonLd();
+    const pageUrl = absoluteUrl('/');
+    return buildJsonLdGraph([
+      buildOrganizationNode(),
+      buildWebSiteJsonLd(),
+      buildWebPageJsonLd({
+        name: route.seo.title,
+        description: route.seo.description,
+        url: pageUrl,
+      }),
+      buildServiceJsonLd({
+        id: HOME_SERVICE_ID,
+        name: 'Inventarios físicos para empresas',
+        description:
+          'Planificación y ejecución de inventarios físicos para depósitos, centros de distribución, retail y operaciones logísticas.',
+        url: pageUrl,
+      }),
+      buildFaqPageJsonLd(homeFaqItems),
+    ]);
   }
 
   const pageUrl = absoluteUrl(route.loc);

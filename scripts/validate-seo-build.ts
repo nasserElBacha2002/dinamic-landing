@@ -153,7 +153,7 @@ async function main(): Promise<void> {
     const content = interiorContentByRouteId[route.id];
     const schemaTypes =
       route.pageType === 'home'
-        ? ['Organization']
+        ? ['Organization', 'WebSite', 'WebPage', 'Service', 'FAQPage']
         : route.pageType === 'service'
           ? ['Organization', 'BreadcrumbList', 'Service']
           : route.pageType === 'resource'
@@ -171,13 +171,38 @@ async function main(): Promise<void> {
       schemaTypes,
       requireJsonLd: true,
       mustIncludeText:
-        route.pageType === 'home' ? ['Dinamic Systems', 'empresa argentina'] : [content?.h1 ?? ''],
+        route.pageType === 'home'
+          ? [
+              'Dinamic Systems',
+              'empresa argentina',
+              '¿Dinamic Systems realiza inventarios en depósitos?',
+              'Solicitá una evaluación para tu inventario',
+            ]
+          : [content?.h1 ?? ''],
       mustIncludeHrefs:
         route.pageType === 'home'
           ? routesForHomeExplore().map((r) => r.path)
           : content?.relatedLinks.map((l) => (l.to.includes('#') ? l.to : l.to.replace(/\/$/, '') || '/')),
     });
-  }
+
+    if (route.pageType === 'home') {
+      const homeHtml = await fs.readFile(file, 'utf-8');
+      const $home = load(homeHtml);
+      const rawLd = $home(`script#${PAGE_JSON_LD_SCRIPT_ID}[type="application/ld+json"]`).text();
+      const data = JSON.parse(rawLd) as { '@graph'?: unknown[] };
+      const faqNode = (data['@graph'] ?? []).find(
+        (n) => typeof n === 'object' && n && (n as { '@type'?: string })['@type'] === 'FAQPage',
+      ) as { mainEntity?: Array<{ name?: string; acceptedAnswer?: { text?: string } }> } | undefined;
+      if (!faqNode?.mainEntity?.length) fail('home: FAQPage mainEntity empty');
+      for (const q of faqNode.mainEntity) {
+        const name = q.name ?? '';
+        const answer = q.acceptedAnswer?.text ?? '';
+        if (!name || !$home('#root').text().includes(name)) fail(`home: FAQ question missing in HTML: ${name}`);
+        if (!answer || !$home('#root').text().includes(answer)) fail(`home: FAQ answer missing in HTML: ${name}`);
+      }
+      if (/AggregateRating|Review/.test(rawLd)) fail('home: forbidden Review/AggregateRating in JSON-LD');
+      ok('home: FAQPage matches visible FAQ HTML');
+    }  }
 
   await validateHtmlFile(path.join(distDir, '404.html'), {
     title: 'Página no encontrada | Dinamic Systems',
