@@ -1,0 +1,37 @@
+commit 2d1274e08467fe60e185a7c396f71070fc1d60b3
+Author: Nasser El Bacha <nasser.elbacha@hometeamlive.com>
+Date:   Mon Aug 3 21:02:11 2026 -0300
+
+    feat(landing): restructure homepage content for warehouse inventory intent
+    
+    Reorder the home around physical inventory services, sectors, a five-step
+    process, warehouse and stock-difference blocks, and a single complementary
+    technology section, with real internal links and retired tech-first blocks.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ scripts/prerender.ts                               |   2 +-
+ src/components/sections/AboutSection.tsx           |   2 +
+ .../sections/ArtificialVisionSection.tsx           | 103 --------
+ src/components/sections/ClientsSection.tsx         |   2 +-
+ .../DigitalInfrastructureSection.module.css        |  55 ----
+ .../sections/DigitalInfrastructureSection.tsx      | 287 ---------------------
+ .../sections/DroneInventorySection.module.css      | 192 --------------
+ src/components/sections/DroneInventorySection.tsx  | 184 -------------
+ src/components/sections/ExplorePagesSection.tsx    |  31 ++-
+ src/components/sections/IndustriesSection.tsx      |  89 +++++++
+ src/components/sections/MethodologySection.tsx     |  16 +-
+ src/components/sections/ServicesMapSection.tsx     |  20 +-
+ .../sections/StockDifferencesSection.tsx           |  76 ++++++
+ .../sections/TechnologyComplementSection.tsx       | 175 +++++++++++++
+ .../sections/VisionProcessFlowSection.module.css   |  34 ---
+ .../sections/VisionProcessFlowSection.tsx          | 170 ------------
+ src/components/sections/WarehouseIntentSection.tsx |  55 ++++
+ src/components/ui/ServiceCard.tsx                  |   9 +-
+ src/data/methodology.ts                            |  25 +-
+ src/data/services.ts                               |  54 ++--
+ src/data/visionProcessSteps.ts                     |  18 --
+ src/pages/HomePage.tsx                             |  18 +-
+ src/routes.ts                                      |   5 +-
+ src/types/content.ts                               |   2 +
+ 24 files changed, 510 insertions(+), 1114 deletions(-)

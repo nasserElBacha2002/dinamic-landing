@@ -1,0 +1,2239 @@
+diff --git a/scripts/prerender.ts b/scripts/prerender.ts
+index 1e1fefb..a87bf60 100644
+--- a/scripts/prerender.ts
++++ b/scripts/prerender.ts
+@@ -141,7 +141,7 @@ async function prerender(): Promise<void> {
+       const content = interiorContentByRouteId[route.id];
+       const seo = toPageSeo(route, content);
+       const headHtml = serializePageHead(seo);
+-      const expect = route.pageType === 'home' ? 'Expertos' : content?.h1.slice(0, 24);
++      const expect = route.pageType === 'home' ? 'Inventarios físicos para depósitos' : content?.h1.slice(0, 24);
+       await writePage(mod, template, manifest, route.path, await resolveOutFile(route.loc), headHtml, expect);
+     }
+ 
+diff --git a/src/components/sections/AboutSection.tsx b/src/components/sections/AboutSection.tsx
+index eb07eb0..730bb24 100644
+--- a/src/components/sections/AboutSection.tsx
++++ b/src/components/sections/AboutSection.tsx
+@@ -27,12 +27,13 @@ export function AboutSection() {
+               <MotionFadeIn direction="left" duration={motionDuration.section}>
+                 <SectionHeader eyebrow="Sobre nosotros" title="Quiénes Somos" />
+                 <Text fz={{ base: 'lg', md: 'xl' }} fw={600} c="gray.9" lh={1.7} mb="md">
+-                  Dinamic Systems es una empresa argentina especializada en servicios profesionales de control de
+-                  inventarios físicos para empresas de retail, logística y distribución.
++                  Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
++                  físicos para depósitos, centros de distribución, retail y operaciones logísticas.
+                 </Text>
+                 <Text fz="lg" c="dimmed" lh={1.75} fw={500} mb="xl">
+-                  Acompañamos a organizaciones que necesitan exactitud, trazabilidad y control operativo real. Nuestra
+-                  metodología estructurada garantiza precisión, cumplimiento en tiempo y forma y resultados confiables.
++                  Acompañamos a organizaciones que necesitan exactitud de stock, trazabilidad de capturas y control
++                  operativo. Trabajamos con metodología estructurada, supervisión en campo y reportes orientados a
++                  auditoría.
+                 </Text>
+                 <SimpleGrid cols={2} spacing="xl" pt="xl" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
+                   <Box>
+@@ -71,6 +72,8 @@ export function AboutSection() {
+                       component="img"
+                       src={quienesSomosUrl}
+                       alt="Equipo y operaciones Dinamic Systems"
++                      loading="lazy"
++                      decoding="async"
+                       w="100%"
+                       h="100%"
+                       style={{
+diff --git a/src/components/sections/ArtificialVisionSection.tsx b/src/components/sections/ArtificialVisionSection.tsx
+deleted file mode 100644
+index fed112b..0000000
+--- a/src/components/sections/ArtificialVisionSection.tsx
++++ /dev/null
+@@ -1,103 +0,0 @@
+-import { Box, Container, Grid, Paper, Text, rem } from '@mantine/core';
+-import { motion } from 'framer-motion';
+-import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+-import { motionDuration, motionEaseOut } from '@/components/animations/variants';
+-import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
+-import auditoriaImage from '@/assets/images/auditoria.png';
+-
+-export function ArtificialVisionSection() {
+-  const reduced = usePrefersReducedMotion();
+-
+-  return (
+-    <Box component="section" py={{ base: '4rem', md: '6rem' }} className="ds-bg-vision">
+-      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={rem(1280)}>
+-        <Grid gutter={{ base: 'xl', lg: '4rem' }} align="center">
+-          <Grid.Col span={{ base: 12, lg: 6 }}>
+-            <MotionFadeIn direction="left" duration={motionDuration.section}>
+-              <Text
+-                component="span"
+-                display="inline-block"
+-                px="md"
+-                py={6}
+-                fz={10}
+-                fw={800}
+-                tt="uppercase"
+-                c="brand.7"
+-                bg="color-mix(in srgb, var(--mantine-color-brand-6) 12%, transparent)"
+-                style={{ borderRadius: rem(999), letterSpacing: '0.18em' }}
+-              >
+-                IA &amp; visión por computadora
+-              </Text>
+-              <Text
+-                component="h2"
+-                fz={{ base: rem(32), sm: rem(40) }}
+-                fw={800}
+-                c="gray.9"
+-                mt="lg"
+-                lh={1.1}
+-                style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+-              >
+-                Visión artificial como soporte al inventario
+-              </Text>
+-              <Text fz={{ base: 'md', md: 'lg' }} c="dimmed" fw={500} lh={1.75} mt="lg">
+-                La visión artificial asiste el relevamiento en casos específicos, generando evidencia visual y apoyo para
+-                la validación del inventario mediante la detección de elementos visibles.
+-              </Text>
+-            </MotionFadeIn>
+-          </Grid.Col>
+-
+-          <Grid.Col span={{ base: 12, lg: 6 }}>
+-            <motion.div
+-              initial={reduced ? false : { opacity: 0, x: 20 }}
+-              whileInView={{ opacity: 1, x: 0 }}
+-              viewport={{ once: true, amount: 0.2 }}
+-              transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+-            >
+-              <Box
+-                pos="relative"
+-                style={{
+-                  aspectRatio: '4 / 3',
+-                  borderRadius: rem(48),
+-                  overflow: 'hidden',
+-                  boxShadow: '0 30px 80px rgba(2, 6, 23, 0.12)',
+-                }}
+-              >
+-                <Box
+-                  component="img"
+-                  src={auditoriaImage}
+-                  alt="Auditoría y evidencia visual para validación de inventario"
+-                  pos="absolute"
+-                  inset={0}
+-                  w="100%"
+-                  h="100%"
+-                  style={{ objectFit: 'cover', objectPosition: 'center', display: 'block' }}
+-                />
+-                <motion.div
+-                  initial={reduced ? false : { opacity: 0, y: 8 }}
+-                  whileInView={{ opacity: 1, y: 0 }}
+-                  viewport={{ once: true, amount: 0.35 }}
+-                  transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.2, ease: motionEaseOut }}
+-                  style={{ position: 'absolute', bottom: rem(24), left: rem(24) }}
+-                >
+-                  <Paper
+-                    p="md"
+-                    radius="xl"
+-                    bg="rgba(255,255,255,0.92)"
+-                    style={{ border: '1px solid rgba(255,255,255,0.55)', backdropFilter: 'blur(8px)' }}
+-                  >
+-                    <Text fz={10} fw={800} tt="uppercase" c="brand.7" style={{ letterSpacing: '0.16em' }}>
+-                      Apoyo al conteo
+-                    </Text>
+-                    <Text fz="lg" fw={800} c="gray.9">
+-                      Validación visual
+-                    </Text>
+-                  </Paper>
+-                </motion.div>
+-              </Box>
+-            </motion.div>
+-          </Grid.Col>
+-        </Grid>
+-      </Container>
+-    </Box>
+-  );
+-}
+diff --git a/src/components/sections/ClientsSection.tsx b/src/components/sections/ClientsSection.tsx
+index f62af91..e683eea 100644
+--- a/src/components/sections/ClientsSection.tsx
++++ b/src/components/sections/ClientsSection.tsx
+@@ -15,7 +15,7 @@ export function ClientsSection() {
+           <SectionHeader
+             align="center"
+             title="Empresas que confían en nosotros"
+-            subtitle="Empresas de retail, logística, distribución, indumentaria, farmacias y consumo masivo confían en Dinamic Systems para optimizar sus procesos de inventario."
++            subtitle="Empresas de retail, logística, distribución, indumentaria, farmacias y consumo masivo que trabajan con Dinamic Systems en inventarios físicos."
+           />
+         </MotionFadeIn>
+ 
+diff --git a/src/components/sections/ContactSection.tsx b/src/components/sections/ContactSection.tsx
+index bad3caa..d911962 100644
+--- a/src/components/sections/ContactSection.tsx
++++ b/src/components/sections/ContactSection.tsx
+@@ -108,11 +108,11 @@ export function ContactSection() {
+                 ¿Hablamos?
+               </Text>
+               <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
+-                Hablemos de tu operación
++                Solicitá una evaluación para tu inventario
+               </Text>
+               <Text mt="lg" c="dimmed" fw={500} lh={1.75}>
+-                Contanos sobre tu tienda, depósito o centro de distribución. Nuestro equipo puede ayudarte a definir una
+-                solución de inventario precisa, trazable y escalable.
++                Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
++                alcance y la metodología posible.
+               </Text>
+ 
+               <Stack gap="xl" mt="xl">
+@@ -253,9 +253,14 @@ export function ContactSection() {
+                       />
+                     )}
+                   />
+-                  <Textarea label="Mensaje" placeholder="Contanos brevemente qué tipo de control necesitás realizar" error={errors.message?.message} {...register('message')} />
++                  <Textarea
++                    label="Mensaje"
++                    placeholder="Ubicación, tipo de almacenamiento y volumen aproximado de productos o ubicaciones"
++                    error={errors.message?.message}
++                    {...register('message')}
++                  />
+                   <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" className="ds-focus-ring ds-submit-cta" style={{ letterSpacing: '0.16em' }}>
+-                    Enviar consulta técnica
++                    Enviar solicitud de evaluación
+                   </Button>
+                 </Stack>
+               </Paper>
+diff --git a/src/components/sections/CtaSection.tsx b/src/components/sections/CtaSection.tsx
+index bee2630..c729db3 100644
+--- a/src/components/sections/CtaSection.tsx
++++ b/src/components/sections/CtaSection.tsx
+@@ -24,7 +24,8 @@ export function CtaSection() {
+           </MotionFadeIn>
+           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.1}>
+             <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" maw={rem(900)} fw={500} lh={1.75}>
+-              Coordinemos una reunión para analizar tus procesos actuales, necesidades operativas y oportunidades de mejora.
++              Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
++              alcance y la metodología posible.
+             </Text>
+           </MotionFadeIn>
+           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.22}>
+@@ -39,7 +40,7 @@ export function CtaSection() {
+               className="ds-focus-ring ds-header-cta"
+               style={{ letterSpacing: '0.18em' }}
+             >
+-              Agendar reunión
++              Solicitar evaluación de inventario
+             </BrandButton>
+           </MotionFadeIn>
+         </Stack>
+diff --git a/src/components/sections/DigitalInfrastructureSection.module.css b/src/components/sections/DigitalInfrastructureSection.module.css
+deleted file mode 100644
+index c155495..0000000
+--- a/src/components/sections/DigitalInfrastructureSection.module.css
++++ /dev/null
+@@ -1,55 +0,0 @@
+-/* Digital flow: traveling glow on the dotted line + node highlight (lg+ only in TS) */
+-
+-.flowTraveler {
+-  position: absolute;
+-  z-index: 2;
+-  width: 2.75rem;
+-  height: 0.65rem;
+-  border-radius: 9999px;
+-  pointer-events: none;
+-  background: radial-gradient(
+-    ellipse at center,
+-    color-mix(in srgb, var(--mantine-color-cyan-4) 88%, transparent) 0%,
+-    color-mix(in srgb, var(--mantine-color-cyan-5) 52%, transparent) 42%,
+-    transparent 68%
+-  );
+-  filter: blur(1px);
+-  opacity: 1;
+-  transform: translate(-50%, -50%);
+-  transition: left 0.82s cubic-bezier(0.33, 0.86, 0.35, 1);
+-}
+-
+-.nodeWrap {
+-  position: relative;
+-  z-index: 1;
+-  display: inline-block;
+-  border-radius: var(--mantine-radius-xl);
+-  transition:
+-    box-shadow 0.62s cubic-bezier(0.33, 0.86, 0.35, 1),
+-    filter 0.62s cubic-bezier(0.33, 0.86, 0.35, 1);
+-}
+-
+-.nodeWrap[data-active='true'] {
+-  box-shadow:
+-    0 0 0 2px color-mix(in srgb, var(--mantine-color-cyan-5) 55%, transparent),
+-    0 16px 48px color-mix(in srgb, var(--mantine-color-cyan-5) 38%, transparent);
+-  filter: drop-shadow(0 8px 22px color-mix(in srgb, var(--mantine-color-cyan-5) 48%, transparent));
+-}
+-
+-.nodeWrap[data-accent='brand'][data-active='true'] {
+-  box-shadow:
+-    0 0 0 2px color-mix(in srgb, var(--mantine-color-brand-6) 52%, transparent),
+-    0 16px 48px color-mix(in srgb, var(--mantine-color-brand-6) 34%, transparent);
+-  filter: drop-shadow(0 8px 22px color-mix(in srgb, var(--mantine-color-brand-6) 42%, transparent));
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-  .flowTraveler {
+-    display: none;
+-  }
+-
+-  .nodeWrap[data-active='true'] {
+-    box-shadow: none;
+-    filter: none;
+-  }
+-}
+diff --git a/src/components/sections/DigitalInfrastructureSection.tsx b/src/components/sections/DigitalInfrastructureSection.tsx
+deleted file mode 100644
+index fd35656..0000000
+--- a/src/components/sections/DigitalInfrastructureSection.tsx
++++ /dev/null
+@@ -1,286 +0,0 @@
+-import {
+-  Box,
+-  Container,
+-  Grid,
+-  Group,
+-  Paper,
+-  SimpleGrid,
+-  Stack,
+-  Text,
+-  ThemeIcon,
+-  rem,
+-} from '@mantine/core';
+-import { useMediaQuery } from '@mantine/hooks';
+-import { motion, useInView } from 'framer-motion';
+-import { useEffect, useRef, useState } from 'react';
+-import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+-import { lineReveal, motionDuration, motionEaseOut } from '@/components/animations/variants';
+-import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
+-import flowClasses from '@/components/sections/DigitalInfrastructureSection.module.css';
+-import { digitalFlowSteps } from '@/data/digitalFlow';
+-import { SectionHeader } from '@/components/ui/SectionHeader';
+-import { contentMaxWidth } from '@/theme/theme';
+-
+-const dashboardRows = [
+-  { left: 'Avance de inventario', right: 'Validación de datos' },
+-  { left: 'Ubicaciones relevadas', right: 'Reportes generados' },
+-] as const;
+-
+-const footerChips = ['Trazabilidad por sector', 'Diferencias detectadas'] as const;
+-
+-const barHeights = [32, 58, 44, 78, 52] as const;
+-
+-const FLOW_PULSE_MS = 1100;
+-
+-export function DigitalInfrastructureSection() {
+-  const reduced = usePrefersReducedMotion();
+-  const isLg = useMediaQuery('(min-width: 75em)');
+-  const flowRef = useRef<HTMLDivElement>(null);
+-  const flowInView = useInView(flowRef, { amount: 0.14, margin: '0px 0px -12% 0px' });
+-  const [pulseIndex, setPulseIndex] = useState(0);
+-
+-  const pulseEnabled = Boolean(isLg && flowInView && !reduced);
+-
+-  useEffect(() => {
+-    if (!pulseEnabled) {
+-      setPulseIndex(0);
+-      return;
+-    }
+-    setPulseIndex(0);
+-    const id = window.setInterval(() => {
+-      setPulseIndex((j) => (j + 1) % digitalFlowSteps.length);
+-    }, FLOW_PULSE_MS);
+-    return () => window.clearInterval(id);
+-  }, [pulseEnabled]);
+-
+-  return (
+-    <Box component="section" id="tecnologia" py={{ base: '4rem', md: '6rem' }} className="ds-bg-digital" style={{ overflow: 'hidden' }}>
+-      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
+-        <MotionFadeIn direction="none" duration={motionDuration.section}>
+-          <SectionHeader
+-            align="center"
+-            title="Infraestructura digital de precisión"
+-            subtitle="Nuestro ecosistema tecnológico propio garantiza la integridad del dato desde la captura hasta su reporte final."
+-          />
+-        </MotionFadeIn>
+-
+-        <Box ref={flowRef} pos="relative" mb={{ base: 'xl', md: '4rem' }}>
+-          <Box pos="absolute" top={44} left={0} right={0} display={{ base: 'none', lg: 'block' }} style={{ height: rem(2), overflow: 'hidden' }}>
+-            {!reduced ? (
+-              <motion.div
+-                variants={lineReveal}
+-                initial="hidden"
+-                whileInView="visible"
+-                viewport={{ once: true, amount: 0.2 }}
+-                style={{
+-                  height: rem(2),
+-                  width: '100%',
+-                  transformOrigin: 'left center',
+-                }}
+-                className="ds-flow-line"
+-              />
+-            ) : (
+-              <Box className="ds-flow-line" h={2} />
+-            )}
+-          </Box>
+-          {pulseEnabled ? (
+-            <Box
+-              className={flowClasses.flowTraveler}
+-              style={{
+-                left: `calc(${((pulseIndex + 0.5) / digitalFlowSteps.length) * 100}%)`,
+-                top: rem(48),
+-              }}
+-              aria-hidden
+-            />
+-          ) : null}
+-          <SimpleGrid cols={{ base: 2, md: 3, lg: 5 }} spacing={{ base: 'lg', lg: 'md' }}>
+-            {digitalFlowSteps.map((step, i) => (
+-              <motion.div
+-                key={step.key}
+-                initial={reduced ? false : { opacity: 0, x: -12 }}
+-                whileInView={{ opacity: 1, x: 0 }}
+-                viewport={{ once: true, amount: 0.2 }}
+-                transition={{
+-                  duration: motionDuration.base,
+-                  delay: reduced ? 0 : 0.1 * i,
+-                  ease: motionEaseOut,
+-                }}
+-              >
+-                <Stack align="center" ta="center" gap="sm">
+-                  <Box
+-                    className={flowClasses.nodeWrap}
+-                    data-active={pulseEnabled && pulseIndex === i ? 'true' : undefined}
+-                    data-accent={step.accent}
+-                  >
+-                    <ThemeIcon
+-                      size={96}
+-                      radius="xl"
+-                      variant="white"
+-                      color={step.accent === 'brand' ? 'brand' : 'cyan'}
+-                      style={{
+-                        boxShadow: 'var(--mantine-shadow-md)',
+-                        border: '2px solid transparent',
+-                      }}
+-                    >
+-                      <step.icon stroke={1.25} style={{ width: rem(36), height: rem(36) }} />
+-                    </ThemeIcon>
+-                  </Box>
+-                  <Text tt="uppercase" fw={800} size="sm" c="gray.9" style={{ letterSpacing: '0.16em' }}>
+-                    {step.label}
+-                  </Text>
+-                  <Text fz="xs" c="dimmed" fw={600} px="xs" maw={rem(200)}>
+-                    {step.description}
+-                  </Text>
+-                </Stack>
+-              </motion.div>
+-            ))}
+-          </SimpleGrid>
+-        </Box>
+-
+-          <motion.div
+-            initial={reduced ? false : { opacity: 0, y: 28 }}
+-            whileInView={{ opacity: 1, y: 0 }}
+-            viewport={{ once: true, amount: 0.2 }}
+-            transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+-          >
+-            <Paper
+-              radius="3rem"
+-              p={{ base: 'lg', md: 'xl' }}
+-              bg="#020617"
+-              c="gray.2"
+-              pos="relative"
+-              style={{ overflow: 'hidden', boxShadow: '0 30px 80px rgba(2, 6, 23, 0.35)' }}
+-            >
+-              <Box
+-                pos="absolute"
+-                top={0}
+-                right={0}
+-                w="55%"
+-                h="100%"
+-                style={{
+-                  background: 'radial-gradient(circle at top right, rgba(0,218,243,0.16), transparent 65%)',
+-                  pointerEvents: 'none',
+-                }}
+-              />
+-
+-              <Grid gutter="xl" pos="relative" style={{ zIndex: 1 }}>
+-                <Grid.Col span={{ base: 12, lg: 6 }}>
+-                  <Stack gap="lg">
+-                    <motion.div
+-                      initial={reduced ? false : { opacity: 0 }}
+-                      whileInView={{ opacity: 1 }}
+-                      viewport={{ once: true, amount: 0.35 }}
+-                      transition={{ duration: motionDuration.fast, delay: reduced ? 0 : 0.15 }}
+-                    >
+-                      <Group gap="xs">
+-                        <Box w={8} h={8} bg="cyan.5" style={{ borderRadius: 999, boxShadow: '0 0 0 6px rgba(0,218,243,0.15)' }} />
+-                        <Text tt="uppercase" size="xs" fw={800} c="cyan.4" style={{ letterSpacing: '0.22em' }}>
+-                          Panel central de control
+-                        </Text>
+-                      </Group>
+-                    </motion.div>
+-                    <Text component="h3" fz={{ base: rem(26), md: rem(32) }} fw={800} c="white" lh={1.15} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
+-                      Visibilidad operativa del inventario en tiempo real
+-                    </Text>
+-                    <Text c="gray.4" fw={500} lh={1.7}>
+-                      Monitoreo de avance, cobertura por sector y trazabilidad de capturas. Reportes orientados a auditoría y
+-                      decisiones operativas, sin métricas promocionales no sustentadas.
+-                    </Text>
+-                    <SimpleGrid cols={2} spacing="md">
+-                      {dashboardRows.map((row, ri) => (
+-                        <motion.div
+-                          key={row.left}
+-                          initial={reduced ? false : { opacity: 0, y: 8 }}
+-                          whileInView={{ opacity: 1, y: 0 }}
+-                          viewport={{ once: true, amount: 0.35 }}
+-                          transition={{ duration: motionDuration.fast, delay: reduced ? 0 : 0.22 + ri * 0.06 }}
+-                        >
+-                          <Paper p="lg" radius="xl" bg="rgba(255,255,255,0.05)" style={{ border: '1px solid rgba(255,255,255,0.12)' }}>
+-                            <Text fz="xs" fw={800} tt="uppercase" c="cyan.3" lh={1.35}>
+-                              {row.left}
+-                            </Text>
+-                            <Text mt="xs" fz={10} tt="uppercase" fw={800} c="gray.5" style={{ letterSpacing: '0.18em' }}>
+-                              {row.right}
+-                            </Text>
+-                          </Paper>
+-                        </motion.div>
+-                      ))}
+-                    </SimpleGrid>
+-                  </Stack>
+-                </Grid.Col>
+-
+-                <Grid.Col span={{ base: 12, lg: 6 }}>
+-                  <Paper
+-                    radius="2rem"
+-                    p="lg"
+-                    bg="#0a0f1a"
+-                    style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+-                  >
+-                    <motion.div
+-                      initial={reduced ? false : { opacity: 0 }}
+-                      whileInView={{ opacity: 1 }}
+-                      viewport={{ once: true, amount: 0.4 }}
+-                      transition={{ duration: motionDuration.fast }}
+-                    >
+-                      <Group justify="space-between" mb="lg">
+-                        <Group gap={6}>
+-                          <Box w={10} h={10} bg="red.6" style={{ borderRadius: 999, opacity: 0.35 }} />
+-                          <Box w={10} h={10} bg="yellow.5" style={{ borderRadius: 999, opacity: 0.35 }} />
+-                          <Box w={10} h={10} bg="teal.5" style={{ borderRadius: 999, opacity: 0.35 }} />
+-                        </Group>
+-                        <Text fz={10} ff="monospace" c="cyan.4" tt="uppercase" style={{ letterSpacing: '0.18em' }}>
+-                          system_live: active
+-                        </Text>
+-                      </Group>
+-                    </motion.div>
+-
+-                    <Group align="flex-end" gap="xs" h={rem(140)} mt="md">
+-                      {barHeights.map((h, idx) => (
+-                        <motion.div
+-                          key={`bar-${idx}`}
+-                          initial={reduced ? false : { scaleY: 0 }}
+-                          whileInView={{ scaleY: 1 }}
+-                          viewport={{ once: true, amount: 0.45 }}
+-                          transition={{
+-                            duration: motionDuration.slow,
+-                            delay: reduced ? 0 : 0.12 + idx * 0.07,
+-                            ease: motionEaseOut,
+-                          }}
+-                          style={{
+-                            flex: 1,
+-                            height: `${h}%`,
+-                            borderTopLeftRadius: rem(10),
+-                            borderTopRightRadius: rem(10),
+-                            transformOrigin: 'bottom center',
+-                            background:
+-                              idx % 2 === 0
+-                                ? 'color-mix(in srgb, var(--mantine-color-brand-6) 35%, transparent)'
+-                                : 'color-mix(in srgb, var(--mantine-color-cyan-5) 45%, transparent)',
+-                          }}
+-                        />
+-                      ))}
+-                    </Group>
+-
+-                    <motion.div
+-                      initial={reduced ? false : { opacity: 0 }}
+-                      whileInView={{ opacity: 1 }}
+-                      viewport={{ once: true, amount: 0.4 }}
+-                      transition={{ duration: motionDuration.fast, delay: reduced ? 0 : 0.45 }}
+-                    >
+-                      <Group justify="space-between" mt="md">
+-                        {footerChips.map((t) => (
+-                          <Text key={t} fz={9} tt="uppercase" fw={800} c={t.includes('Diferencias') ? 'cyan.4' : 'gray.5'} style={{ letterSpacing: '0.14em' }}>
+-                            {t}
+-                          </Text>
+-                        ))}
+-                      </Group>
+-                    </motion.div>
+-                  </Paper>
+-                </Grid.Col>
+-              </Grid>
+-            </Paper>
+-          </motion.div>
+-      </Container>
+-    </Box>
+-  );
+-}
+diff --git a/src/components/sections/DroneInventorySection.module.css b/src/components/sections/DroneInventorySection.module.css
+deleted file mode 100644
+index 4a4da85..0000000
+--- a/src/components/sections/DroneInventorySection.module.css
++++ /dev/null
+@@ -1,192 +0,0 @@
+-/* Framed visual: shares tone with .ds-bg-drone so the photo meets the layout without a hard seam. */
+-.visualShell {
+-  position: relative;
+-  flex: 1;
+-  width: 100%;
+-  min-height: 18rem;
+-  border-radius: 2rem;
+-  overflow: hidden;
+-  border: 1px solid color-mix(in srgb, var(--mantine-color-cyan-5) 22%, transparent);
+-  background: rgba(2, 6, 23, 0.28);
+-  box-shadow:
+-    0 0 0 1px rgba(255, 255, 255, 0.06),
+-    0 24px 56px rgba(0, 0, 0, 0.45);
+-  isolation: isolate;
+-}
+-
+-.visualInner {
+-  position: absolute;
+-  inset: 0;
+-}
+-
+-.visualImg {
+-  width: 100%;
+-  height: 100%;
+-  object-fit: cover;
+-  object-position: 55% center;
+-  display: block;
+-}
+-
+-/* Tints the photo toward the same layers as the section background (cyan glow top-right, deep slate base). */
+-.mediaTint {
+-  position: absolute;
+-  inset: 0;
+-  pointer-events: none;
+-  background:
+-    linear-gradient(100deg, rgba(2, 6, 23, 0.55) 0%, rgba(2, 6, 23, 0.12) 38%, transparent 58%),
+-    linear-gradient(90deg, transparent 0%, transparent 40%, rgba(2, 6, 23, 0.25) 72%, rgba(2, 6, 23, 0.78) 100%),
+-    radial-gradient(
+-      ellipse 100% 90% at 92% 6%,
+-      color-mix(in srgb, var(--mantine-color-cyan-5) 28%, transparent),
+-      transparent 58%
+-    ),
+-    radial-gradient(
+-      ellipse 70% 55% at 4% 88%,
+-      color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent),
+-      transparent 52%
+-    );
+-}
+-
+-/* Aerial inventory — animated radar arcs over the hero image (not baked into the asset). */
+-.radarWrap {
+-  position: absolute;
+-  inset: 0;
+-  display: grid;
+-  place-items: center;
+-  pointer-events: none;
+-}
+-
+-.radarSvg {
+-  width: min(92vw, 26rem);
+-  height: auto;
+-  aspect-ratio: 1;
+-  overflow: visible;
+-}
+-
+-.radarArc {
+-  transform-origin: 200px 200px;
+-}
+-
+-.radarArcOuter {
+-  animation: droneRadarSpin 14s linear infinite;
+-}
+-
+-.radarArcMid {
+-  animation: droneRadarSpinReverse 10s linear infinite;
+-}
+-
+-.radarArcInner {
+-  animation: droneRadarSpin 6.5s linear infinite;
+-}
+-
+-.radarPulse {
+-  animation: droneRadarPulse 3.2s ease-in-out infinite;
+-}
+-
+-@keyframes droneRadarSpin {
+-  to {
+-    transform: rotate(360deg);
+-  }
+-}
+-
+-@keyframes droneRadarSpinReverse {
+-  to {
+-    transform: rotate(-360deg);
+-  }
+-}
+-
+-@keyframes droneRadarPulse {
+-  0%,
+-  100% {
+-    opacity: 0.35;
+-  }
+-  50% {
+-    opacity: 0.85;
+-  }
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-  .radarArcOuter,
+-  .radarArcMid,
+-  .radarArcInner,
+-  .radarPulse {
+-    animation: none !important;
+-  }
+-}
+-
+-.card {
+-  position: relative;
+-  overflow: hidden;
+-  isolation: isolate;
+-  transition:
+-    box-shadow 0.38s ease,
+-    border-color 0.38s ease,
+-    background-color 0.38s ease;
+-}
+-
+-.card::before {
+-  content: '';
+-  position: absolute;
+-  inset: 0;
+-  border-radius: inherit;
+-  opacity: 0;
+-  pointer-events: none;
+-  z-index: 0;
+-  transition: opacity 0.38s ease;
+-}
+-
+-.card > * {
+-  position: relative;
+-  z-index: 1;
+-}
+-
+-.cardCyan::before {
+-  background: radial-gradient(
+-    ellipse 95% 75% at 50% -10%,
+-    color-mix(in srgb, var(--mantine-color-cyan-4) 42%, transparent) 0%,
+-    color-mix(in srgb, var(--mantine-color-cyan-6) 18%, transparent) 38%,
+-    transparent 72%
+-  );
+-}
+-
+-.cardCyan:hover {
+-  border-color: color-mix(in srgb, var(--mantine-color-cyan-4) 55%, transparent) !important;
+-  background-color: color-mix(in srgb, var(--mantine-color-cyan-9) 18%, rgba(255, 255, 255, 0.06)) !important;
+-  box-shadow:
+-    0 0 0 1px color-mix(in srgb, var(--mantine-color-cyan-5) 32%, transparent),
+-    0 0 52px color-mix(in srgb, var(--mantine-color-cyan-5) 26%, transparent),
+-    0 18px 48px rgba(0, 0, 0, 0.45);
+-}
+-
+-.cardCyan:hover::before {
+-  opacity: 1;
+-}
+-
+-.cardBrand::before {
+-  background: radial-gradient(
+-    ellipse 95% 75% at 50% -10%,
+-    color-mix(in srgb, var(--mantine-color-brand-5) 38%, transparent) 0%,
+-    color-mix(in srgb, var(--mantine-color-brand-7) 16%, transparent) 40%,
+-    transparent 72%
+-  );
+-}
+-
+-.cardBrand:hover {
+-  border-color: color-mix(in srgb, var(--mantine-color-brand-5) 50%, transparent) !important;
+-  background-color: color-mix(in srgb, var(--mantine-color-brand-9) 22%, rgba(255, 255, 255, 0.05)) !important;
+-  box-shadow:
+-    0 0 0 1px color-mix(in srgb, var(--mantine-color-brand-6) 28%, transparent),
+-    0 0 52px color-mix(in srgb, var(--mantine-color-brand-6) 22%, transparent),
+-    0 18px 48px rgba(0, 0, 0, 0.45);
+-}
+-
+-.cardBrand:hover::before {
+-  opacity: 1;
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-  .card,
+-  .card::before {
+-    transition-duration: 0.01ms;
+-  }
+-}
+diff --git a/src/components/sections/DroneInventorySection.tsx b/src/components/sections/DroneInventorySection.tsx
+deleted file mode 100644
+index cf57f71..0000000
+--- a/src/components/sections/DroneInventorySection.tsx
++++ /dev/null
+@@ -1,186 +0,0 @@
+-import { Box, Grid, Group, Paper, Text, ThemeIcon, rem } from '@mantine/core';
+-import { IconShieldLock, IconView360 } from '@tabler/icons-react';
+-import { motion } from 'framer-motion';
+-import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+-import { motionDuration, motionEaseOut } from '@/components/animations/variants';
+-import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
+-import droneClasses from '@/components/sections/DroneInventorySection.module.css';
+-import droneWarehouseUrl from '@/assets/images/drone-warehouse.png';
+-
+-export function DroneInventorySection() {
+-  const reduced = usePrefersReducedMotion();
+-
+-  return (
+-    <Box component="section" className="ds-bg-drone" c="white" style={{ overflow: 'hidden' }}>
+-      <Grid gutter={0}>
+-        <Grid.Col
+-          span={{ base: 12, lg: 6 }}
+-          pos="relative"
+-          mih={{ base: rem(360), lg: rem(620) }}
+-          p={{ base: 'md', md: 'lg', lg: 'xl' }}
+-          pr={{ lg: 'md' }}
+-          style={{ display: 'flex', flexDirection: 'column' }}
+-        >
+-          <Box className={droneClasses.visualShell} style={{ flex: 1, minHeight: rem(280) }}>
+-            <motion.div
+-              className={droneClasses.visualInner}
+-              initial={reduced ? false : { opacity: 0 }}
+-              animate={{ opacity: 1 }}
+-              transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+-              aria-hidden
+-            >
+-              <Box
+-                component="img"
+-                src={droneWarehouseUrl}
+-                alt=""
+-                className={droneClasses.visualImg}
+-              />
+-              <Box className={droneClasses.mediaTint} />
+-            </motion.div>
+-            <Box pos="absolute" inset={0} className={droneClasses.radarWrap} aria-hidden>
+-            <svg
+-              className={droneClasses.radarSvg}
+-              viewBox="0 0 400 400"
+-              fill="none"
+-              xmlns="http://www.w3.org/2000/svg"
+-            >
+-              <defs>
+-                <linearGradient id="droneAerialScanStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+-                  <stop offset="0%" stopColor="rgba(0,218,243,0.06)" />
+-                  <stop offset="45%" stopColor="rgba(0,218,243,0.9)" />
+-                  <stop offset="100%" stopColor="rgba(0,218,243,0.12)" />
+-                </linearGradient>
+-              </defs>
+-              <circle
+-                cx="200"
+-                cy="200"
+-                r="188"
+-                stroke="rgba(0,218,243,0.14)"
+-                strokeWidth="1"
+-                strokeDasharray="6 14"
+-                className={reduced ? undefined : droneClasses.radarPulse}
+-              />
+-              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcOuter}`}>
+-                <circle
+-                  cx="200"
+-                  cy="200"
+-                  r="168"
+-                  stroke="url(#droneAerialScanStroke)"
+-                  strokeWidth="1.25"
+-                  strokeDasharray="88 320"
+-                  strokeLinecap="round"
+-                />
+-              </g>
+-              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcMid}`}>
+-                <circle
+-                  cx="200"
+-                  cy="200"
+-                  r="132"
+-                  stroke="rgba(0,218,243,0.55)"
+-                  strokeWidth="1.5"
+-                  strokeDasharray="52 280"
+-                  strokeLinecap="round"
+-                />
+-              </g>
+-              <g className={`${droneClasses.radarArc} ${reduced ? '' : droneClasses.radarArcInner}`}>
+-                <circle
+-                  cx="200"
+-                  cy="200"
+-                  r="96"
+-                  stroke="rgba(0,218,243,0.7)"
+-                  strokeWidth="2"
+-                  strokeDasharray="36 220"
+-                  strokeLinecap="round"
+-                />
+-              </g>
+-            </svg>
+-          </Box>
+-          </Box>
+-        </Grid.Col>
+-
+-        <Grid.Col span={{ base: 12, lg: 6 }} p={{ base: 'xl', md: '4rem' }}>
+-          <MotionFadeIn direction="right" duration={motionDuration.section}>
+-            <Group gap="md" mb="xl">
+-              <Box w={48} h={2} bg="cyan.5" />
+-              <Text tt="uppercase" size="xs" fw={800} c="cyan.4" style={{ letterSpacing: '0.28em' }}>
+-                Servicio tecnológico complementario
+-              </Text>
+-            </Group>
+-            <Text
+-              component="h2"
+-              fz={{ base: rem(40), md: rem(52) }}
+-              fw={800}
+-              lh={1.05}
+-              mb="xl"
+-              style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+-            >
+-              Inventario aéreo{' '}
+-              <Text component="span" inherit c="cyan.4" style={{ fontStyle: 'italic' }}>
+-                autónomo
+-              </Text>
+-            </Text>
+-            <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" fw={500} lh={1.75} maw={rem(560)} mb="xl">
+-              Solución complementaria para depósitos, racks y posiciones en altura. Incorporamos drones autónomos para
+-              relevar ubicaciones logísticas, capturar etiquetas y reducir la exposición operativa en zonas elevadas.
+-            </Text>
+-
+-            <Grid gutter="lg">
+-              <Grid.Col span={{ base: 12, sm: 6 }}>
+-                <motion.div
+-                  initial={reduced ? false : { opacity: 0, y: 14 }}
+-                  whileInView={{ opacity: 1, y: 0 }}
+-                  viewport={{ once: true, amount: 0.25 }}
+-                  transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.06, ease: motionEaseOut }}
+-                >
+-                  <Paper
+-                    p="xl"
+-                    radius="2rem"
+-                    bg="rgba(255,255,255,0.05)"
+-                    style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+-                    className={`${droneClasses.card} ${droneClasses.cardCyan}`}
+-                  >
+-                    <ThemeIcon variant="transparent" color="cyan" size={52} radius="md">
+-                      <IconView360 stroke={1.25} />
+-                    </ThemeIcon>
+-                    <Text fw={800} fz="lg" mt="md" mb="xs">
+-                      Escaneo de posiciones
+-                    </Text>
+-                    <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
+-                      Asociación ubicación-producto y lectura de etiquetas con alta precisión.
+-                    </Text>
+-                  </Paper>
+-                </motion.div>
+-              </Grid.Col>
+-              <Grid.Col span={{ base: 12, sm: 6 }}>
+-                <motion.div
+-                  initial={reduced ? false : { opacity: 0, y: 14 }}
+-                  whileInView={{ opacity: 1, y: 0 }}
+-                  viewport={{ once: true, amount: 0.25 }}
+-                  transition={{ duration: motionDuration.base, delay: reduced ? 0 : 0.14, ease: motionEaseOut }}
+-                >
+-                  <Paper
+-                    p="xl"
+-                    radius="2rem"
+-                    bg="rgba(255,255,255,0.05)"
+-                    style={{ border: '1px solid rgba(255,255,255,0.12)' }}
+-                    className={`${droneClasses.card} ${droneClasses.cardBrand}`}
+-                  >
+-                    <ThemeIcon variant="transparent" color="brand" size={52} radius="md">
+-                      <IconShieldLock stroke={1.25} />
+-                    </ThemeIcon>
+-                    <Text fw={800} fz="lg" mt="md" mb="xs">
+-                      Reducción de exposición
+-                    </Text>
+-                    <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
+-                      Minimiza el riesgo humano en tareas de altura mediante relevamiento aéreo.
+-                    </Text>
+-                  </Paper>
+-                </motion.div>
+-              </Grid.Col>
+-            </Grid>
+-          </MotionFadeIn>
+-        </Grid.Col>
+-      </Grid>
+-    </Box>
+-  );
+-}
+diff --git a/src/components/sections/ExplorePagesSection.tsx b/src/components/sections/ExplorePagesSection.tsx
+index b9e24c6..98c699c 100644
+--- a/src/components/sections/ExplorePagesSection.tsx
++++ b/src/components/sections/ExplorePagesSection.tsx
+@@ -1,10 +1,31 @@
+ import { Box, Container, SimpleGrid, Stack, Text, Anchor, rem } from '@mantine/core';
+ import { Link } from 'react-router-dom';
+-import { routesForHomeExplore } from '@/routes';
++import { routesForHomeExplore, type PublishedRoute } from '@/routes';
+ import { contentMaxWidth } from '@/theme/theme';
+ 
++/** Preferred home explore order (service → sectors → resources). */
++const HOME_EXPLORE_ORDER = [
++  'service-inventarios-fisicos',
++  'industry-depositos',
++  'industry-retail',
++  'resource-preparar-deposito',
++  'service-inventarios-ciclicos',
++  'service-auditoria-inventarios',
++  'resource-inventario-fisico',
++  'resource-general-vs-ciclico',
++] as const;
++
++function sortHomeExplore(routes: PublishedRoute[]): PublishedRoute[] {
++  const rank = new Map(HOME_EXPLORE_ORDER.map((id, index) => [id, index]));
++  return [...routes].sort((a, b) => {
++    const aRank = rank.get(a.id as (typeof HOME_EXPLORE_ORDER)[number]) ?? 100;
++    const bRank = rank.get(b.id as (typeof HOME_EXPLORE_ORDER)[number]) ?? 100;
++    return aRank - bRank;
++  });
++}
++
+ export function ExplorePagesSection() {
+-  const items = routesForHomeExplore();
++  const items = sortHomeExplore(routesForHomeExplore());
+ 
+   return (
+     <Box component="section" id="explorar" py={{ base: '3rem', md: '4rem' }} className="ds-bg-page" aria-labelledby="explore-heading">
+@@ -12,7 +33,7 @@ export function ExplorePagesSection() {
+         <Stack gap="xl">
+           <Stack gap="sm" maw={rem(720)}>
+             <Text tt="uppercase" size="xs" fw={800} c="brand.6" style={{ letterSpacing: '0.28em' }}>
+-              Explorar
++              Recursos y páginas relacionadas
+             </Text>
+             <Text
+               id="explore-heading"
+@@ -22,10 +43,10 @@ export function ExplorePagesSection() {
+               c="gray.9"
+               style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+             >
+-              Servicios, industrias y recursos
++              Seguí explorando inventarios físicos
+             </Text>
+             <Text c="dimmed" fw={500} lh={1.7}>
+-              Páginas prioritarias sobre inventarios físicos, drones y contextos de depósito o retail.
++              Guías y páginas especializadas sobre inventarios físicos, depósitos, retail y control de stock.
+             </Text>
+           </Stack>
+           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
+diff --git a/src/components/sections/HeroSection.tsx b/src/components/sections/HeroSection.tsx
+index fbbe0f5..6aea082 100644
+--- a/src/components/sections/HeroSection.tsx
++++ b/src/components/sections/HeroSection.tsx
+@@ -1,8 +1,8 @@
+ import { Box, Container, Grid, Group, Text, rem } from '@mantine/core';
+ import {
+   IconChartArcs,
+-  IconCircleCheck,
+   IconMapPin,
++  IconRefresh,
+   IconReportAnalytics,
+ } from '@tabler/icons-react';
+ import { motion } from 'framer-motion';
+@@ -16,10 +16,10 @@ import { wideMaxWidth, appHeaderHeightPx } from '@/theme/theme';
+ import heroClasses from '@/components/sections/HeroSection.module.css';
+ 
+ const metrics = [
+-  { title: 'Precisión operativa', icon: IconCircleCheck, accent: 'brand' as const },
+-  { title: 'Trazabilidad digital', icon: IconChartArcs, accent: 'cyan' as const },
+   { title: 'Control por ubicación', icon: IconMapPin, accent: 'brand' as const },
+-  { title: 'Reportes auditables', icon: IconReportAnalytics, accent: 'cyan' as const },
++  { title: 'Reconteos', icon: IconRefresh, accent: 'cyan' as const },
++  { title: 'Trazabilidad de capturas', icon: IconChartArcs, accent: 'brand' as const },
++  { title: 'Reportes por sector', icon: IconReportAnalytics, accent: 'cyan' as const },
+ ];
+ 
+ export function HeroSection() {
+@@ -59,31 +59,28 @@ export function HeroSection() {
+               <Group gap="sm" mb="xl">
+                 <Box w={32} h={3} bg="brand.6" style={{ borderRadius: 2 }} />
+                 <Text tt="uppercase" fw={800} size="sm" c="dimmed" style={{ letterSpacing: '0.2em' }}>
+-                  Control de inventarios físicos
++                  Inventarios físicos para empresas en Argentina
+                 </Text>
+               </Group>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.12} duration={motionDuration.section}>
+               <Text
+                 component="h1"
+-                fz={{ base: rem(40), sm: rem(52), md: rem(64) }}
++                fz={{ base: rem(36), sm: rem(48), md: rem(58) }}
+                 fw={800}
+-                lh={1.05}
++                lh={1.08}
+                 c="gray.9"
+                 mb="xl"
+                 style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif', letterSpacing: '-0.03em' }}
+               >
+-                Expertos en{' '}
+-                <Text component="span" inherit c="brand.6" style={{ fontStyle: 'italic' }}>
+-                  inventarios físicos
+-                </Text>
++                Inventarios físicos para depósitos, retail y operaciones logísticas
+               </Text>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.24} duration={motionDuration.base}>
+               <Text fz={{ base: 'md', md: 'xl' }} c="dimmed" maw={rem(640)} fw={500} lh={1.7} mb="xl">
+-                Brindamos servicios profesionales de control de inventarios físicos para empresas de retail,
+-                logística y distribución, combinando metodología operativa, trazabilidad y herramientas digitales
+-                adaptadas a cada operación.
++                Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
++                físicos. Realizamos conteos de mercadería, control por ubicación, reconteos y revisión de diferencias en
++                depósitos, centros de distribución, locales y operaciones logísticas.
+               </Text>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.36} duration={motionDuration.base}>
+@@ -97,11 +94,11 @@ export function HeroSection() {
+                   fz="lg"
+                   className="ds-header-cta"
+                 >
+-                  Solicitar reunión
++                  Solicitar evaluación de inventario
+                 </BrandButton>
+                 <BrandButton
+                   component="a"
+-                  href="#soluciones"
++                  href="#servicios"
+                   variant="outline"
+                   color="cyan"
+                   size="lg"
+@@ -111,7 +108,7 @@ export function HeroSection() {
+                   className="ds-focus-ring"
+                   style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}
+                 >
+-                  Ver soluciones
++                  Conocer nuestros servicios
+                 </BrandButton>
+               </Group>
+             </MotionFadeIn>
+diff --git a/src/components/sections/IndustriesSection.tsx b/src/components/sections/IndustriesSection.tsx
+new file mode 100644
+index 0000000..6c12347
+--- /dev/null
++++ b/src/components/sections/IndustriesSection.tsx
+@@ -0,0 +1,89 @@
++import { Anchor, Box, Container, SimpleGrid, Stack, Text, rem } from '@mantine/core';
++import { Link } from 'react-router-dom';
++import { IconBuildingWarehouse, IconForklift, IconShoppingBag } from '@tabler/icons-react';
++import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
++import { MotionStagger } from '@/components/animations/MotionStagger';
++import { motionDuration } from '@/components/animations/variants';
++import { SectionHeader } from '@/components/ui/SectionHeader';
++import { contentMaxWidth } from '@/theme/theme';
++
++const industries = [
++  {
++    title: 'Depósitos y centros de distribución',
++    description:
++      'Inventarios organizados por racks, pallets, pasillos y posiciones, con control de movimientos durante el operativo.',
++    to: '/industrias/depositos-centros-distribucion/',
++    icon: IconBuildingWarehouse,
++  },
++  {
++    title: 'Retail y cadenas de sucursales',
++    description:
++      'Conteos en salón, depósito interno y redes de locales, con consolidación de resultados por sucursal.',
++    to: '/industrias/retail-cadenas-sucursales/',
++    icon: IconShoppingBag,
++  },
++  {
++    title: 'Operadores logísticos e industria',
++    description:
++      'Inventarios en operaciones con stock propio o de terceros, ubicaciones, pallets y trazabilidad documentada.',
++    to: '/industrias/operadores-logisticos-industria/',
++    icon: IconForklift,
++  },
++] as const;
++
++export function IndustriesSection() {
++  return (
++    <Box component="section" id="sectores" py={{ base: '4rem', md: '6rem' }} className="ds-bg-page">
++      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
++        <MotionFadeIn direction="none" duration={motionDuration.section}>
++          <SectionHeader
++            eyebrow="Sectores atendidos"
++            title="Inventarios según el tipo de operación"
++            subtitle="Presentamos el contexto de cada sector y derivamos al detalle operativo en las páginas especializadas."
++          />
++        </MotionFadeIn>
++
++        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg" mt={{ base: 'xl', md: '3rem' }}>
++          <MotionStagger staggerDelay={0.08}>
++            {industries.map((item) => (
++              <Stack
++                key={item.to}
++                gap="md"
++                p={{ base: 'lg', md: 'xl' }}
++                style={{
++                  borderRadius: '2rem',
++                  border: '1px solid color-mix(in srgb, #c4c6cf 45%, transparent)',
++                  background: 'color-mix(in srgb, var(--mantine-color-gray-0) 88%, white)',
++                  height: '100%',
++                }}
++              >
++                <item.icon
++                  stroke={1.35}
++                  style={{ width: rem(36), height: rem(36), color: 'var(--mantine-color-brand-6)' }}
++                  aria-hidden
++                />
++                <Text fw={800} fz="xl" c="gray.9" lh={1.25}>
++                  {item.title}
++                </Text>
++                <Text fz="sm" c="dimmed" fw={500} lh={1.65} style={{ flex: 1 }}>
++                  {item.description}
++                </Text>
++                <Anchor
++                  component={Link}
++                  to={item.to}
++                  fw={800}
++                  c="brand.7"
++                  underline="hover"
++                  className="ds-focus-ring"
++                  aria-label={`Ver inventarios para ${item.title}`}
++                >
++                  {item.title}
++                </Anchor>
++              </Stack>
++            ))}
++          </MotionStagger>
++        </SimpleGrid>
++      </Container>
++    </Box>
++  );
++}
+diff --git a/src/components/sections/MethodologySection.tsx b/src/components/sections/MethodologySection.tsx
+index 5cd73a2..0e3b046 100644
+--- a/src/components/sections/MethodologySection.tsx
++++ b/src/components/sections/MethodologySection.tsx
+@@ -19,14 +19,14 @@ export function MethodologySection() {
+           <SectionHeader
+             align="center"
+             eyebrow="Proceso de trabajo"
+-            title="Metodología de Implementación"
+-            subtitle="Cada inventario se planifica, ejecuta y valida bajo una metodología estructurada, orientada a precisión, trazabilidad y cumplimiento."
++            title="Cómo se realiza el inventario"
++            subtitle="Cada inventario se planifica, ejecuta y valida con una metodología orientada a cobertura, trazabilidad de capturas y cumplimiento de los objetivos acordados."
+           />
+         </MotionFadeIn>
+ 
+         <MotionSection style={{ marginTop: rem(32) }}>
+           <Box pos="relative">
+-            <Box visibleFrom="lg" pos="absolute" top="42%" left="6%" right="6%" h={2} style={{ transform: 'translateY(-50%)', zIndex: 0, overflow: 'hidden' }}>
++            <Box visibleFrom="lg" pos="absolute" top="42%" left="4%" right="4%" h={2} style={{ transform: 'translateY(-50%)', zIndex: 0, overflow: 'hidden' }}>
+               {!reduced ? (
+                 <motion.div
+                   variants={lineReveal}
+@@ -45,7 +45,7 @@ export function MethodologySection() {
+               )}
+             </Box>
+ 
+-            <SimpleGrid cols={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 'lg', lg: 'xl' }} pos="relative" style={{ zIndex: 1 }}>
++            <SimpleGrid cols={{ base: 1, sm: 2, lg: 5 }} spacing={{ base: 'lg', lg: 'md' }} pos="relative" style={{ zIndex: 1 }}>
+               {methodologySteps.map((step, idx) => (
+                 <motion.div
+                   key={step.id}
+@@ -62,18 +62,18 @@ export function MethodologySection() {
+                   viewport={{ once: true, amount: 0.18 }}
+                   transition={{
+                     duration: motionDuration.section,
+-                    delay: reduced ? 0 : 0.1 + idx * 0.12,
++                    delay: reduced ? 0 : 0.08 + idx * 0.08,
+                     ease: motionEaseOut,
+                   }}
+                 >
+                   <Card
+-                    p={{ base: 'lg', md: 'xl' }}
++                    p={{ base: 'lg', md: 'lg' }}
+                     radius="2.5rem"
+                     withBorder
+-                    mt={{ lg: step.highlight ? rem(48) : 0 }}
++                    mt={{ lg: step.highlight ? rem(36) : 0 }}
+                     classNames={{ root: methodologyClasses.card }}
+                     data-highlight={step.highlight ? 'true' : undefined}
+-                    style={{ minHeight: rem(300) }}
++                    style={{ minHeight: rem(280) }}
+                   >
+                     <Box
+                       className={`${methodologyClasses.badge} ${step.highlight ? methodologyClasses.badgeHighlight : ''}`}
+diff --git a/src/components/sections/ServicesMapSection.tsx b/src/components/sections/ServicesMapSection.tsx
+index ad5643c..3ee0a5c 100644
+--- a/src/components/sections/ServicesMapSection.tsx
++++ b/src/components/sections/ServicesMapSection.tsx
+@@ -9,22 +9,29 @@ import { contentMaxWidth } from '@/theme/theme';
+ 
+ export function ServicesMapSection() {
+   return (
+-    <Box component="section" id="soluciones" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
++    <Box component="section" id="servicios" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
+       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
+         <MotionSection>
+           <Group justify="space-between" align="flex-end" gap="md" mb={{ base: 'xl', md: '3rem' }} wrap="wrap">
+             <Box maw={rem(900)}>
+               <MotionFadeIn direction="none" duration={motionDuration.base}>
+                 <Text tt="uppercase" size="xs" fw={800} c="brand.6" mb="sm" style={{ letterSpacing: '0.22em' }}>
+-                  Alcance de servicios
++                  Servicios principales
+                 </Text>
+-                <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
+-                  Mapa Operativo de Servicios
++                <Text
++                  component="h2"
++                  fz={{ base: rem(32), sm: rem(40) }}
++                  fw={800}
++                  c="gray.9"
++                  lh={1.1}
++                  style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
++                >
++                  Inventarios físicos y modalidades de control
+                 </Text>
+               </MotionFadeIn>
+               <Text mt="md" fz="lg" c="dimmed" fw={500} maw={rem(720)} display={{ base: 'block', md: 'none' }}>
+-                Adaptamos nuestra metodología de inventario al tipo de operación, volumen, ubicación y necesidad de control
+-                de cada cliente.
++                Adaptamos la metodología al tipo de operación, volumen, ubicaciones y necesidad de control de cada
++                empresa.
+               </Text>
+             </Box>
+             <Group gap="xs" visibleFrom="md">
+@@ -34,8 +41,7 @@ export function ServicesMapSection() {
+             </Group>
+           </Group>
+           <Text mb={{ base: 'xl', md: '3rem' }} fz="lg" c="dimmed" fw={500} maw={rem(720)} visibleFrom="md">
+-            Adaptamos nuestra metodología de inventario al tipo de operación, volumen, ubicación y necesidad de control de
+-            cada cliente.
++            Adaptamos la metodología al tipo de operación, volumen, ubicaciones y necesidad de control de cada empresa.
+           </Text>
+ 
+           <SimpleGrid cols={{ base: 1, md: 2, lg: 4 }} spacing="lg">
+diff --git a/src/components/sections/StockDifferencesSection.tsx b/src/components/sections/StockDifferencesSection.tsx
+new file mode 100644
+index 0000000..76c35a9
+--- /dev/null
++++ b/src/components/sections/StockDifferencesSection.tsx
+@@ -0,0 +1,76 @@
++import { Anchor, Box, Container, Stack, Text, rem } from '@mantine/core';
++import { Link } from 'react-router-dom';
++import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
++import { motionDuration } from '@/components/animations/variants';
++import { contentMaxWidth } from '@/theme/theme';
++
++export function StockDifferencesSection() {
++  return (
++    <Box
++      component="section"
++      id="diferencias"
++      py={{ base: '4rem', md: '6rem' }}
++      className="ds-bg-value"
++      aria-labelledby="diferencias-heading"
++    >
++      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
++        <MotionFadeIn direction="none" duration={motionDuration.section}>
++          <Stack gap="lg" maw={rem(900)}>
++            <Text tt="uppercase" size="xs" fw={800} c="brand.6" style={{ letterSpacing: '0.22em' }}>
++              Conciliación operativa
++            </Text>
++            <Text
++              id="diferencias-heading"
++              component="h2"
++              fz={{ base: rem(32), sm: rem(40) }}
++              fw={800}
++              c="gray.9"
++              lh={1.1}
++              style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
++            >
++              Diferencias de stock: qué detectamos y cómo las validamos
++            </Text>
++            <Text fz={{ base: 'md', md: 'lg' }} c="dimmed" fw={500} lh={1.75}>
++              Un inventario físico permite contrastar el stock del sistema con la mercadería en ubicación. Las diferencias
++              pueden originarse en movimientos no registrados, productos mal ubicados, recepciones o devoluciones
++              pendientes, o errores de conteo. Detectamos y validamos diferencias mediante conteos controlados, reconteos
++              y trazabilidad operativa, sin asumir que el inventario corrige por sí solo la causa raíz.
++            </Text>
++            <Stack gap="sm">
++              <Anchor
++                component={Link}
++                to="/servicios/auditoria-de-inventarios/"
++                fw={700}
++                c="gray.9"
++                underline="hover"
++                className="ds-focus-ring"
++              >
++                Auditoría de inventarios
++              </Anchor>
++              <Anchor
++                component={Link}
++                to="/servicios/inventarios-ciclicos/"
++                fw={700}
++                c="gray.9"
++                underline="hover"
++                className="ds-focus-ring"
++              >
++                Inventarios cíclicos
++              </Anchor>
++              <Anchor
++                component={Link}
++                to="/recursos/como-realizar-un-inventario-fisico/"
++                fw={700}
++                c="gray.9"
++                underline="hover"
++                className="ds-focus-ring"
++              >
++                Cómo realizar un inventario físico
++              </Anchor>
++            </Stack>
++          </Stack>
++        </MotionFadeIn>
++      </Container>
++    </Box>
++  );
++}
+diff --git a/src/components/sections/TechnologyComplementSection.tsx b/src/components/sections/TechnologyComplementSection.tsx
+new file mode 100644
+index 0000000..71c3e90
+--- /dev/null
++++ b/src/components/sections/TechnologyComplementSection.tsx
+@@ -0,0 +1,175 @@
++import {
++  Anchor,
++  Box,
++  Container,
++  Group,
++  Paper,
++  SimpleGrid,
++  Stack,
++  Text,
++  ThemeIcon,
++  rem,
++} from '@mantine/core';
++import { Link } from 'react-router-dom';
++import { IconBarcode, IconDrone, IconEye } from '@tabler/icons-react';
++import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
++import { MotionStagger } from '@/components/animations/MotionStagger';
++import { motionDuration } from '@/components/animations/variants';
++import { digitalFlowSteps } from '@/data/digitalFlow';
++import { contentMaxWidth } from '@/theme/theme';
++import auditoriaImage from '@/assets/images/auditoria.png';
++
++const modalities = [
++  {
++    title: 'Captura digital',
++    body: 'Registro del operativo con app móvil propia, observaciones y trazabilidad por sector o ubicación.',
++    icon: IconBarcode,
++    accent: 'brand' as const,
++  },
++  {
++    title: 'Visión artificial',
++    body: 'Apoyo opcional para evidencia visual y detección de elementos visibles en casos específicos.',
++    icon: IconEye,
++    accent: 'cyan' as const,
++  },
++  {
++    title: 'Drones en altura',
++    body: 'Modalidad complementaria para posiciones elevadas cuando etiquetas, pasillos y seguridad lo permiten.',
++    icon: IconDrone,
++    accent: 'brand' as const,
++    to: '/servicios/inventarios-con-drones/',
++    linkLabel: 'Inventarios con drones para depósitos',
++  },
++] as const;
++
++export function TechnologyComplementSection() {
++  return (
++    <Box
++      component="section"
++      id="tecnologia"
++      py={{ base: '4rem', md: '6rem' }}
++      className="ds-bg-digital"
++      aria-labelledby="tecnologia-heading"
++    >
++      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
++        <MotionFadeIn direction="none" duration={motionDuration.section}>
++          <Stack gap="lg" maw={rem(900)} mb={{ base: 'xl', md: '3rem' }}>
++            <Text tt="uppercase" size="xs" fw={800} c="brand.6" style={{ letterSpacing: '0.22em' }}>
++              Diferencial complementario
++            </Text>
++            <Text
++              id="tecnologia-heading"
++              component="h2"
++              fz={{ base: rem(32), sm: rem(40) }}
++              fw={800}
++              c="gray.9"
++              lh={1.1}
++              style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
++            >
++              Tecnología aplicada cuando aporta valor
++            </Text>
++            <Text fz={{ base: 'md', md: 'lg' }} c="dimmed" fw={500} lh={1.75}>
++              La tecnología complementa el inventario físico mediante captura digital, lectura de códigos, evidencia
++              visual y, cuando el entorno lo permite, apoyo con visión artificial o drones en altura. La modalidad se
++              define según las etiquetas, las ubicaciones, los pasillos, la iluminación, la seguridad y la estructura del
++              depósito. No todos los inventarios requieren drones ni automatización.
++            </Text>
++          </Stack>
++        </MotionFadeIn>
++
++        <SimpleGrid cols={{ base: 2, md: 3, lg: 5 }} spacing="md" mb={{ base: 'xl', md: '3rem' }}>
++          {digitalFlowSteps.map((step) => (
++            <Stack key={step.key} align="center" ta="center" gap="xs">
++              <ThemeIcon
++                size={64}
++                radius="xl"
++                variant="white"
++                color={step.accent === 'brand' ? 'brand' : 'cyan'}
++                style={{ boxShadow: 'var(--mantine-shadow-sm)' }}
++              >
++                <step.icon stroke={1.25} style={{ width: rem(28), height: rem(28) }} />
++              </ThemeIcon>
++              <Text tt="uppercase" fw={800} size="xs" c="gray.9" style={{ letterSpacing: '0.14em' }}>
++                {step.label}
++              </Text>
++              <Text fz="xs" c="dimmed" fw={600} maw={rem(160)}>
++                {step.description}
++              </Text>
++            </Stack>
++          ))}
++        </SimpleGrid>
++
++        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="lg" mb={{ base: 'xl', md: '3rem' }}>
++          <MotionStagger staggerDelay={0.08}>
++            {modalities.map((item) => (
++              <Paper
++                key={item.title}
++                p="xl"
++                radius="2rem"
++                withBorder
++                bg="gray.0"
++                style={{ height: '100%' }}
++              >
++                <ThemeIcon
++                  size={48}
++                  radius="md"
++                  variant="light"
++                  color={item.accent === 'brand' ? 'brand' : 'cyan'}
++                  mb="md"
++                >
++                  <item.icon stroke={1.35} />
++                </ThemeIcon>
++                <Text fw={800} fz="lg" c="gray.9" mb="sm">
++                  {item.title}
++                </Text>
++                <Text fz="sm" c="dimmed" fw={500} lh={1.65} mb={'to' in item ? 'md' : 0}>
++                  {item.body}
++                </Text>
++                {'to' in item && item.to ? (
++                  <Anchor
++                    component={Link}
++                    to={item.to}
++                    fw={700}
++                    c="brand.7"
++                    underline="hover"
++                    className="ds-focus-ring"
++                  >
++                    {item.linkLabel}
++                  </Anchor>
++                ) : null}
++              </Paper>
++            ))}
++          </MotionStagger>
++        </SimpleGrid>
++
++        <Group justify="center">
++          <Box
++            maw={rem(720)}
++            w="100%"
++            style={{
++              borderRadius: rem(28),
++              overflow: 'hidden',
++              boxShadow: '0 18px 48px rgba(2, 6, 23, 0.1)',
++            }}
++          >
++            <Box
++              component="img"
++              src={auditoriaImage}
++              alt="Evidencia visual para validación de inventario"
++              loading="lazy"
++              decoding="async"
++              w="100%"
++              display="block"
++              style={{ aspectRatio: '16 / 10', objectFit: 'cover' }}
++            />
++          </Box>
++        </Group>
++
++        <Text mt="xl" ta="center" c="dimmed" fw={500} fz="sm" maw={rem(720)} mx="auto">
++          Nuestro ecosistema tecnológico permite registrar, validar y organizar la información del operativo. Integración
++          o exportación de datos según el alcance del proyecto.
++        </Text>
++      </Container>
++    </Box>
++  );
++}
+diff --git a/src/components/sections/ValueSystemSection.tsx b/src/components/sections/ValueSystemSection.tsx
+index d3d7195..a2aafc5 100644
+--- a/src/components/sections/ValueSystemSection.tsx
++++ b/src/components/sections/ValueSystemSection.tsx
+@@ -11,13 +11,13 @@ import { contentMaxWidth } from '@/theme/theme';
+ const pillars = [
+   {
+     title: 'Precisión operativa',
+-    body: 'Eliminamos discrepancias mediante procesos de auditoría rigurosos y doble verificación.',
++    body: 'Detectamos y validamos diferencias mediante conteos controlados, reconteos y trazabilidad operativa.',
+     icon: IconUserCheck,
+     ring: 'brand' as const,
+   },
+   {
+     title: 'Trazabilidad',
+-    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad total.',
++    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad por ubicación.',
+     icon: IconRoute,
+     ring: 'cyan' as const,
+   },
+@@ -40,7 +40,7 @@ export function ValueSystemSection() {
+             align="center"
+             eyebrow="Metodología propia"
+             title="Nuestro sistema de valor"
+-            subtitle="Cada operación se estructura para asegurar exactitud, seguimiento y cumplimiento de los objetivos del cliente."
++            subtitle="Cada operación se estructura para orientar exactitud, seguimiento y cumplimiento de los objetivos acordados con el cliente."
+           />
+         </MotionFadeIn>
+ 
+diff --git a/src/components/sections/VisionProcessFlowSection.module.css b/src/components/sections/VisionProcessFlowSection.module.css
+deleted file mode 100644
+index 3bd0967..0000000
+--- a/src/components/sections/VisionProcessFlowSection.module.css
++++ /dev/null
+@@ -1,34 +0,0 @@
+-/* Pulso secuencial sobre el paso activo (desktop y mobile) */
+-
+-.stepShell {
+-  position: relative;
+-  border-radius: var(--mantine-radius-xl);
+-  padding: 0.35rem;
+-  transition:
+-    transform 0.45s cubic-bezier(0.33, 0.86, 0.35, 1),
+-    box-shadow 0.45s cubic-bezier(0.33, 0.86, 0.35, 1);
+-}
+-
+-.stepShell[data-active='true'] {
+-  box-shadow:
+-    0 0 0 2px color-mix(in srgb, var(--mantine-color-cyan-5) 45%, transparent),
+-    0 18px 44px color-mix(in srgb, var(--mantine-color-cyan-5) 22%, transparent);
+-}
+-
+-.stepShell[data-accent='brand'][data-active='true'] {
+-  box-shadow:
+-    0 0 0 2px color-mix(in srgb, var(--mantine-color-brand-6) 42%, transparent),
+-    0 18px 44px color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent);
+-}
+-
+-.connector {
+-  color: var(--mantine-color-gray-4);
+-  flex-shrink: 0;
+-  opacity: 0.85;
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-  .stepShell[data-active='true'] {
+-    box-shadow: none;
+-  }
+-}
+diff --git a/src/components/sections/VisionProcessFlowSection.tsx b/src/components/sections/VisionProcessFlowSection.tsx
+deleted file mode 100644
+index ac722fe..0000000
+--- a/src/components/sections/VisionProcessFlowSection.tsx
++++ /dev/null
+@@ -1,170 +0,0 @@
+-import { Box, Container, Flex, Stack, Text, ThemeIcon, rem } from '@mantine/core';
+-import { useMediaQuery } from '@mantine/hooks';
+-import { IconArrowDown, IconArrowRight } from '@tabler/icons-react';
+-import { motion, useInView } from 'framer-motion';
+-import { Fragment, useEffect, useRef, useState } from 'react';
+-import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
+-import { motionDuration, motionEaseOut } from '@/components/animations/variants';
+-import { usePrefersReducedMotion } from '@/components/animations/usePrefersReducedMotion';
+-import { visionProcessSteps } from '@/data/visionProcessSteps';
+-import { contentMaxWidth } from '@/theme/theme';
+-import classes from '@/components/sections/VisionProcessFlowSection.module.css';
+-
+-const PULSE_MS = 1300;
+-
+-export function VisionProcessFlowSection() {
+-  const reduced = usePrefersReducedMotion();
+-  const wMd = useMediaQuery('(min-width: 62em)');
+-  const wLg = useMediaQuery('(min-width: 75em)');
+-  const iconSize = wMd ? (wLg ? 92 : 84) : 80;
+-  const sectionRef = useRef<HTMLElement>(null);
+-  const inView = useInView(sectionRef, { amount: 0.25, margin: '0px 0px -8% 0px' });
+-  const [pulseIndex, setPulseIndex] = useState(0);
+-
+-  const pulseOn = Boolean(inView && !reduced);
+-
+-  useEffect(() => {
+-    if (!pulseOn) {
+-      setPulseIndex(0);
+-      return;
+-    }
+-    setPulseIndex(0);
+-    const id = window.setInterval(() => {
+-      setPulseIndex((j) => (j + 1) % visionProcessSteps.length);
+-    }, PULSE_MS);
+-    return () => window.clearInterval(id);
+-  }, [pulseOn]);
+-
+-  return (
+-    <Box
+-      ref={sectionRef}
+-      component="section"
+-      id="flujo-vision"
+-      aria-labelledby="vision-flow-heading"
+-      py={{ base: '2.5rem', md: '3.5rem' }}
+-      className="ds-bg-vision"
+-      style={{ overflow: 'hidden' }}
+-    >
+-      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
+-        <MotionFadeIn direction="up" duration={motionDuration.section}>
+-          <Stack gap="xs" mb={{ base: 'lg', md: 'xl' }} ta={{ base: 'center', md: 'left' }}>
+-            <Text
+-              id="vision-flow-heading"
+-              component="h3"
+-              fz={{ base: rem(22), sm: rem(26), md: rem(30) }}
+-              fw={800}
+-              c="gray.9"
+-              lh={1.2}
+-              style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+-            >
+-              Del pallet a la evidencia visual
+-            </Text>
+-            <Text fz={{ base: 'sm', md: 'md' }} c="dimmed" fw={500} maw={rem(640)} mx={{ base: 'auto', md: 0 }}>
+-              Secuencia operativa que conecta la captura en campo con la detección asistida y el registro auditable.
+-            </Text>
+-          </Stack>
+-        </MotionFadeIn>
+-
+-        <motion.div
+-          initial={reduced ? false : { opacity: 0, y: 24 }}
+-          whileInView={{ opacity: 1, y: 0 }}
+-          viewport={{ once: true, amount: 0.15 }}
+-          transition={{ duration: motionDuration.section, ease: motionEaseOut }}
+-        >
+-          <Flex
+-            direction={{ base: 'column', md: 'row' }}
+-            align="center"
+-            justify="center"
+-            gap={{ base: rem(10), md: rem(18), lg: rem(24) }}
+-            wrap="nowrap"
+-            py={{ base: 'xs', md: 'sm' }}
+-          >
+-            {visionProcessSteps.map((s, idx) => (
+-              <Fragment key={s.label}>
+-                <motion.div
+-                  initial={reduced ? false : { opacity: 0, scale: 0.92 }}
+-                  whileInView={{ opacity: 1, scale: 1 }}
+-                  viewport={{ once: true, amount: 0.2 }}
+-                  transition={{
+-                    type: 'spring',
+-                    stiffness: 380,
+-                    damping: 28,
+-                    delay: reduced ? 0 : 0.08 * idx,
+-                  }}
+-                  whileHover={
+-                    reduced
+-                      ? undefined
+-                      : {
+-                          y: -6,
+-                          transition: { type: 'spring', stiffness: 420, damping: 22 },
+-                        }
+-                  }
+-                  style={{ flexShrink: 0 }}
+-                >
+-                  <Stack align="center" gap="md" maw={{ base: '100%', md: rem(200) }}>
+-                    <Box
+-                      className={classes.stepShell}
+-                      data-active={pulseOn && pulseIndex === idx ? 'true' : undefined}
+-                      data-accent={s.tone}
+-                      style={{ borderRadius: rem(20) }}
+-                    >
+-                      <ThemeIcon
+-                        radius="xl"
+-                        size={iconSize}
+-                        color={s.tone === 'brand' ? 'brand' : 'cyan'}
+-                        variant={s.filled ? 'filled' : 'white'}
+-                        style={{
+-                          border: s.filled
+-                            ? undefined
+-                            : `2px solid color-mix(in srgb, var(--mantine-color-${s.tone === 'brand' ? 'brand' : 'cyan'}-6) 28%, transparent)`,
+-                          boxShadow: 'var(--mantine-shadow-md)',
+-                        }}
+-                      >
+-                        <s.icon stroke={1.2} style={{ width: rem(iconSize * 0.4), height: rem(iconSize * 0.4) }} />
+-                      </ThemeIcon>
+-                    </Box>
+-                    <Text
+-                      tt="uppercase"
+-                      fw={800}
+-                      fz={{ base: rem(11), sm: rem(12), md: rem(13) }}
+-                      c={s.tone === 'brand' ? 'brand.7' : 'cyan.7'}
+-                      style={{ letterSpacing: '0.14em' }}
+-                      ta="center"
+-                    >
+-                      {s.label}
+-                    </Text>
+-                  </Stack>
+-                </motion.div>
+-
+-                {idx < visionProcessSteps.length - 1 ? (
+-                  <>
+-                    <Box component="span" hiddenFrom="md" className={classes.connector} aria-hidden>
+-                      <motion.div
+-                        initial={reduced ? false : { opacity: 0, y: -4 }}
+-                        whileInView={{ opacity: 1, y: 0 }}
+-                        viewport={{ once: true }}
+-                        transition={{ delay: reduced ? 0 : 0.06 + idx * 0.06, duration: motionDuration.base }}
+-                      >
+-                        <IconArrowDown size={26} stroke={1.5} />
+-                      </motion.div>
+-                    </Box>
+-                    <Box component="span" visibleFrom="md" className={classes.connector} aria-hidden>
+-                      <motion.div
+-                        initial={reduced ? false : { opacity: 0, x: -6 }}
+-                        whileInView={{ opacity: 1, x: 0 }}
+-                        viewport={{ once: true }}
+-                        transition={{ delay: reduced ? 0 : 0.06 + idx * 0.06, duration: motionDuration.base }}
+-                      >
+-                        <IconArrowRight size={28} stroke={1.5} />
+-                      </motion.div>
+-                    </Box>
+-                  </>
+-                ) : null}
+-              </Fragment>
+-            ))}
+-          </Flex>
+-        </motion.div>
+-      </Container>
+-    </Box>
+-  );
+-}
+diff --git a/src/components/sections/WarehouseIntentSection.tsx b/src/components/sections/WarehouseIntentSection.tsx
+new file mode 100644
+index 0000000..8c18145
+--- /dev/null
++++ b/src/components/sections/WarehouseIntentSection.tsx
+@@ -0,0 +1,55 @@
++import { Anchor, Box, Container, Stack, Text, rem } from '@mantine/core';
++import { Link } from 'react-router-dom';
++import { MotionFadeIn } from '@/components/animations/MotionFadeIn';
++import { motionDuration } from '@/components/animations/variants';
++import { contentMaxWidth } from '@/theme/theme';
++
++export function WarehouseIntentSection() {
++  return (
++    <Box
++      component="section"
++      id="depositos"
++      py={{ base: '4rem', md: '6rem' }}
++      className="ds-bg-about"
++      style={{ borderBlock: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}
++      aria-labelledby="depositos-heading"
++    >
++      <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
++        <MotionFadeIn direction="none" duration={motionDuration.section}>
++          <Stack gap="lg" maw={rem(860)}>
++            <Text tt="uppercase" size="xs" fw={800} c="brand.6" style={{ letterSpacing: '0.22em' }}>
++              Depósitos y mercadería almacenada
++            </Text>
++            <Text
++              id="depositos-heading"
++              component="h2"
++              fz={{ base: rem(32), sm: rem(40) }}
++              fw={800}
++              c="gray.9"
++              lh={1.1}
++              style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
++            >
++              Inventarios para depósitos con mercadería almacenada
++            </Text>
++            <Text fz={{ base: 'md', md: 'lg' }} c="dimmed" fw={500} lh={1.75}>
++              Evaluamos inventarios totales o parciales para mercadería almacenada en racks, pallets, estanterías o
++              posiciones de piso. La metodología se define según la cantidad de productos y ubicaciones, el tipo de
++              almacenamiento y los movimientos que deben continuar durante el conteo.
++            </Text>
++            <Anchor
++              component={Link}
++              to="/industrias/depositos-centros-distribucion/"
++              fw={800}
++              fz="lg"
++              c="brand.7"
++              underline="hover"
++              className="ds-focus-ring"
++            >
++              Inventarios para depósitos y centros de distribución
++            </Anchor>
++          </Stack>
++        </MotionFadeIn>
++      </Container>
++    </Box>
++  );
++}
+diff --git a/src/components/ui/ServiceCard.tsx b/src/components/ui/ServiceCard.tsx
+index 4b5debc..b8dd1e2 100644
+--- a/src/components/ui/ServiceCard.tsx
++++ b/src/components/ui/ServiceCard.tsx
+@@ -1,4 +1,5 @@
+ import { Box, Group, Paper, Stack, Text, ThemeIcon } from '@mantine/core';
++import { Link } from 'react-router-dom';
+ import type { ServiceItem } from '@/types/content';
+ import classes from '@/components/ui/ServiceCard.module.css';
+ 
+@@ -7,11 +8,13 @@ interface ServiceCardProps {
+ }
+ 
+ export function ServiceCard({ service }: ServiceCardProps) {
+-  const { title, description, bullets, accent, icon: Icon } = service;
++  const { title, description, bullets, accent, icon: Icon, to } = service;
+   const color = accent === 'brand' ? 'brand' : 'cyan';
+ 
+   return (
+     <Paper
++      component={Link}
++      to={to}
+       data-accent={accent}
+       p={{ base: 'lg', md: 'xl' }}
+       radius="2.5rem"
+@@ -20,11 +23,15 @@ export function ServiceCard({ service }: ServiceCardProps) {
+       classNames={{
+         root: classes.card,
+       }}
++      className="ds-focus-ring"
+       style={{
+         display: 'flex',
+         flexDirection: 'column',
+         minHeight: '100%',
++        textDecoration: 'none',
++        color: 'inherit',
+       }}
++      aria-label={`${title}: ${description}`}
+     >
+       <ThemeIcon
+         className={classes.iconWrap}
+diff --git a/src/data/digitalFlow.ts b/src/data/digitalFlow.ts
+index 643094b..b5b7087 100644
+--- a/src/data/digitalFlow.ts
++++ b/src/data/digitalFlow.ts
+@@ -25,28 +25,28 @@ export const digitalFlowSteps: DigitalFlowStep[] = [
+   {
+     key: 'proceso',
+     label: 'Proceso',
+-    description: 'Validación en tiempo real.',
++    description: 'Seguimiento del avance del operativo.',
+     icon: IconChartHistogram,
+     accent: 'brand',
+   },
+   {
+     key: 'validacion',
+     label: 'Validación',
+-    description: 'Chequeo automático de discrepancias.',
++    description: 'Registro y revisión de diferencias.',
+     icon: IconShieldCheck,
+     accent: 'cyan',
+   },
+   {
+     key: 'reporte',
+     label: 'Reporte',
+-    description: 'Paneles operativos en vivo.',
++    description: 'Reportes por sector o ubicación.',
+     icon: IconLayoutDashboard,
+     accent: 'brand',
+   },
+   {
+     key: 'integracion',
+     label: 'Integración',
+-    description: 'Conexión con su ERP.',
++    description: 'Exportación de datos según el alcance.',
+     icon: IconPlug,
+     accent: 'cyan',
+   },
+diff --git a/src/data/methodology.ts b/src/data/methodology.ts
+index ed6cc79..14e9ab2 100644
+--- a/src/data/methodology.ts
++++ b/src/data/methodology.ts
+@@ -3,28 +3,31 @@ import type { MethodologyStep } from '@/types/content';
+ export const methodologySteps: MethodologyStep[] = [
+   {
+     id: '01',
+-    title: 'Diagnóstico y relevamiento',
++    title: 'Relevamiento',
+     description:
+-      'Análisis de infraestructura logística, tipos de carga y requerimientos específicos.',
++      'Relevamos la operación, las ubicaciones, el tipo de almacenamiento y los requerimientos del inventario.',
+   },
+   {
+     id: '02',
+-    title: 'Planificación operativa',
+-    description:
+-      'Cronograma detallado, despliegue de recursos humanos y preparación tecnológica.',
++    title: 'Planificación',
++    description: 'Definimos alcance, cronograma, recursos y reglas de movimiento durante el conteo.',
+     highlight: true,
+   },
+   {
+     id: '03',
+-    title: 'Ejecución tecnológica',
+-    description:
+-      'Conteo físico y captura digital mediante personal experto y herramientas de precisión.',
++    title: 'Conteo',
++    description: 'Ejecutamos el conteo por ubicación con captura digital y supervisión en campo.',
+   },
+   {
+     id: '04',
+-    title: 'Análisis y mejora continua',
+-    description:
+-      'Reportes auditables, análisis de desvíos y propuestas de optimización de stock.',
++    title: 'Reconteos',
++    description: 'Ante diferencias, realizamos reconteos acotados para validar el dato antes del cierre.',
+     highlight: true,
+   },
++  {
++    id: '05',
++    title: 'Entrega de resultados',
++    description:
++      'Consolidamos capturas, analizamos desvíos y entregamos reportes orientados a auditoría y decisión operativa.',
++  },
+ ];
+diff --git a/src/data/services.ts b/src/data/services.ts
+index 49612fc..c9787c0 100644
+--- a/src/data/services.ts
++++ b/src/data/services.ts
+@@ -1,46 +1,46 @@
+ import {
+   IconAnalyze,
+-  IconBuildingWarehouse,
+-  IconForklift,
+-  IconShoppingBag,
++  IconClipboardCheck,
++  IconDrone,
++  IconRefresh,
+ } from '@tabler/icons-react';
+ import type { ServiceItem } from '@/types/content';
+ 
+ export const services: ServiceItem[] = [
+   {
+-    id: 'tiendas',
+-    title: 'Tiendas',
+-    description:
+-      'Inventario físico integral en piso de venta y depósitos internos de retail. Especialistas en control operativo real.',
+-    bullets: ['CONTEO CIEGO', 'TRAZABILIDAD'],
++    id: 'inventarios-fisicos',
++    title: 'Inventarios físicos',
++    description: 'Planificación, conteo, reconteos y entrega de resultados auditables.',
++    bullets: ['CONTEO', 'RECONTEOS'],
+     accent: 'brand',
+-    icon: IconShoppingBag,
++    icon: IconClipboardCheck,
++    to: '/servicios/inventarios-fisicos/',
+   },
+   {
+-    id: 'cd-logistica',
+-    title: 'CD & Logística',
+-    description:
+-      'Inventarios masivos de alta rotación con relevamiento por ubicación en superficies industriales.',
+-    bullets: ['AUDITORÍA PICKING', 'VALIDACIÓN PALLETS'],
++    id: 'inventarios-ciclicos',
++    title: 'Inventarios cíclicos',
++    description: 'Conteos periódicos por criticidad, rotación o ubicación.',
++    bullets: ['PERIODICIDAD', 'PRIORIZACIÓN'],
+     accent: 'cyan',
+-    icon: IconForklift,
++    icon: IconRefresh,
++    to: '/servicios/inventarios-ciclicos/',
+   },
+   {
+-    id: 'depositos',
+-    title: 'Depósitos',
+-    description:
+-      'Integridad de stock y gestión de ubicaciones críticas mediante mapeo dinámico de racks y control físico.',
+-    bullets: ['MAPEO DE RACKS', 'RELEVAMIENTO'],
++    id: 'auditoria-inventarios',
++    title: 'Auditoría de inventarios',
++    description: 'Revisión de procedimientos, conteos, reconteos y evidencia documentada.',
++    bullets: ['EVIDENCIA', 'MUESTREO'],
+     accent: 'brand',
+-    icon: IconBuildingWarehouse,
++    icon: IconAnalyze,
++    to: '/servicios/auditoria-de-inventarios/',
+   },
+   {
+-    id: 'consultoria',
+-    title: 'Consultoría',
+-    description:
+-      'Relevamientos estructurados y mapeo para la optimización de trazabilidad y activos logísticos.',
+-    bullets: ['AUDITORÍA ACTIVOS', 'OPTIMIZACIÓN'],
++    id: 'inventarios-drones',
++    title: 'Inventarios con drones',
++    description: 'Modalidad complementaria para depósitos y posiciones en altura.',
++    bullets: ['ALTURA', 'COMPLEMENTARIO'],
+     accent: 'cyan',
+-    icon: IconAnalyze,
++    icon: IconDrone,
++    to: '/servicios/inventarios-con-drones/',
+   },
+ ];
+diff --git a/src/data/visionProcessSteps.ts b/src/data/visionProcessSteps.ts
+deleted file mode 100644
+index a2255bb..0000000
+--- a/src/data/visionProcessSteps.ts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-import type { TablerIcon } from '@tabler/icons-react';
+-import { IconCamera, IconCircleCheck, IconEye, IconPackage } from '@tabler/icons-react';
+-
+-export type VisionProcessTone = 'brand' | 'cyan';
+-
+-export interface VisionProcessStep {
+-  label: string;
+-  icon: TablerIcon;
+-  tone: VisionProcessTone;
+-  filled?: boolean;
+-}
+-
+-export const visionProcessSteps: VisionProcessStep[] = [
+-  { label: 'Pallet', icon: IconPackage, tone: 'brand' },
+-  { label: 'Captura', icon: IconCamera, tone: 'cyan' },
+-  { label: 'Detección', icon: IconEye, tone: 'brand' },
+-  { label: 'Evidencia', icon: IconCircleCheck, tone: 'cyan', filled: true },
+-];
+diff --git a/src/pages/HomePage.tsx b/src/pages/HomePage.tsx
+index fe125ca..2d64b9a 100644
+--- a/src/pages/HomePage.tsx
++++ b/src/pages/HomePage.tsx
+@@ -1,16 +1,16 @@
+ import { AboutSection } from '@/components/sections/AboutSection';
+-import { ArtificialVisionSection } from '@/components/sections/ArtificialVisionSection';
+ import { ClientsSection } from '@/components/sections/ClientsSection';
+ import { ContactSection } from '@/components/sections/ContactSection';
+ import { CtaSection } from '@/components/sections/CtaSection';
+-import { DigitalInfrastructureSection } from '@/components/sections/DigitalInfrastructureSection';
+-import { DroneInventorySection } from '@/components/sections/DroneInventorySection';
+ import { ExplorePagesSection } from '@/components/sections/ExplorePagesSection';
+ import { HeroSection } from '@/components/sections/HeroSection';
++import { IndustriesSection } from '@/components/sections/IndustriesSection';
+ import { MethodologySection } from '@/components/sections/MethodologySection';
+ import { ServicesMapSection } from '@/components/sections/ServicesMapSection';
++import { StockDifferencesSection } from '@/components/sections/StockDifferencesSection';
++import { TechnologyComplementSection } from '@/components/sections/TechnologyComplementSection';
+ import { ValueSystemSection } from '@/components/sections/ValueSystemSection';
+-import { VisionProcessFlowSection } from '@/components/sections/VisionProcessFlowSection';
++import { WarehouseIntentSection } from '@/components/sections/WarehouseIntentSection';
+ import { getRouteById } from '@/routes';
+ import { SeoHead } from '@/seo/SeoHead';
+ import { toPageSeo } from '@/seo/pageSeo';
+@@ -27,13 +27,13 @@ export function HomePage() {
+       <AboutSection />
+       <ValueSystemSection />
+       <ServicesMapSection />
+-      <ExplorePagesSection />
+-      <DigitalInfrastructureSection />
+-      <DroneInventorySection />
+-      <ArtificialVisionSection />
+-      <VisionProcessFlowSection />
++      <IndustriesSection />
+       <MethodologySection />
++      <WarehouseIntentSection />
++      <StockDifferencesSection />
++      <TechnologyComplementSection />
+       <ClientsSection />
++      <ExplorePagesSection />
+       <CtaSection />
+       <ContactSection />
+     </>
+diff --git a/src/routes.ts b/src/routes.ts
+index 9aa1f45..d37d667 100644
+--- a/src/routes.ts
++++ b/src/routes.ts
+@@ -46,9 +46,9 @@ export const publishedRoutes = [
+     pageType: 'home',
+     breadcrumbLabels: [],
+     seo: {
+-      title: 'Inventarios físicos y autónomos para empresas | Dinamic Systems',
++      title: 'Inventarios físicos para depósitos y empresas | Dinamic Systems',
+       description:
+-        'Dinamic Systems realiza inventarios físicos y autónomos para empresas de retail, logística, depósitos e industria mediante equipos especializados, software de trazabilidad, visión artificial y drones.',
++        'Dinamic Systems realiza inventarios físicos en Argentina para depósitos, retail, centros de distribución y logística, con conteos, reconteos, control por ubicación y trazabilidad digital.',
+       ogType: 'website',
+       robots: 'index, follow',
+       ogImage: defaultOgImage,
+@@ -96,7 +96,6 @@ export const publishedRoutes = [
+       group: 'servicios',
+       showInHeader: true,
+       showInFooter: true,
+-      showOnHome: true,
+     },
+   },
+   {
+@@ -117,6 +116,7 @@ export const publishedRoutes = [
+       label: 'Inventarios cíclicos',
+       group: 'servicios',
+       showInFooter: true,
++      showOnHome: true,
+     },
+   },
+   {
+@@ -137,6 +137,7 @@ export const publishedRoutes = [
+       label: 'Auditoría de inventarios',
+       group: 'servicios',
+       showInFooter: true,
++      showOnHome: true,
+     },
+   },
+   {
+@@ -241,6 +242,7 @@ export const publishedRoutes = [
+     navigation: {
+       label: 'Preparar un depósito para un inventario',
+       group: 'recursos',
++      showOnHome: true,
+     },
+   },
+   {
+@@ -260,6 +262,7 @@ export const publishedRoutes = [
+     navigation: {
+       label: 'Inventario general vs. cíclico',
+       group: 'recursos',
++      showOnHome: true,
+     },
+   },
+   {
+diff --git a/src/seo/organizationJsonLd.ts b/src/seo/organizationJsonLd.ts
+index 2b6dc59..e5e1330 100644
+--- a/src/seo/organizationJsonLd.ts
++++ b/src/seo/organizationJsonLd.ts
+@@ -19,7 +19,7 @@ export function buildOrganizationJsonLd(): Record<string, unknown> {
+     url: `${SITE_ORIGIN}/`,
+     logo: `${SITE_ORIGIN}/logo.png`,
+     description:
+-      'Empresa argentina especializada en servicios profesionales de control de inventarios físicos para retail, logística y distribución.',
++      'Empresa argentina especializada en la planificación y ejecución de inventarios físicos para depósitos, centros de distribución, retail y operaciones logísticas.',
+     email: 'info@dinamicsystems.com',
+     telephone: '+54-11-4426-3813',
+     address: {
+diff --git a/src/types/content.ts b/src/types/content.ts
+index 27a9f5f..85cd63a 100644
+--- a/src/types/content.ts
++++ b/src/types/content.ts
+@@ -7,6 +7,8 @@ export interface ServiceItem {
+   bullets: string[];
+   accent: 'brand' | 'cyan';
+   icon: TablerIcon;
++  /** Published route with trailing slash */
++  to: string;
+ }
+ 
+ export interface MethodologyStep {

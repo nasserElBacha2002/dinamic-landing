@@ -1,0 +1,25 @@
+commit b218144119407718aecae070adf9f87fa92337fc
+Author: Nasser El Bacha <nasser.elbacha@hometeamlive.com>
+Date:   Mon Aug 3 20:55:14 2026 -0300
+
+    feat(landing): reposition homepage around physical inventory services
+    
+    Align home metadata, hero, About, CTAs and technology claims so Dinamic Systems
+    is presented as an Argentine physical-inventory operator, with drones and digital
+    tools as complementary modalities rather than the primary category.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ src/components/sections/AboutSection.tsx           |  9 ++++---
+ src/components/sections/ContactSection.tsx         | 15 +++++++----
+ src/components/sections/CtaSection.tsx             |  5 ++--
+ .../sections/DigitalInfrastructureSection.tsx      |  9 ++++---
+ src/components/sections/DroneInventorySection.tsx  | 16 +++++------
+ src/components/sections/ExplorePagesSection.tsx    |  2 +-
+ src/components/sections/HeroSection.tsx            | 31 ++++++++++------------
+ src/components/sections/ServicesMapSection.tsx     |  2 +-
+ src/components/sections/ValueSystemSection.tsx     |  6 ++---
+ src/data/digitalFlow.ts                            |  8 +++---
+ src/routes.ts                                      |  4 +--
+ src/seo/organizationJsonLd.ts                      |  2 +-
+ 12 files changed, 56 insertions(+), 53 deletions(-)

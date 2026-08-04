@@ -1,0 +1,378 @@
+commit b218144119407718aecae070adf9f87fa92337fc
+Author: Nasser El Bacha <nasser.elbacha@hometeamlive.com>
+Date:   Mon Aug 3 20:55:14 2026 -0300
+
+    feat(landing): reposition homepage around physical inventory services
+    
+    Align home metadata, hero, About, CTAs and technology claims so Dinamic Systems
+    is presented as an Argentine physical-inventory operator, with drones and digital
+    tools as complementary modalities rather than the primary category.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/src/components/sections/AboutSection.tsx b/src/components/sections/AboutSection.tsx
+index eb07eb0..6c3860b 100644
+--- a/src/components/sections/AboutSection.tsx
++++ b/src/components/sections/AboutSection.tsx
+@@ -27,12 +27,13 @@ export function AboutSection() {
+               <MotionFadeIn direction="left" duration={motionDuration.section}>
+                 <SectionHeader eyebrow="Sobre nosotros" title="Quiénes Somos" />
+                 <Text fz={{ base: 'lg', md: 'xl' }} fw={600} c="gray.9" lh={1.7} mb="md">
+-                  Dinamic Systems es una empresa argentina especializada en servicios profesionales de control de
+-                  inventarios físicos para empresas de retail, logística y distribución.
++                  Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
++                  físicos para depósitos, centros de distribución, retail y operaciones logísticas.
+                 </Text>
+                 <Text fz="lg" c="dimmed" lh={1.75} fw={500} mb="xl">
+-                  Acompañamos a organizaciones que necesitan exactitud, trazabilidad y control operativo real. Nuestra
+-                  metodología estructurada garantiza precisión, cumplimiento en tiempo y forma y resultados confiables.
++                  Acompañamos a organizaciones que necesitan exactitud de stock, trazabilidad de capturas y control
++                  operativo. Trabajamos con metodología estructurada, supervisión en campo y reportes orientados a
++                  auditoría.
+                 </Text>
+                 <SimpleGrid cols={2} spacing="xl" pt="xl" style={{ borderTop: '1px solid color-mix(in srgb, #c4c6cf 35%, transparent)' }}>
+                   <Box>
+diff --git a/src/components/sections/ContactSection.tsx b/src/components/sections/ContactSection.tsx
+index bad3caa..d911962 100644
+--- a/src/components/sections/ContactSection.tsx
++++ b/src/components/sections/ContactSection.tsx
+@@ -108,11 +108,11 @@ export function ContactSection() {
+                 ¿Hablamos?
+               </Text>
+               <Text component="h2" fz={{ base: rem(32), sm: rem(40) }} fw={800} c="gray.9" lh={1.1} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
+-                Hablemos de tu operación
++                Solicitá una evaluación para tu inventario
+               </Text>
+               <Text mt="lg" c="dimmed" fw={500} lh={1.75}>
+-                Contanos sobre tu tienda, depósito o centro de distribución. Nuestro equipo puede ayudarte a definir una
+-                solución de inventario precisa, trazable y escalable.
++                Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
++                alcance y la metodología posible.
+               </Text>
+ 
+               <Stack gap="xl" mt="xl">
+@@ -253,9 +253,14 @@ export function ContactSection() {
+                       />
+                     )}
+                   />
+-                  <Textarea label="Mensaje" placeholder="Contanos brevemente qué tipo de control necesitás realizar" error={errors.message?.message} {...register('message')} />
++                  <Textarea
++                    label="Mensaje"
++                    placeholder="Ubicación, tipo de almacenamiento y volumen aproximado de productos o ubicaciones"
++                    error={errors.message?.message}
++                    {...register('message')}
++                  />
+                   <Button type="submit" fullWidth size="lg" h={rem(72)} loading={isSubmitting} tt="uppercase" fz="sm" className="ds-focus-ring ds-submit-cta" style={{ letterSpacing: '0.16em' }}>
+-                    Enviar consulta técnica
++                    Enviar solicitud de evaluación
+                   </Button>
+                 </Stack>
+               </Paper>
+diff --git a/src/components/sections/CtaSection.tsx b/src/components/sections/CtaSection.tsx
+index bee2630..c729db3 100644
+--- a/src/components/sections/CtaSection.tsx
++++ b/src/components/sections/CtaSection.tsx
+@@ -24,7 +24,8 @@ export function CtaSection() {
+           </MotionFadeIn>
+           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.1}>
+             <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" maw={rem(900)} fw={500} lh={1.75}>
+-              Coordinemos una reunión para analizar tus procesos actuales, necesidades operativas y oportunidades de mejora.
++              Compartinos la ubicación, el tipo de almacenamiento y el volumen aproximado. Nuestro equipo revisará el
++              alcance y la metodología posible.
+             </Text>
+           </MotionFadeIn>
+           <MotionFadeIn direction="up" duration={motionDuration.base} delay={0.22}>
+@@ -39,7 +40,7 @@ export function CtaSection() {
+               className="ds-focus-ring ds-header-cta"
+               style={{ letterSpacing: '0.18em' }}
+             >
+-              Agendar reunión
++              Solicitar evaluación de inventario
+             </BrandButton>
+           </MotionFadeIn>
+         </Stack>
+diff --git a/src/components/sections/DigitalInfrastructureSection.tsx b/src/components/sections/DigitalInfrastructureSection.tsx
+index fd35656..51fdadf 100644
+--- a/src/components/sections/DigitalInfrastructureSection.tsx
++++ b/src/components/sections/DigitalInfrastructureSection.tsx
+@@ -60,7 +60,7 @@ export function DigitalInfrastructureSection() {
+           <SectionHeader
+             align="center"
+             title="Infraestructura digital de precisión"
+-            subtitle="Nuestro ecosistema tecnológico propio garantiza la integridad del dato desde la captura hasta su reporte final."
++            subtitle="Nuestro ecosistema tecnológico permite registrar, validar y organizar la información del operativo desde la captura hasta el reporte."
+           />
+         </MotionFadeIn>
+ 
+@@ -180,11 +180,12 @@ export function DigitalInfrastructureSection() {
+                       </Group>
+                     </motion.div>
+                     <Text component="h3" fz={{ base: rem(26), md: rem(32) }} fw={800} c="white" lh={1.15} style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}>
+-                      Visibilidad operativa del inventario en tiempo real
++                      Visibilidad operativa del inventario
+                     </Text>
+                     <Text c="gray.4" fw={500} lh={1.7}>
+-                      Monitoreo de avance, cobertura por sector y trazabilidad de capturas. Reportes orientados a auditoría y
+-                      decisiones operativas, sin métricas promocionales no sustentadas.
++                      La captura digital permite realizar seguimiento del avance, registrar observaciones y mantener
++                      trazabilidad por sector o ubicación. Integración o exportación de datos según el alcance del
++                      proyecto.
+                     </Text>
+                     <SimpleGrid cols={2} spacing="md">
+                       {dashboardRows.map((row, ri) => (
+diff --git a/src/components/sections/DroneInventorySection.tsx b/src/components/sections/DroneInventorySection.tsx
+index cf57f71..05edff5 100644
+--- a/src/components/sections/DroneInventorySection.tsx
++++ b/src/components/sections/DroneInventorySection.tsx
+@@ -114,14 +114,12 @@ export function DroneInventorySection() {
+               mb="xl"
+               style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif' }}
+             >
+-              Inventario aéreo{' '}
+-              <Text component="span" inherit c="cyan.4" style={{ fontStyle: 'italic' }}>
+-                autónomo
+-              </Text>
++              Inventarios con drones para posiciones en altura
+             </Text>
+             <Text fz={{ base: 'md', md: 'xl' }} c="gray.4" fw={500} lh={1.75} maw={rem(560)} mb="xl">
+-              Solución complementaria para depósitos, racks y posiciones en altura. Incorporamos drones autónomos para
+-              relevar ubicaciones logísticas, capturar etiquetas y reducir la exposición operativa en zonas elevadas.
++              Según la estructura del depósito, la altura de las posiciones, la visibilidad de las etiquetas y las
++              condiciones de seguridad, puede evaluarse el uso de drones para apoyar el relevamiento de posiciones en
++              altura. Es una modalidad complementaria: no aplica a todos los depósitos ni reemplaza el trabajo humano.
+             </Text>
+ 
+             <Grid gutter="lg">
+@@ -146,7 +144,7 @@ export function DroneInventorySection() {
+                       Escaneo de posiciones
+                     </Text>
+                     <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
+-                      Asociación ubicación-producto y lectura de etiquetas con alta precisión.
++                      Apoyo para asociar ubicación y producto con lectura de etiquetas visibles, sujeto a evaluación previa.
+                     </Text>
+                   </Paper>
+                 </motion.div>
+@@ -169,10 +167,10 @@ export function DroneInventorySection() {
+                       <IconShieldLock stroke={1.25} />
+                     </ThemeIcon>
+                     <Text fw={800} fz="lg" mt="md" mb="xs">
+-                      Reducción de exposición
++                      Menor exposición en altura
+                     </Text>
+                     <Text fz="sm" c="gray.5" fw={500} lh={1.65}>
+-                      Minimiza el riesgo humano en tareas de altura mediante relevamiento aéreo.
++                      Puede reducir la exposición del personal en tareas de altura cuando el entorno lo permite.
+                     </Text>
+                   </Paper>
+                 </motion.div>
+diff --git a/src/components/sections/ExplorePagesSection.tsx b/src/components/sections/ExplorePagesSection.tsx
+index b9e24c6..ccd0d25 100644
+--- a/src/components/sections/ExplorePagesSection.tsx
++++ b/src/components/sections/ExplorePagesSection.tsx
+@@ -25,7 +25,7 @@ export function ExplorePagesSection() {
+               Servicios, industrias y recursos
+             </Text>
+             <Text c="dimmed" fw={500} lh={1.7}>
+-              Páginas prioritarias sobre inventarios físicos, drones y contextos de depósito o retail.
++              Páginas prioritarias sobre inventarios físicos, depósitos, retail y recursos operativos.
+             </Text>
+           </Stack>
+           <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
+diff --git a/src/components/sections/HeroSection.tsx b/src/components/sections/HeroSection.tsx
+index fbbe0f5..6aea082 100644
+--- a/src/components/sections/HeroSection.tsx
++++ b/src/components/sections/HeroSection.tsx
+@@ -1,8 +1,8 @@
+ import { Box, Container, Grid, Group, Text, rem } from '@mantine/core';
+ import {
+   IconChartArcs,
+-  IconCircleCheck,
+   IconMapPin,
++  IconRefresh,
+   IconReportAnalytics,
+ } from '@tabler/icons-react';
+ import { motion } from 'framer-motion';
+@@ -16,10 +16,10 @@ import { wideMaxWidth, appHeaderHeightPx } from '@/theme/theme';
+ import heroClasses from '@/components/sections/HeroSection.module.css';
+ 
+ const metrics = [
+-  { title: 'Precisión operativa', icon: IconCircleCheck, accent: 'brand' as const },
+-  { title: 'Trazabilidad digital', icon: IconChartArcs, accent: 'cyan' as const },
+   { title: 'Control por ubicación', icon: IconMapPin, accent: 'brand' as const },
+-  { title: 'Reportes auditables', icon: IconReportAnalytics, accent: 'cyan' as const },
++  { title: 'Reconteos', icon: IconRefresh, accent: 'cyan' as const },
++  { title: 'Trazabilidad de capturas', icon: IconChartArcs, accent: 'brand' as const },
++  { title: 'Reportes por sector', icon: IconReportAnalytics, accent: 'cyan' as const },
+ ];
+ 
+ export function HeroSection() {
+@@ -59,31 +59,28 @@ export function HeroSection() {
+               <Group gap="sm" mb="xl">
+                 <Box w={32} h={3} bg="brand.6" style={{ borderRadius: 2 }} />
+                 <Text tt="uppercase" fw={800} size="sm" c="dimmed" style={{ letterSpacing: '0.2em' }}>
+-                  Control de inventarios físicos
++                  Inventarios físicos para empresas en Argentina
+                 </Text>
+               </Group>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.12} duration={motionDuration.section}>
+               <Text
+                 component="h1"
+-                fz={{ base: rem(40), sm: rem(52), md: rem(64) }}
++                fz={{ base: rem(36), sm: rem(48), md: rem(58) }}
+                 fw={800}
+-                lh={1.05}
++                lh={1.08}
+                 c="gray.9"
+                 mb="xl"
+                 style={{ fontFamily: 'Plus Jakarta Sans, Inter, sans-serif', letterSpacing: '-0.03em' }}
+               >
+-                Expertos en{' '}
+-                <Text component="span" inherit c="brand.6" style={{ fontStyle: 'italic' }}>
+-                  inventarios físicos
+-                </Text>
++                Inventarios físicos para depósitos, retail y operaciones logísticas
+               </Text>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.24} duration={motionDuration.base}>
+               <Text fz={{ base: 'md', md: 'xl' }} c="dimmed" maw={rem(640)} fw={500} lh={1.7} mb="xl">
+-                Brindamos servicios profesionales de control de inventarios físicos para empresas de retail,
+-                logística y distribución, combinando metodología operativa, trazabilidad y herramientas digitales
+-                adaptadas a cada operación.
++                Dinamic Systems es una empresa argentina especializada en la planificación y ejecución de inventarios
++                físicos. Realizamos conteos de mercadería, control por ubicación, reconteos y revisión de diferencias en
++                depósitos, centros de distribución, locales y operaciones logísticas.
+               </Text>
+             </MotionFadeIn>
+             <MotionFadeIn trigger="mount" delay={0.36} duration={motionDuration.base}>
+@@ -97,11 +94,11 @@ export function HeroSection() {
+                   fz="lg"
+                   className="ds-header-cta"
+                 >
+-                  Solicitar reunión
++                  Solicitar evaluación de inventario
+                 </BrandButton>
+                 <BrandButton
+                   component="a"
+-                  href="#soluciones"
++                  href="#servicios"
+                   variant="outline"
+                   color="cyan"
+                   size="lg"
+@@ -111,7 +108,7 @@ export function HeroSection() {
+                   className="ds-focus-ring"
+                   style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}
+                 >
+-                  Ver soluciones
++                  Conocer nuestros servicios
+                 </BrandButton>
+               </Group>
+             </MotionFadeIn>
+diff --git a/src/components/sections/ServicesMapSection.tsx b/src/components/sections/ServicesMapSection.tsx
+index ad5643c..861254b 100644
+--- a/src/components/sections/ServicesMapSection.tsx
++++ b/src/components/sections/ServicesMapSection.tsx
+@@ -9,7 +9,7 @@ import { contentMaxWidth } from '@/theme/theme';
+ 
+ export function ServicesMapSection() {
+   return (
+-    <Box component="section" id="soluciones" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
++    <Box component="section" id="servicios" py={{ base: '4rem', md: '6rem' }} className="ds-bg-services">
+       <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
+         <MotionSection>
+           <Group justify="space-between" align="flex-end" gap="md" mb={{ base: 'xl', md: '3rem' }} wrap="wrap">
+diff --git a/src/components/sections/ValueSystemSection.tsx b/src/components/sections/ValueSystemSection.tsx
+index d3d7195..a2aafc5 100644
+--- a/src/components/sections/ValueSystemSection.tsx
++++ b/src/components/sections/ValueSystemSection.tsx
+@@ -11,13 +11,13 @@ import { contentMaxWidth } from '@/theme/theme';
+ const pillars = [
+   {
+     title: 'Precisión operativa',
+-    body: 'Eliminamos discrepancias mediante procesos de auditoría rigurosos y doble verificación.',
++    body: 'Detectamos y validamos diferencias mediante conteos controlados, reconteos y trazabilidad operativa.',
+     icon: IconUserCheck,
+     ring: 'brand' as const,
+   },
+   {
+     title: 'Trazabilidad',
+-    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad total.',
++    body: 'Seguimiento digital de cada captura para auditorías posteriores y trazabilidad por ubicación.',
+     icon: IconRoute,
+     ring: 'cyan' as const,
+   },
+@@ -40,7 +40,7 @@ export function ValueSystemSection() {
+             align="center"
+             eyebrow="Metodología propia"
+             title="Nuestro sistema de valor"
+-            subtitle="Cada operación se estructura para asegurar exactitud, seguimiento y cumplimiento de los objetivos del cliente."
++            subtitle="Cada operación se estructura para orientar exactitud, seguimiento y cumplimiento de los objetivos acordados con el cliente."
+           />
+         </MotionFadeIn>
+ 
+diff --git a/src/data/digitalFlow.ts b/src/data/digitalFlow.ts
+index 643094b..b5b7087 100644
+--- a/src/data/digitalFlow.ts
++++ b/src/data/digitalFlow.ts
+@@ -25,28 +25,28 @@ export const digitalFlowSteps: DigitalFlowStep[] = [
+   {
+     key: 'proceso',
+     label: 'Proceso',
+-    description: 'Validación en tiempo real.',
++    description: 'Seguimiento del avance del operativo.',
+     icon: IconChartHistogram,
+     accent: 'brand',
+   },
+   {
+     key: 'validacion',
+     label: 'Validación',
+-    description: 'Chequeo automático de discrepancias.',
++    description: 'Registro y revisión de diferencias.',
+     icon: IconShieldCheck,
+     accent: 'cyan',
+   },
+   {
+     key: 'reporte',
+     label: 'Reporte',
+-    description: 'Paneles operativos en vivo.',
++    description: 'Reportes por sector o ubicación.',
+     icon: IconLayoutDashboard,
+     accent: 'brand',
+   },
+   {
+     key: 'integracion',
+     label: 'Integración',
+-    description: 'Conexión con su ERP.',
++    description: 'Exportación de datos según el alcance.',
+     icon: IconPlug,
+     accent: 'cyan',
+   },
+diff --git a/src/routes.ts b/src/routes.ts
+index 9aa1f45..7ae4aae 100644
+--- a/src/routes.ts
++++ b/src/routes.ts
+@@ -46,9 +46,9 @@ export const publishedRoutes = [
+     pageType: 'home',
+     breadcrumbLabels: [],
+     seo: {
+-      title: 'Inventarios físicos y autónomos para empresas | Dinamic Systems',
++      title: 'Inventarios físicos para depósitos y empresas | Dinamic Systems',
+       description:
+-        'Dinamic Systems realiza inventarios físicos y autónomos para empresas de retail, logística, depósitos e industria mediante equipos especializados, software de trazabilidad, visión artificial y drones.',
++        'Dinamic Systems realiza inventarios físicos en Argentina para depósitos, retail, centros de distribución y logística, con conteos, reconteos, control por ubicación y trazabilidad digital.',
+       ogType: 'website',
+       robots: 'index, follow',
+       ogImage: defaultOgImage,
+diff --git a/src/seo/organizationJsonLd.ts b/src/seo/organizationJsonLd.ts
+index 2b6dc59..e5e1330 100644
+--- a/src/seo/organizationJsonLd.ts
++++ b/src/seo/organizationJsonLd.ts
+@@ -19,7 +19,7 @@ export function buildOrganizationJsonLd(): Record<string, unknown> {
+     url: `${SITE_ORIGIN}/`,
+     logo: `${SITE_ORIGIN}/logo.png`,
+     description:
+-      'Empresa argentina especializada en servicios profesionales de control de inventarios físicos para retail, logística y distribución.',
++      'Empresa argentina especializada en la planificación y ejecución de inventarios físicos para depósitos, centros de distribución, retail y operaciones logísticas.',
+     email: 'info@dinamicsystems.com',
+     telephone: '+54-11-4426-3813',
+     address: {
