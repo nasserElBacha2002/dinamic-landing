@@ -16,7 +16,6 @@ import { MotionStagger } from '@/components/animations/MotionStagger';
 import { motionDuration } from '@/components/animations/variants';
 import { digitalFlowSteps } from '@/data/digitalFlow';
 import { contentMaxWidth } from '@/theme/theme';
-import auditoriaImage from '@/assets/images/auditoria.webp';
 
 const modalities = [
   {
@@ -30,7 +29,6 @@ const modalities = [
     body: 'Apoyo opcional para evidencia visual y detección de elementos visibles en casos específicos.',
     icon: IconEye,
     accent: 'cyan' as const,
-    showImage: true,
   },
   {
     title: 'Drones en altura',
@@ -108,7 +106,7 @@ export function TechnologyComplementSection() {
                 radius="2rem"
                 withBorder
                 bg="gray.0"
-                style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                style={{ height: '100%' }}
               >
                 <ThemeIcon
                   size={48}
@@ -122,34 +120,9 @@ export function TechnologyComplementSection() {
                 <Text fw={800} fz="lg" c="gray.9" mb="sm">
                   {item.title}
                 </Text>
-                <Text fz="sm" c="dimmed" fw={500} lh={1.65} mb={'showImage' in item && item.showImage ? 'md' : 'to' in item ? 'md' : 0}>
+                <Text fz="sm" c="dimmed" fw={500} lh={1.65} mb={'to' in item ? 'md' : 0}>
                   {item.body}
                 </Text>
-                {'showImage' in item && item.showImage ? (
-                  <Box
-                    mt="auto"
-                    style={{
-                      borderRadius: rem(16),
-                      overflow: 'hidden',
-                      border: '1px solid color-mix(in srgb, #c4c6cf 40%, transparent)',
-                      maxHeight: rem(148),
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={auditoriaImage}
-                      alt="Evidencia visual para validación de inventario"
-                      loading="lazy"
-                      decoding="async"
-                      width={480}
-                      height={148}
-                      w="100%"
-                      h={rem(148)}
-                      display="block"
-                      style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    />
-                  </Box>
-                ) : null}
                 {'to' in item && item.to ? (
                   <Anchor
                     component={Link}
@@ -158,7 +131,6 @@ export function TechnologyComplementSection() {
                     c="brand.7"
                     underline="hover"
                     className="ds-focus-ring"
-                    mt="md"
                   >
                     {item.linkLabel}
                   </Anchor>
