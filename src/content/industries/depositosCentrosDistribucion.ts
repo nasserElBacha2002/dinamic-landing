@@ -66,7 +66,7 @@ export const depositosCentrosDistribucionContent: IndustryPageContent = {
   cta: {
     title: '¿Planeás un inventario en tu depósito o CD?',
     description: 'Contanos sobre ubicaciones, altura y ventanas horarias para diseñar el operativo.',
-    primaryLabel: 'Hablar con el equipo',
+    primaryLabel: 'Evaluar un inventario para esta operación',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios físicos',
     secondaryTo: '/servicios/inventarios-fisicos/',

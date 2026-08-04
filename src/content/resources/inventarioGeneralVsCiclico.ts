@@ -82,7 +82,7 @@ export const inventarioGeneralVsCiclicoContent: ResourcePageContent = {
   cta: {
     title: '¿No estás seguro qué modalidad usar?',
     description: 'Revisemos juntos el alcance, el riesgo y la ventana operativa disponible.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios cíclicos',
     secondaryTo: '/servicios/inventarios-ciclicos/',

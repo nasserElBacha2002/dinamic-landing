@@ -61,7 +61,7 @@ export const retailCadenasSucursalesContent: IndustryPageContent = {
   cta: {
     title: '¿Necesitás inventariar una o varias sucursales?',
     description: 'Revisamos alcance, calendario y coordinación operativa con tu equipo.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios físicos',
     secondaryTo: '/servicios/inventarios-fisicos/',

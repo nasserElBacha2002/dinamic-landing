@@ -1,6 +1,7 @@
 import { Box, Image, Paper, Text } from '@mantine/core';
 import { useState } from 'react';
 import type { Client } from '@/types/content';
+import classes from '@/components/ui/LogoCard.module.css';
 
 interface LogoCardProps {
   client: Client;
@@ -15,20 +16,12 @@ export function LogoCard({ client }: LogoCardProps) {
       p="md"
       withBorder
       h={128}
+      className={classes.card}
       style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        transition: 'border-color 0.25s ease, box-shadow 0.25s ease, transform 0.22s ease',
-      }}
-      styles={{
-        root: {
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 10px 28px rgba(2, 6, 23, 0.1)',
-          },
-        },
       }}
     >
       {!broken ? (
@@ -38,6 +31,8 @@ export function LogoCard({ client }: LogoCardProps) {
           fit="contain"
           mah={48}
           maw="90%"
+          loading="lazy"
+          decoding="async"
           onError={() => setBroken(true)}
         />
       ) : (

@@ -75,7 +75,7 @@ export const operadoresLogisticosIndustriaContent: IndustryPageContent = {
   cta: {
     title: '¿Gestionás stock de terceros o operación industrial?',
     description: 'Evaluemos alcance, ventanas y la modalidad de inventario más adecuada.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios físicos',
     secondaryTo: '/servicios/inventarios-fisicos/',

@@ -91,7 +91,7 @@ export const auditoriaDeInventariosContent: ServicePageContent = {
   cta: {
     title: '¿Necesitás una auditoría de inventarios?',
     description: 'Contanos el alcance y el tipo de evidencia que requiere tu organización.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios físicos',
     secondaryTo: '/servicios/inventarios-fisicos/',

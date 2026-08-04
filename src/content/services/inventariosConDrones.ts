@@ -102,7 +102,7 @@ export const inventariosConDronesContent: ServicePageContent = {
     title: '¿Querés evaluar un inventario asistido con drones?',
     description:
       'Revisamos tu depósito, objetivos de cobertura y la combinación más adecuada con inventario físico.',
-    primaryLabel: 'Solicitar evaluación',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios físicos',
     secondaryTo: '/servicios/inventarios-fisicos/',

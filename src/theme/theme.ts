@@ -10,6 +10,7 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core';
+import formControlClasses from '@/theme/formControls.module.css';
 
 /** Institutional red scale — index 6 is the brand primary */
 const dinamicRed: MantineColorsTuple = [
@@ -117,54 +118,15 @@ export const theme = createTheme({
     }),
     TextInput: TextInput.extend({
       defaultProps: { radius: 'xl', size: 'md' },
-      styles: (t) => ({
-        input: {
-          border: `${rem(1)} solid var(--mantine-color-gray-3)`,
-          backgroundColor: t.white,
-          minHeight: rem(52),
-          paddingInline: rem(20),
-          fontWeight: 500,
-          transition: 'border-color 160ms ease, box-shadow 160ms ease',
-          '&:focus, &:focus-within': {
-            borderColor: 'var(--mantine-color-brand-6)',
-            boxShadow: `0 0 0 ${rem(4)} color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent)`,
-          },
-        },
-      }),
+      classNames: { input: formControlClasses.input },
     }),
     Textarea: Textarea.extend({
       defaultProps: { radius: 'xl', size: 'md', minRows: 5 },
-      styles: (t) => ({
-        input: {
-          border: `${rem(1)} solid var(--mantine-color-gray-3)`,
-          backgroundColor: t.white,
-          paddingInline: rem(20),
-          paddingBlock: rem(16),
-          fontWeight: 500,
-          transition: 'border-color 160ms ease, box-shadow 160ms ease',
-          '&:focus, &:focus-within': {
-            borderColor: 'var(--mantine-color-brand-6)',
-            boxShadow: `0 0 0 ${rem(4)} color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent)`,
-          },
-        },
-      }),
+      classNames: { input: formControlClasses.textarea },
     }),
     Select: Select.extend({
       defaultProps: { radius: 'xl', size: 'md' },
-      styles: (t) => ({
-        input: {
-          border: `${rem(1)} solid var(--mantine-color-gray-3)`,
-          backgroundColor: t.white,
-          minHeight: rem(52),
-          paddingInline: rem(20),
-          fontWeight: 500,
-          transition: 'border-color 160ms ease, box-shadow 160ms ease',
-          '&:focus, &:focus-within': {
-            borderColor: 'var(--mantine-color-brand-6)',
-            boxShadow: `0 0 0 ${rem(4)} color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent)`,
-          },
-        },
-      }),
+      classNames: { input: formControlClasses.input },
     }),
   },
   variantColorResolver: (input) => {

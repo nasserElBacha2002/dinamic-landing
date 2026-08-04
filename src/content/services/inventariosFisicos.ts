@@ -107,7 +107,7 @@ export const inventariosFisicosContent: ServicePageContent = {
     title: '¿Necesitás un inventario físico en tu operación?',
     description:
       'Coordinemos una reunión para analizar alcance, ventanas operativas y la mejor forma de ejecutar el conteo.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Ver inventarios con drones',
     secondaryTo: '/servicios/inventarios-con-drones/',

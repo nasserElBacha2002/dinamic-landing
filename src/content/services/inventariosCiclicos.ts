@@ -101,7 +101,7 @@ export const inventariosCiclicosContent: ServicePageContent = {
     title: '¿Querés diseñar un programa de inventarios cíclicos?',
     description:
       'Podemos ayudarte a definir alcance, frecuencia y la forma de ejecutar los conteos con trazabilidad.',
-    primaryLabel: 'Solicitar reunión',
+    primaryLabel: 'Solicitar evaluación de inventario',
     primaryTo: '/#contacto',
     secondaryLabel: 'Comparar general y cíclico',
     secondaryTo: '/recursos/inventario-general-vs-inventario-ciclico/',

@@ -1,0 +1,37 @@
+.input {
+  border: 1px solid var(--mantine-color-gray-3);
+  background-color: var(--mantine-color-white);
+  min-height: 3.25rem;
+  padding-inline: 1.25rem;
+  font-weight: 500;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.textarea {
+  border: 1px solid var(--mantine-color-gray-3);
+  background-color: var(--mantine-color-white);
+  padding-inline: 1.25rem;
+  padding-block: 1rem;
+  font-weight: 500;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.input:focus,
+.input:focus-visible,
+.textarea:focus,
+.textarea:focus-visible {
+  border-color: var(--mantine-color-brand-6);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--mantine-color-brand-6) 18%, transparent);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .textarea {
+    transition: none;
+  }
+}
