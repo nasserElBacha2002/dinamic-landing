@@ -2,41 +2,41 @@ import type { ServicePageContent } from '@/content/types';
 
 export const inventariosConDronesContent: ServicePageContent = {
   kind: 'service',
-  eyebrow: 'Servicio tecnológico',
-  h1: 'Inventarios de depósitos mediante drones y visión artificial',
+  eyebrow: 'Servicio',
+  h1: 'Inventarios con drones para depósitos',
   summary:
-    'Complementamos el inventario en depósitos y posiciones en altura con captura aérea, lectura de etiquetas y apoyo de visión artificial, siempre con validación operativa del resultado.',
+    'Complementamos el inventario físico en depósitos y posiciones en altura con captura aérea y lectura de etiquetas, integrada al plan de conteo y siempre con validación operativa del resultado.',
   sections: [
     {
       id: 'proposito',
-      heading: 'Para qué sirve el inventario con drones',
+      heading: 'Qué problema resuelve',
       body: [
-        'El inventario con drones es una modalidad complementaria orientada a depósitos, racks y ubicaciones elevadas donde el relevamiento tradicional implica mayor exposición o menor velocidad de cobertura visual.',
-        'No reemplaza de forma automática a un inventarista en todos los escenarios: se evalúa previamente el entorno, la señalética, la densidad de posiciones y el objetivo del relevamiento.',
+        'En depósitos con racks altos, parte del relevamiento exige acceder visualmente a posiciones elevadas. Los drones incorporan una capa de captura aérea para leer etiquetas, registrar evidencia y relacionar ubicaciones con el stock encontrado.',
+        'No reemplazan de forma automática a un inventarista en todos los escenarios. Se evalúa el layout, las etiquetas, la densidad de posiciones y el objetivo del inventario antes de incluir esta modalidad.',
+      ],
+    },
+    {
+      id: 'condiciones',
+      heading: 'Condiciones de uso en el depósito',
+      body: [
+        'La aplicación depende del pasillo, la altura, los obstáculos, las etiquetas visibles y las condiciones de operación. Si el entorno no permite un vuelo o una captura útil, el plan se apoya en inventario físico convencional.',
+        'El dron funciona mejor integrado a una metodología que ya conoce el layout y las ubicaciones a verificar: no se trata como un inventario aislado del resto del operativo.',
       ],
     },
     {
       id: 'captura',
-      heading: 'Captura de imágenes y lectura de códigos',
+      heading: 'Lectura en altura e integración con el inventario',
       body: [
-        'El operativo aéreo releva posiciones y captura evidencia visual de etiquetas y ubicaciones. Según el caso, se asocia la lectura de códigos o información visible en el frente de pallet o estantería.',
-        'La visión artificial y el OCR asisten la detección de elementos visibles; el proceso incluye validación para evitar tratar la detección automática como resultado final sin control.',
-      ],
-    },
-    {
-      id: 'validacion',
-      heading: 'Trazabilidad y validación de resultados',
-      body: [
-        'Cada captura queda vinculada al contexto operativo del inventario. Las diferencias o lecturas incompletas se revisan para decidir reconteos, ajustes de alcance o complemento con inventario físico convencional.',
-        'El valor del servicio está en ampliar cobertura en altura y generar evidencia, no en afirmar autonomía total ni precisiones no demostradas.',
+        'El relevamiento aéreo recorre las posiciones definidas y captura evidencia visual de etiquetas y ubicaciones. Esa información se asocia al proceso general de inventario para comparación y generación de evidencia.',
+        'Las lecturas incompletas o las diferencias se revisan para decidir reconteos, ajuste de alcance o complemento con conteo físico en piso y posiciones accesibles.',
       ],
     },
     {
       id: 'relacion',
       heading: 'Relación con el inventario físico',
       body: [
-        'En muchos operativos el drone se integra a un plan más amplio de inventario físico: zonas de piso y accesibles se relevan con metodología tradicional; zonas elevadas pueden apoyarse con captura aérea.',
-        'La evaluación previa define si la tecnología aporta al objetivo, qué restricciones existen y cómo se documentan los resultados para auditoría.',
+        'En muchos operativos el drone se suma a un plan de inventario físico: zonas de piso y accesibles se relevan con metodología tradicional; zonas elevadas pueden apoyarse con captura aérea.',
+        'La evaluación previa define si la modalidad aporta al objetivo, qué restricciones existen y cómo se documentan los resultados.',
       ],
     },
   ],
@@ -50,8 +50,8 @@ export const inventariosConDronesContent: ServicePageContent = {
       description: 'Imágenes asociadas al relevamiento para validación y seguimiento.',
     },
     {
-      title: 'Lectura asistida',
-      description: 'OCR y visión artificial como soporte, no como único criterio de cierre.',
+      title: 'Integrado al conteo',
+      description: 'Los resultados entran al mismo proceso de inventario, no a un circuito paralelo.',
     },
     {
       title: 'Evaluación previa',
@@ -61,19 +61,36 @@ export const inventariosConDronesContent: ServicePageContent = {
   steps: [
     {
       title: 'Evaluación del entorno',
-      description: 'Revisamos depositario, altura, etiquetas y condiciones de vuelo o captura.',
+      description: 'Revisamos depósito, altura, etiquetas y condiciones de captura.',
     },
     {
       title: 'Diseño del plan',
-      description: 'Definimos zonas, secuencia y cómo se combina con conteo físico si aplica.',
+      description: 'Definimos zonas, secuencia y cómo se combina con conteo físico.',
     },
     {
-      title: 'Captura y detección',
-      description: 'Relevamiento aéreo, registro de imágenes y asistencia por visión artificial.',
+      title: 'Captura en altura',
+      description: 'Relevamiento aéreo y registro de evidencia en las posiciones definidas.',
     },
     {
       title: 'Validación y entrega',
-      description: 'Revisión de resultados, evidencia y reportes integrados al inventario.',
+      description: 'Revisión de resultados e integración al informe del inventario.',
+    },
+  ],
+  faq: [
+    {
+      question: '¿Los drones reemplazan el inventario físico?',
+      answer:
+        'No de forma universal. Son una modalidad complementaria para depósitos y altura, evaluada según layout, etiquetas y objetivo del inventario.',
+    },
+    {
+      question: '¿En qué operaciones se usa?',
+      answer:
+        'Principalmente depósitos y centros de distribución con racks o posiciones elevadas donde la captura aérea aporta cobertura o evidencia.',
+    },
+    {
+      question: '¿Qué recibe la empresa?',
+      answer:
+        'Un plan que combina, cuando aplica, conteo físico y captura en altura, con validación de resultados e integración al informe del inventario.',
     },
   ],
   relatedLinks: [
@@ -90,12 +107,7 @@ export const inventariosConDronesContent: ServicePageContent = {
     {
       label: 'Cómo funciona un inventario con drones',
       to: '/recursos/como-funciona-un-inventario-con-drones/',
-      description: 'Navegación, captura, OCR, validación y limitaciones.',
-    },
-    {
-      label: 'Contactar al equipo',
-      to: '/#contacto',
-      description: 'Evaluemos si el inventario con drones aplica a tu operación.',
+      description: 'Explicación del proceso, validación y limitaciones.',
     },
   ],
   cta: {

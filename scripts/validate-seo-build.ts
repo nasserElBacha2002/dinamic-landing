@@ -6,8 +6,20 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { load } from 'cheerio';
 import { interiorContentByRouteId } from '../src/content/registry.ts';
-import { absoluteUrl, getSitemapLocs, publishedRoutes, routesForHomeExplore } from '../src/routes.ts';
+import type { HubPageContent } from '../src/content/types.ts';
+import {
+  absoluteUrl,
+  childRoutesForGroup,
+  FUTURE_HUB_GROUPS,
+  getPublishedHubForGroup,
+  getSitemapLocs,
+  HUB_PATH_BY_GROUP,
+  publishedRoutes,
+  routesForHomeExplore,
+  type PublishedRoute,
+} from '../src/routes.ts';
 import { PAGE_JSON_LD_SCRIPT_ID } from '../src/seo/jsonLd.ts';
+import { PHASE1_INTERNAL_REDIRECTS } from '../src/seo/phase1InternalRedirects.ts';
 import { defaultOgImage } from '../src/seo/types.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -46,7 +58,9 @@ function collectTypes(node: unknown, types: Set<string>): void {
   }
   const obj = node as Record<string, unknown>;
   if (typeof obj['@type'] === 'string') types.add(obj['@type']);
-  if (Array.isArray(obj['@graph'])) collectTypes(obj['@graph'], types);
+  for (const value of Object.values(obj)) {
+    if (value && typeof value === 'object') collectTypes(value, types);
+  }
 }
 
 async function validateHtmlFile(
@@ -151,14 +165,17 @@ async function main(): Promise<void> {
     const file = distPathForLoc(route.loc);
     await assertFile(file, path.relative(distDir, file));
     const content = interiorContentByRouteId[route.id];
+    const faqTypes = content?.faq?.length ? ['FAQPage'] : [];
     const schemaTypes =
       route.pageType === 'home'
         ? ['Organization', 'WebSite', 'WebPage', 'Service', 'FAQPage']
         : route.pageType === 'service'
-          ? ['Organization', 'BreadcrumbList', 'Service']
+          ? ['Organization', 'BreadcrumbList', 'Service', ...faqTypes]
           : route.pageType === 'resource'
             ? ['Organization', 'BreadcrumbList', 'Article']
-            : ['Organization', 'BreadcrumbList'];
+            : route.pageType === 'hub'
+              ? ['Organization', 'BreadcrumbList', 'CollectionPage', 'ItemList']
+              : ['Organization', 'BreadcrumbList', ...faqTypes];
 
     await validateHtmlFile(file, {
       title: route.seo.title,
@@ -178,12 +195,37 @@ async function main(): Promise<void> {
               '¿Dinamic Systems realiza inventarios en depósitos?',
               'Solicitá una evaluación para tu inventario',
             ]
-          : [content?.h1 ?? ''],
+          : [content?.h1 ?? '', content?.faq?.[0]?.question ?? ''].filter(Boolean),
       mustIncludeHrefs:
         route.pageType === 'home'
           ? routesForHomeExplore().map((r) => r.path)
-          : content?.relatedLinks.map((l) => (l.to.includes('#') ? l.to : l.to.replace(/\/$/, '') || '/')),
+          : content?.relatedLinks.map((l) => l.to),
     });
+
+    if (route.pageType === 'hub' && content?.kind === 'hub') {
+      const hub = content as HubPageContent;
+      const children = childRoutesForGroup(hub.group);
+      if (children.length < 2) {
+        fail(`${route.id}: hub must list at least 2 indexable children (got ${children.length})`);
+      }
+      const html = await fs.readFile(file, 'utf-8');
+      for (const child of children) {
+        if (!html.includes(`href="${child.loc}"`)) {
+          fail(`${route.id}: missing canonical child link ${child.loc}`);
+        }
+      }
+      ok(`${route.id}: hub lists ${children.length} children`);
+    }
+
+    if (route.pageType !== 'home' && route.pageType !== 'hub') {
+      const hub = route.navigation?.group ? getPublishedHubForGroup(route.navigation.group) : undefined;
+      if (hub) {
+        const childHtml = await fs.readFile(file, 'utf-8');
+        if (!childHtml.includes(`href="${hub.loc}"`)) {
+          fail(`${route.id}: breadcrumb/internal hub link must use canonical ${hub.loc}`);
+        }
+      }
+    }
 
     if (route.pageType === 'home') {
       const homeHtml = await fs.readFile(file, 'utf-8');
@@ -227,8 +269,43 @@ async function main(): Promise<void> {
     fail(`sitemap mismatch.\n expected: ${JSON.stringify(expected)}\n got: ${JSON.stringify(locs)}`);
   }
   if (locs.some((l) => l.includes('404'))) fail('sitemap must not include 404');
-  if (expected.length !== 12) fail(`expected 12 published URLs in sitemap, got ${expected.length}`);
+  if (locs.some((l) => !l.endsWith('/'))) {
+    fail(`sitemap loc missing trailing slash: ${locs.filter((l) => !l.endsWith('/')).join(', ')}`);
+  }
+  for (const group of FUTURE_HUB_GROUPS) {
+    const futureLoc = absoluteUrl(HUB_PATH_BY_GROUP[group].loc);
+    if (locs.includes(futureLoc)) fail(`sitemap must not include unpublished hub ${futureLoc}`);
+  }
+  const indexableHubs = (publishedRoutes as readonly PublishedRoute[]).filter(
+    (r) => r.pageType === 'hub' && r.indexable !== false,
+  );
+  if (indexableHubs.length !== 3) fail(`expected 3 indexable hubs, got ${indexableHubs.length}`);
+  for (const hub of indexableHubs) {
+    if (!locs.includes(absoluteUrl(hub.loc))) fail(`sitemap missing hub ${hub.loc}`);
+  }
   ok(`sitemap.xml has exactly ${expected.length} published URLs`);
+
+  await assertFile('.htaccess');
+  const htaccess = await fs.readFile(path.join(distDir, '.htaccess'), 'utf-8');
+  if (/pages\.dev|workers\.dev/i.test(htaccess)) {
+    fail('.htaccess must not redirect Cloudflare Pages/Workers hosts');
+  }
+  const publishedAbs = new Set(getSitemapLocs());
+  const redirectSources = new Set(PHASE1_INTERNAL_REDIRECTS.map((r) => r.from));
+  for (const rule of PHASE1_INTERNAL_REDIRECTS) {
+    const needle = `RewriteRule ^${rule.from}(\\.html)?/?$ ${rule.to} [R=301,L]`;
+    if (!htaccess.includes(needle)) fail(`missing 301 rule: ${needle}`);
+    const destAbs = absoluteUrl(rule.to);
+    if (!publishedAbs.has(destAbs)) fail(`redirect ${rule.from} target ${rule.to} is not a sitemap URL`);
+    if (locs.some((l) => l.includes(`/${rule.from}`) || l.endsWith(rule.from) || l.includes(`${rule.from}/`))) {
+      fail(`sitemap must not include redirect source ${rule.from}`);
+    }
+    const destKey = rule.to.replace(/^\//, '').replace(/\/$/, '');
+    if (redirectSources.has(destKey)) fail(`redirect chain ${rule.from} → ${rule.to}`);
+    if (!rule.to.endsWith('/')) fail(`redirect target missing trailing slash: ${rule.to}`);
+  }
+  ok(`phase1 ${PHASE1_INTERNAL_REDIRECTS.length} internal 301s; no sitemap sources; no chains`);
+
 
   try {
     await fs.access(path.join(distDir, 'informacion-de-privacidad'));

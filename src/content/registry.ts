@@ -10,12 +10,18 @@ import { comoRealizarInventarioFisicoContent } from '@/content/resources/comoRea
 import { comoPrepararDepositoContent } from '@/content/resources/comoPrepararDeposito';
 import { inventarioGeneralVsCiclicoContent } from '@/content/resources/inventarioGeneralVsCiclico';
 import { comoFuncionaInventarioDronesContent } from '@/content/resources/comoFuncionaInventarioDrones';
+import { serviciosHubContent } from '@/content/hubs/servicios';
+import { industriasHubContent } from '@/content/hubs/industrias';
+import { recursosHubContent } from '@/content/hubs/recursos';
 
 /**
  * Typed content keyed by published route id.
  * Used by page components, prerender JSON-LD and SEO validation (no React).
  */
 export const interiorContentByRouteId: Record<string, InteriorPageContent> = {
+  'hub-servicios': serviciosHubContent,
+  'hub-industrias': industriasHubContent,
+  'hub-recursos': recursosHubContent,
   'service-inventarios-fisicos': inventariosFisicosContent,
   'service-inventarios-drones': inventariosConDronesContent,
   'service-inventarios-ciclicos': inventariosCiclicosContent,

@@ -7,12 +7,6 @@ type RelatedLinksProps = {
   links: RelatedLink[];
 };
 
-function toRouterPath(to: string): string {
-  if (to.startsWith('/#')) return to;
-  if (to !== '/' && to.endsWith('/')) return to.slice(0, -1);
-  return to;
-}
-
 export function RelatedLinks({ title = 'También puede interesarte', links }: RelatedLinksProps) {
   return (
     <Stack gap="lg" component="section" aria-labelledby="related-heading">
@@ -38,7 +32,7 @@ export function RelatedLinks({ title = 'También puede interesarte', links }: Re
               ) : (
                 <Anchor
                   component={Link}
-                  to={toRouterPath(link.to)}
+                  to={link.to}
                   fw={800}
                   c="brand.6"
                   underline="hover"

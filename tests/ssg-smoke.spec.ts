@@ -89,6 +89,94 @@ test.describe('SSG multipage smoke', () => {
     assertClean(pageErrors, consoleErrors);
   });
 
+  test('indexable hubs list children and keep header commercial', async ({ page }) => {
+    const { pageErrors, consoleErrors } = await collectErrors(page);
+    await page.goto('/servicios/', { waitUntil: 'networkidle' });
+    await expect(page.locator('h1')).toContainText(/Servicios de inventarios físicos/i);
+    await expect(page.getByRole('navigation', { name: 'Miga de pan' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Inventarios físicos' }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Inventarios cíclicos' }).first()).toBeVisible();
+
+    await page.goto('/industrias/', { waitUntil: 'networkidle' });
+    await expect(page.locator('h1')).toContainText(/Inventarios físicos por tipo de operación/i);
+    await expect(page.getByRole('link', { name: 'Depósitos y centros de distribución' }).first()).toBeVisible();
+
+    await page.goto('/recursos/', { waitUntil: 'networkidle' });
+    await expect(page.locator('h1')).toContainText(/Guías sobre inventarios físicos/i);
+    await expect(page.getByRole('link', { name: 'Cómo realizar un inventario físico' }).first()).toBeVisible();
+
+    await page.goto('/', { waitUntil: 'networkidle' });
+    const header = page.locator('header').first();
+    await expect(header.getByRole('link', { name: 'Inicio' })).toBeVisible();
+    await expect(header.getByRole('link', { name: 'Quiénes Somos' })).toBeVisible();
+    await expect(header.getByRole('button', { name: /Servicios/ })).toBeVisible();
+    await expect(header.getByRole('button', { name: /Industrias/ })).toBeVisible();
+    await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
+    await expect(header.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+    await expect(header.getByRole('link', { name: /Innovación/i })).toHaveCount(0);
+    await expect(header.getByRole('link', { name: /Investigación/i })).toHaveCount(0);
+    assertClean(pageErrors, consoleErrors);
+  });
+
+  test('child breadcrumb links to published hub', async ({ page }) => {
+    const { pageErrors, consoleErrors } = await collectErrors(page);
+    await page.goto('/servicios/inventarios-fisicos/', { waitUntil: 'networkidle' });
+    const crumbs = page.getByRole('navigation', { name: 'Miga de pan' });
+    const hubLink = crumbs.getByRole('link', { name: 'Servicios' });
+    await expect(hubLink).toHaveAttribute('href', '/servicios/');
+    await page.goto('/servicios/', { waitUntil: 'networkidle' });
+    await expect(page.locator('h1')).toContainText(/Servicios de inventarios físicos/i);
+    assertClean(pageErrors, consoleErrors);
+  });
+
+  test('unpublished future hubs are not prerendered', async ({ request }) => {
+    for (const path of ['/buenas-practicas/', '/innovacion/', '/investigacion/']) {
+      const response = await request.get(path);
+      expect(response.status(), `${path} must not be an indexable document yet`).toBeGreaterThanOrEqual(400);
+    }
+  });
+
+  test('phase 1 commercial landings stay canonical and commercial', async ({ page }) => {
+    const { pageErrors, consoleErrors } = await collectErrors(page);
+    const commercial = [
+      '/servicios/inventarios-fisicos/',
+      '/servicios/inventarios-con-drones/',
+      '/servicios/inventarios-ciclicos/',
+      '/servicios/auditoria-de-inventarios/',
+      '/industrias/depositos-centros-distribucion/',
+      '/industrias/retail-cadenas-sucursales/',
+      '/industrias/operadores-logisticos-industria/',
+    ];
+    for (const path of commercial) {
+      const response = await page.goto(path, { waitUntil: 'networkidle' });
+      expect(response?.status(), path).toBe(200);
+      await expect(page.locator('h1')).toHaveCount(1);
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+      expect(canonical).toBe(`https://dinamicsystems.com${path}`);
+      const header = page.locator('header').first();
+      await expect(header.getByRole('link', { name: 'Inicio' })).toBeVisible();
+      await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
+    }
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await expect(page.locator('h1')).toContainText(/Inventarios físicos para depósitos/i);
+    await expect(page.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+    assertClean(pageErrors, consoleErrors);
+  });
+
+  test('phase 1 redirect sources are not prerendered documents', async ({ request }) => {
+    const sources = [
+      '/inventarios-fisicos-argentina/',
+      '/inventarios-con-drones-depositos/',
+      '/inventarios-depositos/',
+      '/empresa-inventarios-depositos-argentina/',
+      '/inventarios-centros-distribucion-argentina/',
+    ];
+    for (const path of sources) {
+      const response = await request.get(path);
+      expect(response.status(), `${path} must not be an indexable prerendered page`).toBeGreaterThanOrEqual(400);
+    }
+  });
+
   test('secondary service and resource pages', async ({ page }) => {
     const { pageErrors, consoleErrors } = await collectErrors(page);
     await page.goto('/servicios/inventarios-ciclicos/', { waitUntil: 'networkidle' });

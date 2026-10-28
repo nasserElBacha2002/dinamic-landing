@@ -9,12 +9,6 @@ type PageCtaProps = {
   cta: CallToAction;
 };
 
-function toRouterPath(to: string): string {
-  if (to.startsWith('/#')) return to;
-  if (to !== '/' && to.endsWith('/')) return to.slice(0, -1);
-  return to;
-}
-
 export function PageCta({ cta }: PageCtaProps) {
   const onPrimary = () => {
     trackEvent('service_cta_clicked', { label: cta.primaryLabel, to: cta.primaryTo });
@@ -50,7 +44,7 @@ export function PageCta({ cta }: PageCtaProps) {
             ) : (
               <BrandButton
                 component={Link}
-                to={toRouterPath(cta.primaryTo)}
+                to={cta.primaryTo}
                 size="md"
                 className="ds-header-cta"
                 onClick={onPrimary}
@@ -66,7 +60,7 @@ export function PageCta({ cta }: PageCtaProps) {
               ) : (
                 <BrandButton
                   component={Link}
-                  to={toRouterPath(cta.secondaryTo)}
+                  to={cta.secondaryTo}
                   variant="outline"
                   color="cyan"
                   size="md"

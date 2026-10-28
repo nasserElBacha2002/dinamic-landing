@@ -8,12 +8,15 @@ import {
   ComoPrepararDepositoPage,
   ComoRealizarInventarioFisicoPage,
   DepositosCdPage,
+  IndustriasHubPage,
   InventarioGeneralVsCiclicoPage,
   InventariosCiclicosPage,
   InventariosConDronesPage,
   InventariosFisicosPage,
   OperadoresLogisticosPage,
+  RecursosHubPage,
   RetailCadenasPage,
+  ServiciosHubPage,
 } from '@/pages/interiorPages';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { publishedRoutes, type RouteId } from '@/routes';
@@ -21,6 +24,9 @@ import { interiorContentByRouteId } from '@/content/registry';
 
 const pageByRouteId = {
   home: HomePage,
+  'hub-servicios': ServiciosHubPage,
+  'hub-industrias': IndustriasHubPage,
+  'hub-recursos': RecursosHubPage,
   'service-inventarios-fisicos': InventariosFisicosPage,
   'service-inventarios-drones': InventariosConDronesPage,
   'service-inventarios-ciclicos': InventariosCiclicosPage,
@@ -46,6 +52,9 @@ for (const route of publishedRoutes) {
   }
   if (route.pageType === 'resource' && interiorContentByRouteId[route.id]?.kind !== 'resource') {
     throw new Error(`App: route "${route.id}" expects resource content`);
+  }
+  if (route.pageType === 'hub' && interiorContentByRouteId[route.id]?.kind !== 'hub') {
+    throw new Error(`App: route "${route.id}" expects hub content`);
   }
 }
 

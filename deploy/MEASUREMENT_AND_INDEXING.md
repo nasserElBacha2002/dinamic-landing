@@ -3,7 +3,7 @@
 ## Google Search Console
 
 1. Verificar propiedad de dominio `dinamicsystems.com` (DNS TXT o HTML file).
-2. Enviar sitemap: `https://dinamicsystems.com/sitemap.xml` (12 URLs indexables).
+2. Enviar sitemap: `https://dinamicsystems.com/sitemap.xml` (15 URLs indexables: home, 3 hubs, 4 servicios, 3 industrias, 4 recursos). Verificar HTTP 200 con Googlebot, no solo con el navegador.
 3. Inspeccionar URLs prioritarias (home + servicios).
 4. Revisar cobertura, CWV, consultas, CTR y posición mensualmente.
 5. **No** guardar claves privadas en el repositorio.

@@ -165,6 +165,11 @@ async function prerender(): Promise<void> {
 
     await writeSitemap();
     console.log('[prerender] wrote dist/sitemap.xml');
+
+    const htaccessSrc = path.join(root, 'public', '.htaccess');
+    const htaccessDest = path.join(distDir, '.htaccess');
+    await fs.copyFile(htaccessSrc, htaccessDest);
+    console.log('[prerender] wrote dist/.htaccess');
   } finally {
     await vite?.close();
   }

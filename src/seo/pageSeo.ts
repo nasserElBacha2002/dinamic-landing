@@ -1,9 +1,15 @@
-import type { InteriorPageContent, ResourcePageContent } from '@/content/types';
+import type { HubPageContent, InteriorPageContent, ResourcePageContent } from '@/content/types';
 import { homeFaqItems } from '@/content/home/faq';
-import { absoluteUrl, type PublishedRoute } from '@/routes';
+import {
+  absoluteUrl,
+  childRoutesForGroup,
+  getPublishedHubForGroup,
+  type PublishedRoute,
+} from '@/routes';
 import {
   buildArticleJsonLd,
   buildBreadcrumbJsonLd,
+  buildCollectionPageJsonLd,
   buildFaqPageJsonLd,
   buildJsonLdGraph,
   buildServiceJsonLd,
@@ -20,26 +26,48 @@ export type UiBreadcrumb = {
   to?: string;
 };
 
-/** Visible trail: Inicio > Group > Page (group is text-only until hub pages exist). */
+/** Visible trail: Inicio > Hub (if published) > Page. */
 export function buildUiBreadcrumbs(route: PublishedRoute): UiBreadcrumb[] {
   if (route.pageType === 'home') return [{ label: 'Inicio' }];
   const items: UiBreadcrumb[] = [{ label: 'Inicio', to: '/' }];
+  if (route.pageType === 'hub') {
+    items.push({ label: route.breadcrumbLabels[0] ?? route.navigation?.label ?? route.seo.title });
+    return items;
+  }
+  const hub = route.navigation?.group ? getPublishedHubForGroup(route.navigation.group) : undefined;
   route.breadcrumbLabels.forEach((label, index) => {
     const isLast = index === route.breadcrumbLabels.length - 1;
-    items.push(isLast ? { label } : { label });
+    if (!isLast && index === 0 && hub) {
+      items.push({ label, to: hub.loc });
+      return;
+    }
+    items.push({ label });
   });
   return items;
 }
 
-/** JSON-LD crumbs: only real URLs (Inicio + página actual). */
+/** JSON-LD crumbs: only real published URLs. */
 export function buildSchemaBreadcrumbs(route: PublishedRoute) {
-  return [
-    { name: 'Inicio', item: absoluteUrl('/') },
-    {
-      name: route.breadcrumbLabels[route.breadcrumbLabels.length - 1] ?? route.seo.title,
+  const crumbs = [{ name: 'Inicio', item: absoluteUrl('/') }];
+  if (route.pageType === 'hub') {
+    crumbs.push({
+      name: route.breadcrumbLabels[0] ?? route.seo.title,
       item: absoluteUrl(route.loc),
-    },
-  ];
+    });
+    return crumbs;
+  }
+  const hub = route.navigation?.group ? getPublishedHubForGroup(route.navigation.group) : undefined;
+  if (hub) {
+    crumbs.push({
+      name: hub.breadcrumbLabels[0] ?? hub.navigation?.label ?? hub.seo.title,
+      item: absoluteUrl(hub.loc),
+    });
+  }
+  crumbs.push({
+    name: route.breadcrumbLabels[route.breadcrumbLabels.length - 1] ?? route.seo.title,
+    item: absoluteUrl(route.loc),
+  });
+  return crumbs;
 }
 
 export function buildJsonLdForRoute(
@@ -106,6 +134,29 @@ export function buildJsonLdForRoute(
         datePublished: content.datePublished,
         dateModified: content.dateModified,
         authorName: content.authorName,
+      }),
+    );
+  }
+
+  if (content?.faq?.length) {
+    nodes.push(buildFaqPageJsonLd(content.faq, `${pageUrl}#faq`));
+  }
+
+  if (route.pageType === 'hub' && content?.kind === 'hub') {
+    const hub = content as HubPageContent;
+    const children = childRoutesForGroup(hub.group);
+    if (children.length === 0) {
+      throw new Error(`Hub "${route.id}" has no indexable children; do not publish an empty CollectionPage`);
+    }
+    nodes.push(
+      buildCollectionPageJsonLd({
+        name: hub.h1,
+        description: hub.summary,
+        url: pageUrl,
+        hasPart: children.map((child) => ({
+          name: child.navigation?.label ?? child.seo.title,
+          url: absoluteUrl(child.loc),
+        })),
       }),
     );
   }

@@ -3,11 +3,19 @@ import { absoluteUrl, defaultOgImage, SITE_ORIGIN } from '@/seo/site';
 
 export { absoluteUrl, SITE_ORIGIN };
 
-export type PageType = 'home' | 'service' | 'industry' | 'resource' | 'case-study';
+export type PageType = 'home' | 'service' | 'industry' | 'resource' | 'case-study' | 'hub';
+
+export type ContentGroup =
+  | 'servicios'
+  | 'industrias'
+  | 'recursos'
+  | 'buenas-practicas'
+  | 'innovacion'
+  | 'investigacion';
 
 export type RouteNavigation = {
   label: string;
-  group?: 'servicios' | 'industrias' | 'recursos';
+  group?: ContentGroup;
   /** Include in Header menus / mobile drawer group lists */
   showInHeader?: boolean;
   /** Include in Footer column lists */
@@ -56,6 +64,28 @@ export const publishedRoutes = [
     navigation: { label: 'Inicio', showInHeader: true },
   },
   {
+    id: 'hub-servicios',
+    path: '/servicios',
+    loc: '/servicios/',
+    pageType: 'hub',
+    breadcrumbLabels: ['Servicios'],
+    seo: {
+      title: 'Servicios de inventarios físicos | Dinamic Systems',
+      description:
+        'Inventarios físicos, cíclicos, auditoría y modalidad con drones para depósitos, retail y operaciones logísticas en Argentina.',
+      ogType: 'website',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: {
+      label: 'Servicios',
+      group: 'servicios',
+      showInHeader: false,
+      showInFooter: false,
+      showOnHome: false,
+    },
+  },
+  {
     id: 'service-inventarios-fisicos',
     path: '/servicios/inventarios-fisicos',
     loc: '/servicios/inventarios-fisicos/',
@@ -64,7 +94,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios físicos para empresas | Dinamic Systems',
       description:
-        'Inventarios físicos profesionales con planificación, conteo, reconteos, supervisión y reportes auditables para retail, logística y distribución.',
+        'Dinamic Systems realiza inventarios físicos para depósitos, centros de distribución y retail: conteo por ubicación, reconteos, trazabilidad y resultados auditables.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -86,7 +116,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios con drones para depósitos | Dinamic Systems',
       description:
-        'Inventarios en depósitos con drones, captura de imágenes, lectura de etiquetas y visión artificial, con evaluación previa y validación de resultados.',
+        'Inventarios con drones como complemento del conteo físico en depósitos y altura: evaluación previa, captura de etiquetas y validación de resultados.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -107,7 +137,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios cíclicos para empresas | Dinamic Systems',
       description:
-        'Inventarios cíclicos con conteos periódicos por criticidad o rotación, planificación, seguimiento y trazabilidad, complementarios al inventario general.',
+        'Servicio de inventarios cíclicos: conteos periódicos por criticidad, rotación o ubicación, con planificación, reconteos y trazabilidad. Complementarios al inventario general.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -128,7 +158,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Auditoría de inventarios | Dinamic Systems',
       description:
-        'Auditoría de inventarios con muestreo, revisión de procedimientos, reconteos, análisis de diferencias y reportes con evidencia documentada.',
+        'Auditoría de inventarios con muestreo, revisión de procedimientos, reconteos independientes y reportes con evidencia para control interno o externo.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -141,6 +171,28 @@ export const publishedRoutes = [
     },
   },
   {
+    id: 'hub-industrias',
+    path: '/industrias',
+    loc: '/industrias/',
+    pageType: 'hub',
+    breadcrumbLabels: ['Industrias'],
+    seo: {
+      title: 'Inventarios físicos por industria | Dinamic Systems',
+      description:
+        'Inventarios físicos para depósitos y centros de distribución, retail y cadenas, y operadores logísticos o industria.',
+      ogType: 'website',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: {
+      label: 'Industrias',
+      group: 'industrias',
+      showInHeader: false,
+      showInFooter: false,
+      showOnHome: false,
+    },
+  },
+  {
     id: 'industry-depositos',
     path: '/industrias/depositos-centros-distribucion',
     loc: '/industrias/depositos-centros-distribucion/',
@@ -149,7 +201,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios para depósitos y centros de distribución',
       description:
-        'Inventarios para depósitos y CD: racks, pallets, pasillos, altura y control por ubicación con inventario físico y apoyo tecnológico cuando corresponde.',
+        'Inventarios físicos para depósitos y centros de distribución: racks, pallets, pasillos, altura y control por ubicación, con apoyo en altura cuando corresponde.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -171,7 +223,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios para retail y cadenas de sucursales',
       description:
-        'Inventarios físicos para retail y cadenas: salón, depósito interno, coordinación por sucursal y consolidación de resultados.',
+        'Inventarios físicos para retail y cadenas de sucursales: salón, depósito interno, coordinación por local y consolidación de resultados.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -193,7 +245,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Inventarios para operadores logísticos e industria',
       description:
-        'Inventarios para operadores logísticos e industria: stock de terceros, ubicaciones, pallets, lotes, trazabilidad y conciliación documentada.',
+        'Inventarios físicos para operadores logísticos e industria: stock de terceros, ubicaciones, pallets, trazabilidad y conciliación documentada.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -202,6 +254,28 @@ export const publishedRoutes = [
       label: 'Operadores logísticos e industria',
       group: 'industrias',
       showInFooter: true,
+    },
+  },
+  {
+    id: 'hub-recursos',
+    path: '/recursos',
+    loc: '/recursos/',
+    pageType: 'hub',
+    breadcrumbLabels: ['Recursos'],
+    seo: {
+      title: 'Guías sobre inventarios físicos | Dinamic Systems',
+      description:
+        'Guías para realizar un inventario físico, preparar un depósito, comparar inventario general y cíclico, y entender inventarios con drones.',
+      ogType: 'website',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: {
+      label: 'Recursos',
+      group: 'recursos',
+      showInHeader: false,
+      showInFooter: false,
+      showOnHome: false,
     },
   },
   {
@@ -290,8 +364,45 @@ export type RouteId = (typeof publishedRoutes)[number]['id'];
 
 const routes: readonly PublishedRoute[] = publishedRoutes;
 
+/**
+ * Hub paths by content group.
+ * Only register a hub in `publishedRoutes` when it already has indexable children.
+ * Future groups (buenas-practicas, innovacion, investigacion) stay here so breadcrumbs
+ * can link once those hubs are published — they are not in sitemap until then.
+ */
+export const HUB_PATH_BY_GROUP: Record<ContentGroup, { path: string; loc: string }> = {
+  servicios: { path: '/servicios', loc: '/servicios/' },
+  industrias: { path: '/industrias', loc: '/industrias/' },
+  recursos: { path: '/recursos', loc: '/recursos/' },
+  'buenas-practicas': { path: '/buenas-practicas', loc: '/buenas-practicas/' },
+  innovacion: { path: '/innovacion', loc: '/innovacion/' },
+  investigacion: { path: '/investigacion', loc: '/investigacion/' },
+};
+
+export const FUTURE_HUB_GROUPS: readonly ContentGroup[] = [
+  'buenas-practicas',
+  'innovacion',
+  'investigacion',
+];
+
+export function isSitemapRoute(route: PublishedRoute): boolean {
+  if (route.indexable === false) return false;
+  if (/noindex/i.test(route.seo.robots ?? 'index, follow')) return false;
+  return true;
+}
+
 export function getSitemapLocs(): string[] {
-  return routes.filter((r) => r.indexable !== false).map((r) => absoluteUrl(r.loc));
+  return routes.filter(isSitemapRoute).map((r) => absoluteUrl(r.loc));
+}
+
+export function getPublishedHubForGroup(group: ContentGroup): PublishedRoute | undefined {
+  return getRouteByPath(HUB_PATH_BY_GROUP[group].path);
+}
+
+export function childRoutesForGroup(group: ContentGroup): PublishedRoute[] {
+  return routes.filter(
+    (r) => r.navigation?.group === group && r.pageType !== 'hub' && r.indexable !== false,
+  );
 }
 
 export function getRouteById(id: string): PublishedRoute | undefined {
@@ -308,6 +419,7 @@ export function routesInGroup(
   opts?: { header?: boolean; footer?: boolean; home?: boolean },
 ): PublishedRoute[] {
   return routes.filter((r) => {
+    if (r.pageType === 'hub') return false;
     if (r.navigation?.group !== group) return false;
     if (opts?.header && !r.navigation.showInHeader) return false;
     if (opts?.footer && !r.navigation.showInFooter) return false;
@@ -317,7 +429,9 @@ export function routesInGroup(
 }
 
 export function routesForHomeExplore(): PublishedRoute[] {
-  return routes.filter((r) => r.pageType !== 'home' && Boolean(r.navigation?.showOnHome));
+  return routes.filter(
+    (r) => r.pageType !== 'home' && r.pageType !== 'hub' && Boolean(r.navigation?.showOnHome),
+  );
 }
 
 export function routesForFooter(): PublishedRoute[] {

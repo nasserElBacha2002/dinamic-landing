@@ -2,7 +2,7 @@ import { Anchor, Box, Container, Divider, Grid, Stack, Text, rem } from '@mantin
 import { Link } from 'react-router-dom';
 import { MotionSection } from '@/components/animations/MotionSection';
 import { BrandLogo } from '@/components/ui/BrandLogo';
-import { routesInGroup } from '@/routes';
+import { getPublishedHubForGroup, routesInGroup } from '@/routes';
 import { contentMaxWidth } from '@/theme/theme';
 
 const supportLinks = [
@@ -11,10 +11,39 @@ const supportLinks = [
   { label: 'Clientes', to: '/#clientes' },
 ] as const;
 
+function FooterColumnHeading({ label, to }: { label: string; to?: string }) {
+  const style = { letterSpacing: '0.28em' as const };
+  if (!to) {
+    return (
+      <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={style}>
+        {label}
+      </Text>
+    );
+  }
+  return (
+    <Anchor
+      component={Link}
+      to={to}
+      tt="uppercase"
+      size="xs"
+      fw={800}
+      c="dimmed"
+      underline="hover"
+      className="ds-focus-ring ds-footer-link"
+      style={{ ...style, borderRadius: rem(4) }}
+    >
+      {label}
+    </Anchor>
+  );
+}
+
 export function Footer() {
   const services = routesInGroup('servicios', { footer: true });
   const industries = routesInGroup('industrias', { footer: true });
   const resources = routesInGroup('recursos', { footer: true });
+  const serviciosHub = getPublishedHubForGroup('servicios');
+  const industriasHub = getPublishedHubForGroup('industrias');
+  const recursosHub = getPublishedHubForGroup('recursos');
 
   return (
     <Box
@@ -45,15 +74,13 @@ export function Footer() {
               <Grid gutter="xl">
                 <Grid.Col span={{ base: 12, xs: 4 }}>
                   <Stack gap="md">
-                    <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
-                      Servicios
-                    </Text>
+                    <FooterColumnHeading label="Servicios" to={serviciosHub?.loc} />
                     <Stack gap="sm">
                       {services.map((r) => (
                         <Anchor
                           key={r.id}
                           component={Link}
-                          to={r.path}
+                          to={r.loc}
                           fw={700}
                           c="gray.9"
                           underline="hover"
@@ -68,15 +95,30 @@ export function Footer() {
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, xs: 4 }}>
                   <Stack gap="md">
-                    <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
-                      Industrias y recursos
-                    </Text>
+                    <FooterColumnHeading label="Industrias" to={industriasHub?.loc} />
                     <Stack gap="sm">
-                      {[...industries, ...resources].map((r) => (
+                      {industries.map((r) => (
                         <Anchor
                           key={r.id}
                           component={Link}
-                          to={r.path}
+                          to={r.loc}
+                          fw={700}
+                          c="gray.9"
+                          underline="hover"
+                          className="ds-focus-ring ds-footer-link"
+                          style={{ borderRadius: rem(4) }}
+                        >
+                          {r.navigation?.label}
+                        </Anchor>
+                      ))}
+                    </Stack>
+                    <FooterColumnHeading label="Recursos" to={recursosHub?.loc} />
+                    <Stack gap="sm">
+                      {resources.map((r) => (
+                        <Anchor
+                          key={r.id}
+                          component={Link}
+                          to={r.loc}
                           fw={700}
                           c="gray.9"
                           underline="hover"

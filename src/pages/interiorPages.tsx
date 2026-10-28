@@ -9,7 +9,11 @@ import { comoRealizarInventarioFisicoContent } from '@/content/resources/comoRea
 import { comoPrepararDepositoContent } from '@/content/resources/comoPrepararDeposito';
 import { inventarioGeneralVsCiclicoContent } from '@/content/resources/inventarioGeneralVsCiclico';
 import { comoFuncionaInventarioDronesContent } from '@/content/resources/comoFuncionaInventarioDrones';
+import { serviciosHubContent } from '@/content/hubs/servicios';
+import { industriasHubContent } from '@/content/hubs/industrias';
+import { recursosHubContent } from '@/content/hubs/recursos';
 import { getRouteById } from '@/routes';
+import { HubPageTemplate } from '@/pages/templates/HubPageTemplate';
 import { IndustryPageTemplate } from '@/pages/templates/IndustryPageTemplate';
 import { ResourcePageTemplate } from '@/pages/templates/ResourcePageTemplate';
 import { ServicePageTemplate } from '@/pages/templates/ServicePageTemplate';
@@ -18,6 +22,18 @@ function requireRoute(id: string) {
   const route = getRouteById(id);
   if (!route) throw new Error(`Missing published route: ${id}`);
   return route;
+}
+
+export function ServiciosHubPage() {
+  return <HubPageTemplate route={requireRoute('hub-servicios')} content={serviciosHubContent} />;
+}
+
+export function IndustriasHubPage() {
+  return <HubPageTemplate route={requireRoute('hub-industrias')} content={industriasHubContent} />;
+}
+
+export function RecursosHubPage() {
+  return <HubPageTemplate route={requireRoute('hub-recursos')} content={recursosHubContent} />;
 }
 
 export function InventariosFisicosPage() {

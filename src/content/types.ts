@@ -63,6 +63,12 @@ export type ResourcePageContent = PageContentBase & {
   authorName: string;
 };
 
+/** Hub listing page. Publish only when the group already has indexable children. */
+export type HubPageContent = PageContentBase & {
+  kind: 'hub';
+  group: 'servicios' | 'industrias' | 'recursos' | 'buenas-practicas' | 'innovacion' | 'investigacion';
+};
+
 /** Case study content — only publish when every evidence field is verified. */
 export type CaseStudyEvidence = {
   label: string;
@@ -97,4 +103,5 @@ export type InteriorPageContent =
   | ServicePageContent
   | IndustryPageContent
   | ResourcePageContent
-  | CaseStudyPageContent;
+  | CaseStudyPageContent
+  | HubPageContent;

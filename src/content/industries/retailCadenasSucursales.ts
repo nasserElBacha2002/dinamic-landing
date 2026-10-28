@@ -5,7 +5,7 @@ export const retailCadenasSucursalesContent: IndustryPageContent = {
   eyebrow: 'Industria',
   h1: 'Inventarios para retail y cadenas de sucursales',
   summary:
-    'Organizamos inventarios físicos en salón de ventas y depósitos internos, con coordinación por local y consolidación de resultados para cadenas que operan múltiples sucursales.',
+    'Dinamic Systems organiza inventarios físicos en salón de ventas y depósitos internos, con coordinación por local y consolidación de resultados para cadenas de sucursales.',
   sections: [
     {
       id: 'contexto',
@@ -44,6 +44,18 @@ export const retailCadenasSucursalesContent: IndustryPageContent = {
     {
       title: 'Resultados por punto de venta',
       description: 'Trazabilidad que permite consolidar sin perder el detalle local.',
+    },
+  ],
+  faq: [
+    {
+      question: '¿Qué cubre un inventario de retail?',
+      answer:
+        'Salón de ventas y depósito interno, con criterios homogéneos cuando hay varias sucursales y resultados trazables por local.',
+    },
+    {
+      question: '¿Se puede coordinar una red de sucursales?',
+      answer:
+        'Sí. El servicio incluye planificación por local, horarios de menor impacto y consolidación de resultados.',
     },
   ],
   relatedLinks: [

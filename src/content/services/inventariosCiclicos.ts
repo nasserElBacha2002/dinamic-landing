@@ -5,14 +5,14 @@ export const inventariosCiclicosContent: ServicePageContent = {
   eyebrow: 'Servicio',
   h1: 'Inventarios cíclicos para control continuo de stock',
   summary:
-    'Los inventarios cíclicos permiten contar de forma periódica segmentos definidos del stock —por criticidad, rotación o ubicación— para detectar desvíos sin esperar un inventario general completo.',
+    'Dinamic Systems ejecuta inventarios cíclicos para empresas que necesitan contar de forma periódica segmentos del stock —por criticidad, rotación o ubicación— y detectar desvíos sin esperar un inventario general completo.',
   sections: [
     {
       id: 'que-es',
-      heading: 'Qué es un inventario cíclico',
+      heading: 'Qué ofrece el servicio de inventarios cíclicos',
       body: [
         'Es un programa de conteos periódicos sobre un alcance acotado: familias, ubicaciones, clientes o SKU críticos. Cada ciclo genera evidencia de cobertura y permite comparar el resultado con el sistema de referencia.',
-        'No reemplaza automáticamente a un inventario general: lo complementa. En muchas operaciones conviven ambos según el riesgo, la estacionalidad y los requisitos de auditoría.',
+        'No reemplaza automáticamente a un inventario general: lo complementa. En muchas operaciones conviven ambos según el riesgo, la estacionalidad y los requisitos de auditoría. La comparación conceptual está en la guía de recursos; esta página describe el servicio.',
       ],
     },
     {
@@ -74,6 +74,23 @@ export const inventariosCiclicosContent: ServicePageContent = {
     {
       title: 'Reportar y ajustar',
       description: 'Entrega de resultados y mejora del próximo ciclo.',
+    },
+  ],
+  faq: [
+    {
+      question: '¿El inventario cíclico reemplaza al inventario general?',
+      answer:
+        'No de forma automática. El cíclico aporta control periódico sobre un segmento; el general cierra un universo acordado. La combinación depende de cada operación.',
+    },
+    {
+      question: '¿Qué incluye el servicio?',
+      answer:
+        'Definición de universo y prioridad, calendario de ciclos, conteo del segmento, reconteos ante diferencias y reporte con trazabilidad de lo relevado.',
+    },
+    {
+      question: '¿Dónde se explica la diferencia entre general y cíclico?',
+      answer:
+        'En la guía Inventario general vs. inventario cíclico. Esta landing describe cómo Dinamic Systems ejecuta el servicio de cíclicos.',
     },
   ],
   relatedLinks: [

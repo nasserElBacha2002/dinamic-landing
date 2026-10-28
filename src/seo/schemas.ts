@@ -73,10 +73,10 @@ export function buildWebPageJsonLd(input: {
   };
 }
 
-export function buildFaqPageJsonLd(items: FaqItem[]): Record<string, unknown> {
+export function buildFaqPageJsonLd(items: FaqItem[], id: string = FAQ_ID): Record<string, unknown> {
   return {
     '@type': 'FAQPage',
-    '@id': FAQ_ID,
+    '@id': id,
     mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.question,
@@ -117,6 +117,32 @@ export function buildArticleJsonLd(input: {
         '@type': 'ImageObject',
         url: defaultOgImage,
       },
+    },
+  };
+}
+
+export function buildCollectionPageJsonLd(input: {
+  name: string;
+  description: string;
+  url: string;
+  hasPart: Array<{ name: string; url: string }>;
+}): Record<string, unknown> {
+  return {
+    '@type': 'CollectionPage',
+    name: input.name,
+    description: input.description,
+    url: input.url,
+    inLanguage: 'es-AR',
+    about: { '@id': ORGANIZATION_ID },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: input.hasPart.length,
+      itemListElement: input.hasPart.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
     },
   };
 }

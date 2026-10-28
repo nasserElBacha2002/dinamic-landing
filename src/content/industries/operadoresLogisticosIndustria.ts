@@ -5,7 +5,7 @@ export const operadoresLogisticosIndustriaContent: IndustryPageContent = {
   eyebrow: 'Industria',
   h1: 'Inventarios para operadores logísticos e industria',
   summary:
-    'En depósitos de operadores logísticos e industria el stock puede pertenecer a distintos clientes, con ubicaciones, pallets, lotes y reglas de trazabilidad que exigen un inventario planificado y documentado.',
+    'Dinamic Systems realiza inventarios físicos para operadores logísticos e industria, con separación por cliente cuando el stock es de terceros, control por ubicación y trazabilidad documentada.',
   sections: [
     {
       id: 'contexto',
@@ -48,6 +48,18 @@ export const operadoresLogisticosIndustriaContent: IndustryPageContent = {
     {
       title: 'Trazabilidad del relevamiento',
       description: 'Evidencia útil para conciliación y auditoría.',
+    },
+  ],
+  faq: [
+    {
+      question: '¿Pueden inventariar stock de terceros?',
+      answer:
+        'Sí. El alcance y los reportes se orientan a no mezclar inventarios de distintos dueños de stock, con control por ubicación.',
+    },
+    {
+      question: '¿Qué incluye el operativo?',
+      answer:
+        'Planificación de ventanas, conteo por posiciones y pallets, trazabilidad del relevamiento y conciliación para el operador y, cuando corresponde, para sus clientes.',
     },
   ],
   relatedLinks: [

@@ -4,6 +4,7 @@ import { BenefitsList } from '@/components/page/BenefitsList';
 import { ContentSections } from '@/components/page/ContentSections';
 import { InteriorHero } from '@/components/page/InteriorHero';
 import { PageCta } from '@/components/page/PageCta';
+import { PageFaq } from '@/components/page/PageFaq';
 import { RelatedLinks } from '@/components/page/RelatedLinks';
 import type { IndustryPageContent } from '@/content/types';
 import type { PublishedRoute } from '@/routes';
@@ -32,6 +33,7 @@ export function IndustryPageTemplate({ route, content }: IndustryPageTemplatePro
             {content.benefits?.length ? (
               <BenefitsList title="Enfoque para esta industria" benefits={content.benefits} />
             ) : null}
+            {content.faq?.length ? <PageFaq items={content.faq} /> : null}
             <RelatedLinks links={content.relatedLinks} />
           </Stack>
         </Container>

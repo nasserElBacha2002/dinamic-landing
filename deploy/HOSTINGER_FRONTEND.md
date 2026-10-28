@@ -29,18 +29,22 @@ index.html
 404.html
 robots.txt
 sitemap.xml
+.htaccess
 favicon.svg
 logo.png
 assets/
+servicios/index.html
 servicios/
   inventarios-fisicos/index.html
   inventarios-con-drones/index.html
   inventarios-ciclicos/index.html
   auditoria-de-inventarios/index.html
+industrias/index.html
 industrias/
   depositos-centros-distribucion/index.html
   retail-cadenas-sucursales/index.html
   operadores-logisticos-industria/index.html
+recursos/index.html
 recursos/
   como-realizar-un-inventario-fisico/index.html
   como-preparar-un-deposito-para-un-inventario/index.html
@@ -63,12 +67,25 @@ Preferí URLs con barra final. Probá recarga directa (F5) en cada ruta.
 
 Configurá el documento de error 404 como `/404.html`. **No** redirigís rutas desconocidas a `/index.html`.
 
+## Sitemap y crawlers
+
+`sitemap.xml` y `robots.txt` deben responder **HTTP 200** a Googlebot (desktop y smartphone) y Bingbot.
+
+LiteSpeed/Hostinger ha llegado a devolver **403** a algunos user-agents de crawler sobre `sitemap.xml` aunque el archivo exista. El `.htaccess` del `dist/` intenta permitir esos archivos. Si el 403 continúa después del deploy:
+
+1. hPanel → Security / Bot Protection: no bloquear Googlebot ni Bingbot.
+2. Desactivar hotlink protection sobre `.xml`.
+3. Verificar `https://dinamicsystems.com/sitemap.xml` con el user-agent `Googlebot`.
+
+No reescribir `sitemap.xml` con PHP ni con un generador dinámico.
+
 ## Verificación post-deploy
 
-1. Home + 4 servicios + 3 industrias + 4 recursos (12 URLs del sitemap)
+1. Home + 3 hubs + 4 servicios + 3 industrias + 4 recursos (15 URLs del sitemap)
 2. URL inventada → `404.html` con noindex
-3. `sitemap.xml` — exactamente 12 URLs
-4. Formulario → `VITE_API_BASE_URL`
+3. `sitemap.xml` — exactamente 15 URLs, HTTP 200, XML válido, trailing slash
+4. `/buenas-practicas/`, `/innovacion/` y `/investigacion/` **no** deben existir todavía
+5. Formulario → `VITE_API_BASE_URL`
 
 ## Variable de entorno
 
@@ -82,7 +99,7 @@ Conservá el `dist/` anterior (zip) antes de subir.
 
 ## Alcance actual
 
-Publicadas indexables: home + 4 servicios + 3 industrias + 4 recursos (12 URLs en sitemap).  
+Publicadas indexables: home + 3 hubs (`/servicios/`, `/industrias/`, `/recursos/`) + 4 servicios + 3 industrias + 4 recursos (15 URLs en sitemap).  
 Páginas legales públicas: **no publicadas** hasta texto aprobado.  
 Casos de éxito indexables: pendientes de evidencia (`deploy/CONTENT_EVIDENCE.md`).  
 Medición: `deploy/MEASUREMENT_AND_INDEXING.md`.

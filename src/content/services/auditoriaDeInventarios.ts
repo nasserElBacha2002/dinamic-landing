@@ -5,14 +5,14 @@ export const auditoriaDeInventariosContent: ServicePageContent = {
   eyebrow: 'Servicio',
   h1: 'Auditoría de inventarios para control y evidencia',
   summary:
-    'La auditoría de inventarios aporta una mirada independiente sobre el stock y los procedimientos de conteo: muestreo, reconteos, análisis de diferencias y documentación orientada a control interno o externo.',
+    'Dinamic Systems realiza auditoría de inventarios con muestreo, revisión de procedimientos, reconteos independientes y reportes con evidencia, para control interno o externo.',
   sections: [
     {
       id: 'proposito',
-      heading: 'Para qué sirve una auditoría de inventarios',
+      heading: 'Qué ofrece la auditoría de inventarios',
       body: [
-        'Sirve para validar la confiabilidad del inventario registrado, revisar cómo se ejecutan los conteos y documentar hallazgos con evidencia. Puede enfocarse en un depósito, una red de sucursales o un universo muestral acordado.',
-        'No es lo mismo que un inventario operativo completo: el énfasis está en el control independiente, la calidad del proceso y la trazabilidad de las diferencias.',
+        'Aporta una mirada independiente sobre el stock y los procedimientos de conteo. Puede enfocarse en un depósito, una red de sucursales o un universo muestral acordado.',
+        'No es lo mismo que un inventario operativo completo: el énfasis está en el control, la calidad del proceso y la trazabilidad de las diferencias.',
       ],
     },
     {
@@ -66,6 +66,23 @@ export const auditoriaDeInventariosContent: ServicePageContent = {
     {
       title: 'Informe y recomendaciones',
       description: 'Hallazgos priorizados y documentación entregable.',
+    },
+  ],
+  faq: [
+    {
+      question: '¿En qué se diferencia de un inventario físico completo?',
+      answer:
+        'La auditoría se centra en control independiente, muestreo o cobertura parcial y evidencia de hallazgos. El inventario físico cubre el universo operativo acordado.',
+    },
+    {
+      question: '¿Qué incluye?',
+      answer:
+        'Definición del objetivo de control, plan de muestreo o cobertura, conteos o reconteos independientes donde corresponde, análisis de diferencias e informe.',
+    },
+    {
+      question: '¿Para quién es?',
+      answer:
+        'Empresas que necesitan evidencia para control interno, gerencia o terceros sobre la confiabilidad del inventario y de los procedimientos de conteo.',
     },
   ],
   relatedLinks: [
