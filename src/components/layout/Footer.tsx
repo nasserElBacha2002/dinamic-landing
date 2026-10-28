@@ -45,6 +45,8 @@ export function Footer() {
   const industriasHub = getPublishedHubForGroup('industrias');
   const recursosHub = getPublishedHubForGroup('recursos');
   const buenasPracticasHub = getPublishedHubForGroup('buenas-practicas');
+  const innovacionHub = getPublishedHubForGroup('innovacion');
+  const investigacionHub = getPublishedHubForGroup('investigacion');
 
   return (
     <Box
@@ -136,6 +138,12 @@ export function Footer() {
                   <Stack gap="md">
                     {buenasPracticasHub ? (
                       <FooterColumnHeading label="Buenas prácticas" to={buenasPracticasHub.loc} />
+                    ) : null}
+                    {innovacionHub ? (
+                      <FooterColumnHeading label="Innovación" to={innovacionHub.loc} />
+                    ) : null}
+                    {investigacionHub ? (
+                      <FooterColumnHeading label="Investigación" to={investigacionHub.loc} />
                     ) : null}
                     <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
                       Soporte

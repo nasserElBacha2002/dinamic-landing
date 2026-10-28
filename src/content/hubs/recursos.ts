@@ -6,40 +6,54 @@ export const recursosHubContent: HubPageContent = {
   eyebrow: 'Recursos',
   h1: 'Guías sobre inventarios físicos',
   summary:
-    'Guías de proceso y de decisión sobre inventarios físicos: cómo se cuenta, cómo se prepara el depósito, por qué no cierra el stock, cuánto tarda o cuesta, y cuándo conviene contratar. Cada URL responde una pregunta distinta.',
+    'Guías para preguntas concretas de operación: cómo se cuenta, por qué no cierra el stock, de qué dependen tiempo y costo, y cuándo conviene contratar. Cada URL responde una intención distinta.',
   sections: [
     {
       id: 'uso',
-      heading: 'Cómo está ordenado este listado',
+      heading: 'Cómo usar estas guías',
       body: [
-        'Primero están las guías de proceso ya publicadas: cómo realizar un inventario, cómo preparar el depósito, la comparación entre general y cíclico, y cómo funciona un inventario con drones.',
-        'Después, las preguntas de operación: causas de desvío, tiempos, costo, cotización, interno vs. tercerizado, cómo elegir proveedor, contar sin detener, reducir diferencias y medios de captura. El listado se actualiza con cada guía publicada.',
-        'No reemplazan un relevamiento a medida. Si necesitás ejecutar un inventario, el siguiente paso es evaluar alcance, fechas y condiciones del sitio.',
+        'Están agrupadas por tipo de decisión: preparar el operativo, entender diferencias, estimar tiempo y costo, elegir si contratar, y elegir medio de captura.',
+        'No reemplazan un relevamiento a medida. Si el siguiente paso es ejecutar un inventario, hay que evaluar alcance, fechas y condiciones del sitio.',
       ],
     },
   ],
-  relatedLinks: [
+  childGroups: [
     {
-      label: 'Cómo realizar un inventario físico',
-      to: '/recursos/como-realizar-un-inventario-fisico/',
-      description: 'Preparación, alcance, conteo, reconteo, conciliación y cierre documentado.',
+      id: 'preparacion',
+      title: 'Planificación y preparación',
+      routeIds: [
+        'resource-inventario-fisico',
+        'resource-preparar-deposito',
+        'resource-general-vs-ciclico',
+      ],
     },
     {
-      label: 'Cómo preparar un depósito para un inventario',
-      to: '/recursos/como-preparar-un-deposito-para-un-inventario/',
-      description: 'Orden, ubicaciones, identificación, devoluciones, movimientos y responsables.',
+      id: 'diferencias',
+      title: 'Diferencias y control',
+      routeIds: ['resource-por-que-no-coincide', 'resource-reducir-diferencias'],
     },
     {
-      label: 'Inventario general vs. inventario cíclico',
-      to: '/recursos/inventario-general-vs-inventario-ciclico/',
-      description: 'Alcance, frecuencia, interrupción, costo operativo, ventajas y limitaciones.',
+      id: 'costos',
+      title: 'Costos y tiempos',
+      routeIds: [
+        'resource-cuanto-tarda',
+        'resource-cuanto-cuesta',
+        'resource-cotizar',
+        'resource-sin-detener',
+      ],
     },
     {
-      label: 'Cómo funciona un inventario con drones',
-      to: '/recursos/como-funciona-un-inventario-con-drones/',
-      description: 'Captura, códigos, OCR, visión artificial, validación, seguridad y limitaciones.',
+      id: 'contratacion',
+      title: 'Decisiones de contratación',
+      routeIds: ['resource-interno-vs-tercerizado', 'resource-elegir-empresa'],
+    },
+    {
+      id: 'tecnologia',
+      title: 'Tecnología',
+      routeIds: ['resource-como-funcionan-drones', 'resource-manual-vs-tecnologico'],
     },
   ],
+  relatedLinks: [],
   cta: {
     title: '¿Preferís evaluar el inventario con el equipo?',
     description: 'Las guías explican el proceso; la ejecución se define según cada depósito u operación.',

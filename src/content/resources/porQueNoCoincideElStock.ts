@@ -65,14 +65,9 @@ export const porQueNoCoincideElStockContent: ResourcePageContent = {
         'No. Puede ser un movimiento no registrado, una ubicación distinta, una unidad de medida o un documento pendiente. El conteo es una hipótesis más, no la única.',
     },
     {
-      question: '¿Por qué no alcanza comparar el total por SKU?',
-      answer:
-        'Porque el mismo SKU puede estar bien en cantidad y mal en posición, lote o disponibilidad. Sin ubicación, el desvío no se puede recontra ni corregir con precisión.',
-    },
-    {
       question: '¿El inventario físico corrige las causas de origen?',
       answer:
-        'El inventario documenta el estado a una fecha. Las causas de origen se atacan en recepción, ubicación, despacho y disciplina de movimientos. Ver cómo reducir diferencias de stock.',
+        'El inventario documenta el estado a una fecha. Las causas de origen se atacan en recepción, ubicación, despacho y disciplina de movimientos.',
     },
   ],
   relatedLinks: [

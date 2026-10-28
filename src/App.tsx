@@ -53,6 +53,19 @@ const pageByRouteId = {
   'practice-posiciones': interiorPage('practice-posiciones'),
   'practice-comunicacion': interiorPage('practice-comunicacion'),
   'practice-resultados-auditables': interiorPage('practice-resultados-auditables'),
+  'practice-planificacion': interiorPage('practice-planificacion'),
+  'practice-equipos': interiorPage('practice-equipos'),
+  'practice-duplicados': interiorPage('practice-duplicados'),
+  'practice-adaptado': interiorPage('practice-adaptado'),
+  'hub-innovacion': interiorPage('hub-innovacion'),
+  'innovation-tecnologia-aplicada': interiorPage('innovation-tecnologia-aplicada'),
+  'innovation-ia': interiorPage('innovation-ia'),
+  'innovation-drones': interiorPage('innovation-drones'),
+  'innovation-vision': interiorPage('innovation-vision'),
+  'innovation-etiquetas': interiorPage('innovation-etiquetas'),
+  'innovation-mobile-offline': interiorPage('innovation-mobile-offline'),
+  'innovation-tiempo-real': interiorPage('innovation-tiempo-real'),
+  'research-metodologia': interiorPage('research-metodologia'),
 } satisfies Record<RouteId, ComponentType>;
 
 for (const route of publishedRoutes) {

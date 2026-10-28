@@ -52,19 +52,9 @@ export const reconteosInteligentesContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Hay un porcentaje universal para disparar un reconteo?',
-      answer:
-        'No. Un umbral tiene sentido dentro de un plan concreto (valor, cliente, evidencia). Publicar un % para todos los depósitos sería un dato falso.',
-    },
-    {
-      question: '¿Quién debería recontear?',
+      question: '¿Quién debería ejecutar el reconteo?',
       answer:
         'Conviene que no sea el mismo operador sin supervisión, sobre todo si el primer número ya está en disputa. La regla se acuerda antes del turno.',
-    },
-    {
-      question: '¿Recontear todo da más confianza?',
-      answer:
-        'Suele dar más cansancio y menos rastro. La confianza viene de evidencia por ubicación y de un cierre de cada diferencia, no de pasar dos veces por todos los huecos.',
     },
   ],
   relatedLinks: [

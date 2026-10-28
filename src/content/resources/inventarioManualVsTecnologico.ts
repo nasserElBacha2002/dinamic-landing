@@ -47,9 +47,9 @@ export const inventarioManualVsTecnologicoContent: ResourcePageContent = {
     },
     {
       id: 'dinamic',
-      heading: 'Cómo lo usa Dinamic Systems',
+      heading: 'Contexto de aplicación',
       body: [
-        'Dinamic Systems combina conteo físico con captura digital y, cuando el depósito lo permite, modalidad con drones. En todos los casos el plan de zonas y el reconteo siguen siendo parte del servicio. No se afirma que la tecnología, por sí sola, elimine diferencias.',
+        'En operativos de Dinamic Systems el medio de captura se elige según etiquetas, altura y layout. El plan de zonas y el reconteo siguen siendo parte del trabajo; la herramienta no elimina diferencias por sí sola.',
       ],
     },
   ],
@@ -58,16 +58,6 @@ export const inventarioManualVsTecnologicoContent: ResourcePageContent = {
       question: '¿Un inventario con lectores es automáticamente más preciso?',
       answer:
         'Es más difícil de transcribir mal. Sigue pudiendo contar el hueco equivocado, omitir un pallet o leer un código que no es el de esa posición. La precisión la cierra el método.',
-    },
-    {
-      question: '¿Papel sigue siendo aceptable?',
-      answer:
-        'En universos chicos o como contingencia, sí, si hay control de hojas y de carga. Para un CD con muchas posiciones, el costo de consolidar y el riesgo de pérdida de rastro suelen no compensar.',
-    },
-    {
-      question: '¿La visión artificial reemplaza el conteo en piso?',
-      answer:
-        'No de forma general. Puede complementar altura o evidencia visual cuando las etiquetas se ven. El piso, los bultos y lo no etiquetado siguen pidiendo un criterio de conteo.',
     },
   ],
   relatedLinks: [

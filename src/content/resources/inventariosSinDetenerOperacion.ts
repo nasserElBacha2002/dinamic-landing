@@ -56,19 +56,9 @@ export const inventariosSinDetenerOperacionContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Siempre se puede hacer un inventario sin parar el depósito?',
-      answer:
-        'No. Hace falta poder sectorizar, controlar movimientos y reconciliar. Si eso no existe, el cierre no es defendible.',
-    },
-    {
-      question: '¿Qué es el congelamiento lógico?',
+      question: '¿Qué es el congelamiento lógico en un inventario?',
       answer:
         'Un corte del stock teórico o de documentos a una hora acordada, aunque el piso siga moviéndose. Sin un corte así, no hay contra qué conciliar el conteo.',
-    },
-    {
-      question: '¿Un cíclico reemplaza a un inventario sin detención?',
-      answer:
-        'No. El cíclico reduce el universo. El inventario con operación activa intenta cubrir un alcance mayor sin parar. Se pueden combinar, no se equivalen.',
     },
   ],
   relatedLinks: [

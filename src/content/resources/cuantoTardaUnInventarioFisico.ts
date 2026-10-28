@@ -5,7 +5,7 @@ export const cuantoTardaUnInventarioFisicoContent: ResourcePageContent = {
   eyebrow: 'Recurso',
   h1: 'Cuánto tarda un inventario físico',
   summary:
-    'No hay una duración universal. El tiempo depende del universo a contar, del layout, de la preparación, de cuánta gente trabaja, de si hay que recontear y de si la operación sigue activa. Esta guía ordena esas variables para estimar con datos del sitio, no con un promedio inventado.',
+    'No existe una duración universal. El tiempo depende del volumen, de las ubicaciones, de la preparación, del personal y de si hace falta reconteo —y de si la operación sigue activa.',
   datePublished: '2026-10-28',
   dateModified: '2026-10-28',
   authorName: 'Dinamic Systems',
@@ -58,19 +58,9 @@ export const cuantoTardaUnInventarioFisicoContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Se puede decir cuántas horas tarda un inventario de depósito?',
-      answer:
-        'No de forma universal. Hay que conocer ubicaciones, layout, preparación, dotación y si la operación sigue activa. Sin esos datos, un plazo es una invención.',
-    },
-    {
       question: '¿El reconteo alarga siempre el operativo?',
       answer:
         'Alarga cuando hay diferencias que hay que volver a ver. Un plan de reconteo selectivo suele ser más corto que recontear todo el universo “por las dudas”.',
-    },
-    {
-      question: '¿Contar sin detener la operación tarda más?',
-      answer:
-        'Suele exigir más control (ventanas, zonas, movimientos) que un conteo con operación detenida. No siempre es más lento en calendario, pero sí más complejo de cerrar.',
     },
   ],
   relatedLinks: [

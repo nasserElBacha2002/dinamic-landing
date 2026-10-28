@@ -11,6 +11,7 @@ import {
   routesForHomeExplore,
   type PublishedRoute,
 } from '../src/routes.ts';
+import { INTERNAL_REDIRECTS } from '../src/seo/phase1InternalRedirects.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(path.resolve(__dirname, '..'), 'dist');
@@ -34,12 +35,21 @@ function normalizePath(to: string): string | null {
 
 const routes = publishedRoutes as readonly PublishedRoute[];
 const publishedPaths = new Set(routes.map((r) => r.path));
+const redirectSources = new Set(
+  INTERNAL_REDIRECTS.flatMap((r) => [`/${r.from}`, `/${r.from}/`, `/${r.from}.html`]),
+);
 const inbound = new Map<string, Set<string>>();
 for (const p of publishedPaths) inbound.set(p, new Set());
 
 function addEdge(from: string, toRaw: string): void {
   const to = normalizePath(toRaw);
   if (to === null) return;
+  if (redirectSources.has(toRaw.split('?')[0] ?? toRaw) || redirectSources.has(to) || redirectSources.has(`${to}/`)) {
+    fail(`${from}: internal link points at redirect source ${toRaw}`);
+  }
+  if (to === '/investigacion') {
+    fail(`${from}: must not link to unpublished hub /investigacion/`);
+  }
   if (!publishedPaths.has(to)) {
     fail(`${from}: broken internal link ${toRaw} (normalized ${to})`);
   }

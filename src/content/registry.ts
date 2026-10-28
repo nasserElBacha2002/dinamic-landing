@@ -27,6 +27,19 @@ import { reconteosInteligentesContent } from '@/content/practices/reconteosIntel
 import { controlPosicionesPasillosContent } from '@/content/practices/controlPosicionesPasillos';
 import { comunicacionClienteInventarioContent } from '@/content/practices/comunicacionClienteInventario';
 import { resultadosAuditablesContent } from '@/content/practices/resultadosAuditables';
+import { planificacionInventarioContent } from '@/content/practices/planificacionInventario';
+import { equiposDepositosGrandesContent } from '@/content/practices/equiposDepositosGrandes';
+import { evitarDuplicadosCantidadesContent } from '@/content/practices/evitarDuplicadosCantidades';
+import { inventarioAdaptadoClienteContent } from '@/content/practices/inventarioAdaptadoCliente';
+import { innovacionHubContent } from '@/content/hubs/innovacion';
+import { tecnologiaAplicadaContent } from '@/content/innovation/tecnologiaAplicada';
+import { inteligenciaArtificialContent } from '@/content/innovation/inteligenciaArtificial';
+import { dronesInventariosContent } from '@/content/innovation/dronesInventarios';
+import { visionArtificialContent } from '@/content/innovation/visionArtificial';
+import { etiquetasInteligentesContent } from '@/content/innovation/etiquetasInteligentes';
+import { tecnologiaMovilOfflineContent } from '@/content/innovation/tecnologiaMovilOffline';
+import { inventariosTiempoRealContent } from '@/content/innovation/inventariosTiempoReal';
+import { metodologiaInventariosContent } from '@/content/research/metodologiaInventarios';
 
 /**
  * Typed content keyed by published route id.
@@ -61,4 +74,17 @@ export const interiorContentByRouteId: Record<string, InteriorPageContent> = {
   'practice-posiciones': controlPosicionesPasillosContent,
   'practice-comunicacion': comunicacionClienteInventarioContent,
   'practice-resultados-auditables': resultadosAuditablesContent,
+  'practice-planificacion': planificacionInventarioContent,
+  'practice-equipos': equiposDepositosGrandesContent,
+  'practice-duplicados': evitarDuplicadosCantidadesContent,
+  'practice-adaptado': inventarioAdaptadoClienteContent,
+  'hub-innovacion': innovacionHubContent,
+  'innovation-tecnologia-aplicada': tecnologiaAplicadaContent,
+  'innovation-ia': inteligenciaArtificialContent,
+  'innovation-drones': dronesInventariosContent,
+  'innovation-vision': visionArtificialContent,
+  'innovation-etiquetas': etiquetasInteligentesContent,
+  'innovation-mobile-offline': tecnologiaMovilOfflineContent,
+  'innovation-tiempo-real': inventariosTiempoRealContent,
+  'research-metodologia': metodologiaInventariosContent,
 };

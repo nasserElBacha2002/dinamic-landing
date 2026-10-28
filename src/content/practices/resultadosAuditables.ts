@@ -57,19 +57,9 @@ export const resultadosAuditablesContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Un PDF de totales es un resultado auditable?',
+      question: '¿Un inventario auditable es lo mismo que una auditoría de inventarios?',
       answer:
-        'Por sí solo, no. Falta el camino hasta la captura: ubicación, operador, conteo o reconteo, y un export desglosado. El PDF puede ser la carátula, no la evidencia.',
-    },
-    {
-      question: '¿Hace falta timestamp en milisegundos?',
-      answer:
-        'Hace falta el rastro que el medio realmente registra. Pedir campos que el sistema no tiene y luego afirmarlos es peor que declarar el límite.',
-    },
-    {
-      question: '¿Esto es lo mismo que contratar una auditoría?',
-      answer:
-        'No. La auditoría es un servicio de control independiente. Lo auditable es una cualidad del dato del inventario. Se complementan; no se sustituyen.',
+        'No. Lo auditable es una cualidad del dato (se puede reconstruir). La auditoría es un servicio de control independiente sobre un recorte o muestra. Se complementan; no se sustituyen.',
     },
   ],
   relatedLinks: [

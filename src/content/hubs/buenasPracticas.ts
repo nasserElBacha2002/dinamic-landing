@@ -6,15 +6,31 @@ export const buenasPracticasHubContent: HubPageContent = {
   eyebrow: 'Buenas prácticas',
   h1: 'Buenas prácticas de inventario físico',
   summary:
-    'Prácticas operativas para reconteos, control de posiciones, comunicación durante el inventario y un cierre que se pueda reconstruir. No es un blog: son páginas con una intención cada una, publicadas cuando hay contenido real.',
+    'Hábitos de un inventario físico: cómo se planifica, cómo se recorre, cómo se controlan diferencias y cómo se cierra un resultado que se pueda reconstruir. Cada URL cubre un problema operativo distinto.',
   sections: [
     {
       id: 'alcance',
       heading: 'Qué cubren estas prácticas',
       body: [
-        'Recontear con criterio, registrar pasillo y posición, hablar con el interlocutor del operativo y dejar un resultado auditable. Cada URL responde una pregunta distinta; no se copian entre sí.',
         'No reemplazan el servicio de inventarios físicos ni la auditoría. Si el objetivo es ejecutar un conteo, el siguiente paso sigue siendo evaluar alcance y fechas.',
       ],
+    },
+  ],
+  childGroups: [
+    {
+      id: 'planificacion',
+      title: 'Planificación',
+      routeIds: ['practice-planificacion', 'practice-equipos', 'practice-adaptado'],
+    },
+    {
+      id: 'ejecucion',
+      title: 'Ejecución',
+      routeIds: ['practice-posiciones', 'practice-duplicados', 'practice-comunicacion'],
+    },
+    {
+      id: 'control',
+      title: 'Control y cierre',
+      routeIds: ['practice-reconteos', 'practice-resultados-auditables'],
     },
   ],
   relatedLinks: [],

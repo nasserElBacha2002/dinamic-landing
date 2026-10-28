@@ -63,16 +63,6 @@ export const comoReducirDiferenciasDeStockContent: ResourcePageContent = {
       answer:
         'Reduce la demora en verlas. La reducción real aparece cuando se corrige ubicación, documentos y unidades. Si solo se ajusta el sistema, el próximo conteo vuelve a mostrar el mismo hueco.',
     },
-    {
-      question: '¿Un cíclico alcanza para prevenir?',
-      answer:
-        'Ayuda sobre el recorte que cubre. No sustituye un general cuando el universo entero está descontrolado, ni sustituye arreglar recepción.',
-    },
-    {
-      question: '¿Por dónde empezar si hay muchas causas a la vez?',
-      answer:
-        'Por las diferencias que se repiten en la misma zona o el mismo documento. Ahí hay un proceso, no un accidente. El artículo de causas ayuda a nombrarlas.',
-    },
   ],
   relatedLinks: [
     {

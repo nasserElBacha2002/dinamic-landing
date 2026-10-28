@@ -5,7 +5,49 @@
 **Search Console:** `SEARCH_CONSOLE_PENDING_OWNER_DNS_VERIFICATION`  
 **Fecha:** 2026-10-28  
 
-NO deploy. NO Fase 3. Esperar code review.
+NO deploy. El endurecimiento editorial de esta fase convive en el árbol con Fase 3 (`docs/seo-geo-phase3-validation.md`).
+
+---
+
+## Final editorial hardening
+
+Revisión crítica de las 13 P1 **después** de `PHASE_2_CODE_COMPLETE` original. Build/tests no se tomaron como prueba de calidad editorial.
+
+### Páginas revisadas
+
+Las 13 URLs P1. Se recortó filler, FAQs que repetían el cuerpo, y cierres intercambiables de “cómo lo usa Dinamic”.
+
+### FAQ eliminadas / mantenidas
+
+Regla nueva: FAQ opcional. Solo si agrega una distinción que el cuerpo no cubre.
+
+| URL | Antes | Después | Motivo |
+|-----|-------|---------|--------|
+| por-qué no coincide | 3 | 2 | Se quitó “total por SKU” (ya está en causas) |
+| cuánto tarda | 3 | 1 | Se quitó la pregunta que repetía “no hay duración universal” |
+| interno vs tercerizado | 3 | 1 | Se dejó evidencia para un tercero |
+| elegir empresa | 3 | 2 | Se quitó tecnología (cubre manual vs tecnológico) |
+| cuánto cuesta | 3 | 1 | Se quitó “por qué no hay precio” (primer bloque) |
+| cotizar | 3 | 1 | Se dejó que no reemplaza el formulario |
+| sin detener | 3 | 1 | Definición de congelamiento lógico |
+| reducir diferencias | 3 | 1 | “¿Más inventarios reducen?” |
+| manual vs tecnológico | 3 | 1 | Precisión de lectores; visión se mueve a innovación |
+| reconteos | 3 | 1 | Quién recontea |
+| posiciones | 3 | 1 | Lote; se quitó “¿reemplaza depósitos?” (meta-SEO) |
+| comunicación | 3 | 1 | Interlocutor en 3PL |
+| resultados auditables | 3 | 1 | Auditable ≠ auditoría |
+
+FAQPage desaparece solo si `content.faq` está vacío. Las 13 conservan al menos una pregunta útil.
+
+### Contenido consolidado / duplicación
+
+- Respuesta directa de “cuánto tarda” alineada al ejemplo del brief (no hay duración universal; depende de volumen, ubicaciones, preparación, personal y reconteo).
+- Hub `/recursos/`: agrupación semántica (preparación, diferencias, costos/tiempos, contratación, tecnología). Sin páginas extra de categoría.
+- Hub `/buenas-practicas/`: orden lógico control vs cierre (luego Fase 3 suma planificación/ejecución).
+
+### Estado
+
+Sigue `PHASE_2_CODE_COMPLETE`. Los cambios editoriales viven en el mismo árbol que Fase 3.
 
 ---
 

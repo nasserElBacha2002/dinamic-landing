@@ -58,16 +58,6 @@ export const cuantoCuestaUnInventarioFisicoContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Por qué no hay un precio de referencia en esta página?',
-      answer:
-        'Porque un precio sin universo, layout y ventana sería un número inventado. El costo se arma con datos del sitio.',
-    },
-    {
-      question: '¿El reconteo se cobra aparte?',
-      answer:
-        'Depende de cómo esté definido el alcance. Lo importante es que la propuesta diga qué reconteo está incluido y qué pasa si el predio no estaba preparado.',
-    },
-    {
       question: '¿Varias sucursales se cotizan como un solo inventario?',
       answer:
         'Suele ser un plan con varios cierres locales más una consolidación. El costo sigue a la cantidad de sitios, ventanas y desplazamientos, no a un único total abstracto.',

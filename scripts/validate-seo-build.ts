@@ -21,7 +21,8 @@ import {
 import { PAGE_JSON_LD_SCRIPT_ID } from '../src/seo/jsonLd.ts';
 import {
   apacheRewriteRule,
-  matchPhase1Redirect,
+  INTERNAL_REDIRECTS,
+  matchInternalRedirect,
   PHASE1_INTERNAL_REDIRECTS,
 } from '../src/seo/phase1InternalRedirects.ts';
 import { defaultOgImage } from '../src/seo/types.ts';
@@ -212,6 +213,14 @@ async function main(): Promise<void> {
       if (children.length < 2) {
         fail(`${route.id}: hub must list at least 2 indexable children (got ${children.length})`);
       }
+      if (hub.childGroups?.length) {
+        const known = new Set(children.map((c) => c.id));
+        for (const group of hub.childGroups) {
+          for (const id of group.routeIds) {
+            if (!known.has(id)) fail(`${route.id}: childGroup "${group.id}" references unknown route ${id}`);
+          }
+        }
+      }
       const html = await fs.readFile(file, 'utf-8');
       for (const child of children) {
         if (!html.includes(`href="${child.loc}"`)) {
@@ -289,7 +298,7 @@ async function main(): Promise<void> {
       if (links.length < 2 || links.length > 5) {
         fail(`${route.id}: relatedLinks must be 2–5 (got ${links.length})`);
       }
-      const redirectSources = new Set(PHASE1_INTERNAL_REDIRECTS.map((r) => `/${r.from}`));
+      const redirectSources = new Set(INTERNAL_REDIRECTS.map((r) => `/${r.from}`));
       const seenTo = new Set<string>();
       for (const link of links) {
         if (seenTo.has(link.to)) fail(`${route.id}: duplicate related link ${link.to}`);
@@ -384,15 +393,38 @@ async function main(): Promise<void> {
   const indexableHubs = (publishedRoutes as readonly PublishedRoute[]).filter(
     (r) => r.pageType === 'hub' && r.indexable !== false,
   );
-  const expectedHubGroups = ['servicios', 'industrias', 'recursos', 'buenas-practicas'] as const;
+  const expectedHubGroups = [
+    'servicios',
+    'industrias',
+    'recursos',
+    'buenas-practicas',
+    'innovacion',
+  ] as const;
   if (indexableHubs.length !== expectedHubGroups.length) {
     fail(`expected ${expectedHubGroups.length} indexable hubs, got ${indexableHubs.length}`);
   }
   for (const group of expectedHubGroups) {
     if (!getPublishedHubForGroup(group)) fail(`missing published hub for ${group}`);
   }
-  if (getPublishedHubForGroup('innovacion') || getPublishedHubForGroup('investigacion')) {
-    fail('innovacion/investigacion hubs must stay unpublished in Fase 2');
+  if (getPublishedHubForGroup('investigacion')) {
+    fail('hub /investigacion/ must stay unpublished until it has ≥2 indexable children');
+  }
+  const investigacionHubFile = path.join(distDir, 'investigacion', 'index.html');
+  try {
+    await fs.access(investigacionHubFile);
+    fail('dist must not prerender indexable /investigacion/ hub');
+  } catch {
+    ok('unpublished /investigacion/ hub (metodología remains)');
+  }
+  await assertFile(
+    path.join(distDir, 'investigacion', 'metodologia-inventarios', 'index.html'),
+    'investigacion/metodologia-inventarios/index.html',
+  );
+  if (locs.includes(absoluteUrl('/investigacion/'))) {
+    fail('sitemap must not include unpublished hub /investigacion/');
+  }
+  if (!locs.includes(absoluteUrl('/investigacion/metodologia-inventarios/'))) {
+    fail('sitemap missing /investigacion/metodologia-inventarios/');
   }
   for (const hub of indexableHubs) {
     if (!locs.includes(absoluteUrl(hub.loc))) fail(`sitemap missing hub ${hub.loc}`);
@@ -405,13 +437,13 @@ async function main(): Promise<void> {
     fail('.htaccess must not redirect Cloudflare Pages/Workers hosts');
   }
   const publishedAbs = new Set(getSitemapLocs());
-  const redirectSources = new Set(PHASE1_INTERNAL_REDIRECTS.map((r) => r.from));
-  for (const rule of PHASE1_INTERNAL_REDIRECTS) {
+  const redirectSources = new Set(INTERNAL_REDIRECTS.map((r) => r.from));
+  for (const rule of INTERNAL_REDIRECTS) {
     const needle = apacheRewriteRule(rule.from, rule.to);
     if (!htaccess.includes(needle)) fail(`missing exact 301 rule: ${needle}`);
     const destAbs = absoluteUrl(rule.to);
     if (!publishedAbs.has(destAbs)) fail(`redirect ${rule.from} target ${rule.to} is not a sitemap URL`);
-    if (locs.some((l) => l.includes(`/${rule.from}`) || l.endsWith(rule.from) || l.includes(`${rule.from}/`))) {
+    if (locs.some((l) => l === absoluteUrl(`/${rule.from}/`) || l === absoluteUrl(`/${rule.from}`))) {
       fail(`sitemap must not include redirect source ${rule.from}`);
     }
     const destKey = rule.to.replace(/^\//, '').replace(/\/$/, '');
@@ -420,7 +452,7 @@ async function main(): Promise<void> {
 
     const positives = [`/${rule.from}`, `/${rule.from}/`, `/${rule.from}.html`, `/${rule.from}?utm=1`];
     for (const candidate of positives) {
-      const dest = matchPhase1Redirect(candidate);
+      const dest = matchInternalRedirect(candidate);
       if (dest !== rule.to) {
         fail(`redirect matcher: ${candidate} expected ${rule.to}, got ${dest ?? '(none)'}`);
       }
@@ -434,14 +466,16 @@ async function main(): Promise<void> {
       `/x/${rule.from}`,
     ];
     for (const candidate of negatives) {
-      const dest = matchPhase1Redirect(candidate);
+      const dest = matchInternalRedirect(candidate);
       if (dest === rule.to) fail(`redirect matcher captured prefix/extra path: ${candidate}`);
     }
   }
-  if (matchPhase1Redirect('/inventarios-depositos-algo')) {
+  if (matchInternalRedirect('/inventarios-depositos-algo')) {
     fail('redirect matcher must not capture /inventarios-depositos-algo');
   }
-  ok(`phase1 ${PHASE1_INTERNAL_REDIRECTS.length} exact 301s; 3 variants; no prefix; no chains`);
+  ok(
+    `internal ${INTERNAL_REDIRECTS.length} exact 301s (${PHASE1_INTERNAL_REDIRECTS.length} fase1 + ${INTERNAL_REDIRECTS.length - PHASE1_INTERNAL_REDIRECTS.length} fase4); 3 variants; no prefix; no chains`,
+  );
 
 
   try {

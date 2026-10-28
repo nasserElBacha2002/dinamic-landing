@@ -56,19 +56,9 @@ export const controlPosicionesPasillosContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Alcanza con contar el total por SKU?',
-      answer:
-        'Para un ajuste grosero, a veces. Para recontear, para encontrar duplicados y para un cierre auditable, no: hace falta la posición.',
-    },
-    {
-      question: '¿Hay que registrar lote siempre?',
+      question: '¿Hay que registrar lote en todas las posiciones?',
       answer:
         'Cuando el negocio o el cliente tercero lo exigen. Si el master no trabaja por lote, inventarlo en el inventario crea un dato que nadie va a mantener.',
-    },
-    {
-      question: '¿Esta práctica reemplaza la página de depósitos?',
-      answer:
-        'No. Depósitos y CD es la landing de industria. Esta URL es el control posicional como método, reutilizable también en un operador logístico.',
     },
   ],
   relatedLinks: [

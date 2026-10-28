@@ -4,14 +4,19 @@ import type { RelatedLink } from '@/content/types';
 
 type RelatedLinksProps = {
   title?: string;
+  headingId?: string;
   links: RelatedLink[];
 };
 
-export function RelatedLinks({ title = 'También puede interesarte', links }: RelatedLinksProps) {
+export function RelatedLinks({
+  title = 'También puede interesarte',
+  headingId = 'related-heading',
+  links,
+}: RelatedLinksProps) {
   return (
-    <Stack gap="lg" component="section" aria-labelledby="related-heading">
+    <Stack gap="lg" component="section" aria-labelledby={headingId}>
       <Text
-        id="related-heading"
+        id={headingId}
         component="h2"
         fz={{ base: rem(24), md: rem(28) }}
         fw={800}

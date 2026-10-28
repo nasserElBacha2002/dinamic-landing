@@ -53,19 +53,9 @@ export const comunicacionClienteInventarioContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Hay que informar cada diferencia en el momento?',
+      question: '¿Quién es el interlocutor en un operador logístico?',
       answer:
-        'No. Hay que acordar cuáles sí (valor, cliente tercero, evidencia contradictoria) y cuáles van al cierre. Avisar todo en caliente satura; no avisar nada deja el reconteo para cuando ya no hay gente en el pasillo.',
-    },
-    {
-      question: '¿Quién es el “cliente” en un operador logístico?',
-      answer:
-        'Hay que decirlo: el operador, el dueño de la mercadería, o ambos con reportes distintos. Mezclarlos es un error de comunicación y de inventario.',
-    },
-    {
-      question: '¿Un chat de turno alcanza como canal?',
-      answer:
-        'Puede alcanzar si está nombrado, con quién responde y qué se considera incidencia. Un grupo sin dueño no es un procedimiento.',
+        'Hay que decirlo antes: el operador, el dueño de la mercadería, o ambos con reportes distintos. Mezclarlos es un error de comunicación y de inventario.',
     },
   ],
   relatedLinks: [

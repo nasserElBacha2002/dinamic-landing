@@ -65,12 +65,7 @@ export const comoElegirEmpresaInventariosContent: ResourcePageContent = {
         'En este sitio no. Un ranking exigiría evidencia comparable y autorización. Lo verificable son el método, el entregable y las referencias que se puedan contrastar.',
     },
     {
-      question: '¿La tecnología garantiza un mejor inventario?',
-      answer:
-        'No. Es un medio de captura. Sin plan de zonas, control de movimientos y reconteo, un lector o un dron solo digitaliza el mismo error.',
-    },
-    {
-      question: '¿Qué preguntar en la primera reunión?',
+      question: '¿Qué preguntar en la primera reunión con un proveedor?',
       answer:
         'Cómo parten el predio, qué recontean, qué queda registrado por ubicación y qué pasa si la operación no se puede detener. El precio sin ese plan no se puede comparar.',
     },

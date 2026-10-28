@@ -57,19 +57,9 @@ export const cotizarInventarioFisicoContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Puedo cotizar sin saber cuántas posiciones tengo?',
+      question: '¿Esta guía reemplaza el formulario de contacto?',
       answer:
-        'Se puede abrir el diálogo con un volumen aproximado, pero el número se vuelve defendible cuando hay un recorte de ubicaciones, layout y ventana. Si no está el dato, hay que decir que es un supuesto.',
-    },
-    {
-      question: '¿Esta página reemplaza el formulario de contacto?',
-      answer:
-        'No. Es una guía previa. La solicitud sigue en el formulario o en el mail, con localidad, tipo de operación, volumen y fecha.',
-    },
-    {
-      question: '¿Hace falta enviar el layout del WMS?',
-      answer:
-        'Ayuda, no es un requisito inicial. Un croquis, fotos de pasillo y la cantidad de posiciones aproximada ya cambian la calidad de la propuesta.',
+        'No. Es la preparación del pedido. La solicitud sigue en el formulario o en el mail, con localidad, tipo de operación, volumen aproximado y fecha.',
     },
   ],
   relatedLinks: [

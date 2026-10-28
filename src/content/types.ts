@@ -63,10 +63,18 @@ export type ResourcePageContent = PageContentBase & {
   authorName: string;
 };
 
+export type HubChildGroup = {
+  id: string;
+  title: string;
+  /** Published route ids, in display order. Unlisted children still render in a leftover group. */
+  routeIds: readonly string[];
+};
+
 /** Hub listing page. Publish only when the group already has indexable children. */
 export type HubPageContent = PageContentBase & {
   kind: 'hub';
   group: 'servicios' | 'industrias' | 'recursos' | 'buenas-practicas' | 'innovacion' | 'investigacion';
+  childGroups?: readonly HubChildGroup[];
 };
 
 /** Case study content — only publish when every evidence field is verified. */

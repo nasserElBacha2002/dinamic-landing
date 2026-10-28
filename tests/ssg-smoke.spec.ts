@@ -129,11 +129,27 @@ test.describe('SSG multipage smoke', () => {
     assertClean(pageErrors, consoleErrors);
   });
 
-  test('unpublished future hubs are not prerendered', async ({ request }) => {
-    for (const path of ['/innovacion/', '/investigacion/']) {
-      const response = await request.get(path);
-      expect(response.status(), `${path} must not be an indexable document yet`).toBeGreaterThanOrEqual(400);
-    }
+  test('innovación hub is published; investigación hub stays unpublished', async ({ page }) => {
+    const innovacion = await page.goto('/innovacion/', { waitUntil: 'domcontentloaded' });
+    expect(innovacion?.status()).toBe(200);
+    await expect(page.locator('h1')).toContainText(/Tecnología e innovación/i);
+    const header = page.locator('header').first();
+    await expect(header.getByRole('link', { name: /Innovación/i })).toHaveCount(0);
+    await expect(header.getByRole('link', { name: /Investigación/i })).toHaveCount(0);
+    await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
+
+    const investigacionHub = await page.goto('/investigacion/', { waitUntil: 'domcontentloaded' });
+    expect(investigacionHub?.status(), '/investigacion/ must not be an indexable hub').toBeGreaterThanOrEqual(400);
+
+    const metodologia = await page.goto('/investigacion/metodologia-inventarios/', {
+      waitUntil: 'domcontentloaded',
+    });
+    expect(metodologia?.status()).toBe(200);
+    await expect(page.locator('h1')).toContainText(/Metodología de un inventario físico/i);
+    const crumbs = page.getByRole('navigation', { name: 'Miga de pan' });
+    await expect(crumbs.getByRole('link', { name: 'Investigación' })).toHaveCount(0);
+    await expect(crumbs.getByText('Metodología de inventarios')).toBeVisible();
+    await expect(page.locator('footer a[href="/investigacion/"]')).toHaveCount(0);
   });
 
   test('all sitemap URLs prerender with canonical and one H1', async ({ page, request }) => {
@@ -145,10 +161,12 @@ test.describe('SSG multipage smoke', () => {
       const abs = match[1] ?? '';
       return abs.replace('https://dinamicsystems.com', '') || '/';
     });
-    expect(locs.length).toBeGreaterThanOrEqual(29);
+    expect(locs.length).toBe(42);
     expect(locs).toContain('/buenas-practicas/');
     expect(locs).toContain('/recursos/por-que-no-coincide-el-stock/');
-    expect(locs.some((loc) => loc.includes('/innovacion'))).toBe(false);
+    expect(locs).toContain('/innovacion/');
+    expect(locs).toContain('/investigacion/metodologia-inventarios/');
+    expect(locs).not.toContain('/investigacion/');
     for (const loc of locs) {
       const response = await page.goto(loc, { waitUntil: 'domcontentloaded' });
       expect(response?.status(), loc).toBe(200);
@@ -158,6 +176,8 @@ test.describe('SSG multipage smoke', () => {
       const header = page.locator('header').first();
       await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
       await expect(header.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+      await expect(header.getByRole('link', { name: /Innovación/i })).toHaveCount(0);
+      await expect(header.getByRole('link', { name: /Investigación/i })).toHaveCount(0);
     }
   });
 
@@ -201,7 +221,7 @@ test.describe('SSG multipage smoke', () => {
     assertClean(pageErrors, consoleErrors);
   });
 
-  test('phase 1 redirect sources are not prerendered documents', async ({ request }) => {
+  test('internal redirect sources are not prerendered documents', async ({ request }) => {
     const sources = [
       '/inventarios-fisicos-argentina',
       '/inventarios-fisicos-argentina/',
@@ -213,6 +233,12 @@ test.describe('SSG multipage smoke', () => {
       '/inventarios-centros-distribucion-argentina/',
       '/buenas-practicas/servicio-inventario-fisico-que-recibe-cliente/',
       '/buenas-practicas/compromiso-cumplimiento-inventario-confiable/',
+      '/mejores-empresas-inventarios-argentina/',
+      '/inventarios-innovadores-argentina/',
+      '/tecnologia-inventarios/',
+      '/buenas-practicas/metodologia-operativa-inventarios-fisicos/',
+      '/innovacion/drones-vision-artificial-inventarios/',
+      '/investigacion/',
     ];
     for (const path of sources) {
       const response = await request.get(path);
@@ -245,6 +271,18 @@ test.describe('SSG multipage smoke', () => {
       expect(seen.has(item.question)).toBe(false);
       seen.add(item.question);
     }
+  });
+
+  test('drones cluster keeps three distinct intents', async ({ page }) => {
+    await page.goto('/servicios/inventarios-con-drones/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toContainText(/Inventarios con drones para depósitos/i);
+    await expect(page.locator('h1')).toHaveCount(1);
+    await page.goto('/recursos/como-funciona-un-inventario-con-drones/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toContainText(/Cómo funciona un inventario con drones/i);
+    await page.goto('/innovacion/drones-inventarios/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toContainText(/integración técnica y límites/i);
+    await expect(page.getByRole('link', { name: /Servicio de inventarios con drones/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /Cómo funciona un inventario con drones/i }).first()).toBeVisible();
   });
 
   test('secondary service and resource pages', async ({ page }) => {

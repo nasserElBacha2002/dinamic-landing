@@ -627,6 +627,220 @@ export const publishedRoutes = [
       group: 'buenas-practicas',
     },
   },
+  {
+    id: 'practice-planificacion',
+    path: '/buenas-practicas/planificacion-inventario',
+    loc: '/buenas-practicas/planificacion-inventario/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Planificación de un inventario'],
+    seo: {
+      title: 'Planificación de un inventario físico',
+      description:
+        'Cómo se diseña un inventario: alcance, zonas, calendario, personal, layout, stock en movimiento y responsables. Distinto de preparar el depósito.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Planificación de un inventario', group: 'buenas-practicas' },
+  },
+  {
+    id: 'practice-equipos',
+    path: '/buenas-practicas/equipos-inventario-depositos-grandes',
+    loc: '/buenas-practicas/equipos-inventario-depositos-grandes/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Equipos en depósitos grandes'],
+    seo: {
+      title: 'Equipos de inventario en depósitos grandes',
+      description:
+        'Cómo se dimensionan y coordinan equipos de inventario en predios grandes: zonas, supervisión y especialización. Sin ratios universales.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Equipos en depósitos grandes', group: 'buenas-practicas' },
+  },
+  {
+    id: 'practice-duplicados',
+    path: '/buenas-practicas/evitar-duplicados-cantidades',
+    loc: '/buenas-practicas/evitar-duplicados-cantidades/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Evitar duplicados y cantidades incorrectas'],
+    seo: {
+      title: 'Cómo evitar duplicados y cantidades incorrectas',
+      description:
+        'Cómo se producen y se cortan el doble conteo y las cantidades mal capturadas: identificación, posición, relectura, validación y reconteo.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Evitar duplicados y cantidades incorrectas', group: 'buenas-practicas' },
+  },
+  {
+    id: 'practice-adaptado',
+    path: '/buenas-practicas/inventario-adaptado-cliente-proveedor',
+    loc: '/buenas-practicas/inventario-adaptado-cliente-proveedor/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Inventario adaptado a cliente o proveedor'],
+    seo: {
+      title: 'Inventario adaptado a cliente o proveedor',
+      description:
+        'Adaptación operativa de un inventario: formatos, etiquetas, ubicaciones, códigos, layouts y restricciones. Sin discurso genérico de flexibilidad.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Inventario adaptado a cliente o proveedor', group: 'buenas-practicas' },
+  },
+  {
+    id: 'hub-innovacion',
+    path: '/innovacion',
+    loc: '/innovacion/',
+    pageType: 'hub',
+    breadcrumbLabels: ['Innovación'],
+    seo: {
+      title: 'Tecnología e innovación en inventarios físicos | Dinamic Systems',
+      description:
+        'Tecnología aplicada a inventarios: captura digital, visión, drones, IA, etiquetas, móvil offline y el sentido real de tiempo real. Con límites explícitos.',
+      ogType: 'website',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: {
+      label: 'Innovación',
+      group: 'innovacion',
+      showInHeader: false,
+      showInFooter: false,
+      showOnHome: false,
+    },
+  },
+  {
+    id: 'innovation-tecnologia-aplicada',
+    path: '/innovacion/tecnologia-aplicada-inventarios',
+    loc: '/innovacion/tecnologia-aplicada-inventarios/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Tecnología aplicada a inventarios'],
+    seo: {
+      title: 'Tecnología aplicada a inventarios físicos',
+      description:
+        'Mapa de capas técnicas de un inventario: captura digital, códigos, QR, móvil, validación, OCR, visión, drones, offline y sincronización.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Tecnología aplicada a inventarios', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-ia',
+    path: '/innovacion/inteligencia-artificial-inventarios',
+    loc: '/innovacion/inteligencia-artificial-inventarios/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Inteligencia artificial en inventarios'],
+    seo: {
+      title: 'Inteligencia artificial en inventarios físicos',
+      description:
+        'Usos posibles de IA en un inventario: clasificación, asistencia a lectura, validación y detección de inconsistencias. No elimina errores ni reemplaza la visión.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Inteligencia artificial en inventarios', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-drones',
+    path: '/innovacion/drones-inventarios',
+    loc: '/innovacion/drones-inventarios/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Drones en inventarios'],
+    seo: {
+      title: 'Drones en inventarios: integración técnica y límites',
+      description:
+        'Cómo se integra un dron al inventario: visión, validación y límites de interiores. Distinto del servicio comercial y de la guía de funcionamiento.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Drones en inventarios', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-vision',
+    path: '/innovacion/vision-artificial',
+    loc: '/innovacion/vision-artificial/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Visión artificial'],
+    seo: {
+      title: 'Visión artificial en inventarios físicos',
+      description:
+        'Qué hace la visión artificial en un inventario: captura, detección, lectura, asociación a ubicación y validación humana. No equivale a un conteo completo.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Visión artificial', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-etiquetas',
+    path: '/innovacion/etiquetas-inteligentes',
+    loc: '/innovacion/etiquetas-inteligentes/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Etiquetas e identificación'],
+    seo: {
+      title: 'Etiquetas e identificación en el inventario',
+      description:
+        'Identificación de ítem y ubicación con códigos, etiquetas impresas y QR. Sin afirmar RFID u otros hardwares no documentados.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Etiquetas e identificación', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-mobile-offline',
+    path: '/innovacion/tecnologia-movil-offline',
+    loc: '/innovacion/tecnologia-movil-offline/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Tecnología móvil y offline'],
+    seo: {
+      title: 'Tecnología móvil y captura offline en inventarios',
+      description:
+        'Captura de inventario sin conectividad: almacén local, sincronización posterior y límites. Sin garantías de que ningún dato se pierda.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Tecnología móvil y offline', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-tiempo-real',
+    path: '/innovacion/inventarios-fisicos-tiempo-real',
+    loc: '/innovacion/inventarios-fisicos-tiempo-real/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'Inventarios en tiempo real'],
+    seo: {
+      title: 'Qué significa un inventario físico en tiempo real',
+      description:
+        'Tiempo real no es una sola cosa: captura durante operación, avance cercano al evento, cíclicos, ERP/WMS o consolidación posterior. Sin sync instantánea no documentada.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Inventarios en tiempo real', group: 'innovacion' },
+  },
+  {
+    id: 'research-metodologia',
+    path: '/investigacion/metodologia-inventarios',
+    loc: '/investigacion/metodologia-inventarios/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Metodología de inventarios'],
+    seo: {
+      title: 'Metodología de un inventario físico',
+      description:
+        'Ciclo metodológico de un inventario: preparación, alcance, zonas, captura, validación, reconteo, diferencias, trazabilidad y entregables. Sin certificación ni patente.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Metodología de inventarios', group: 'investigacion' },
+  },
 ] as const satisfies readonly PublishedRoute[];
 
 export type RouteId = (typeof publishedRoutes)[number]['id'];
@@ -635,9 +849,9 @@ const routes: readonly PublishedRoute[] = publishedRoutes;
 
 /**
  * Hub paths by content group.
- * Only register a hub in `publishedRoutes` when it already has indexable children.
- * Future groups (buenas-practicas, innovacion, investigacion) stay here so breadcrumbs
- * can link once those hubs are published — they are not in sitemap until then.
+ * Only register a hub in `publishedRoutes` when it already has ≥2 indexable children
+ * (a single child is not enough to publish a CollectionPage).
+ * `/investigacion/` stays mapped here so it can be reactivated when studies/benchmarks exist.
  */
 export const HUB_PATH_BY_GROUP: Record<ContentGroup, { path: string; loc: string }> = {
   servicios: { path: '/servicios', loc: '/servicios/' },
@@ -648,7 +862,8 @@ export const HUB_PATH_BY_GROUP: Record<ContentGroup, { path: string; loc: string
   investigacion: { path: '/investigacion', loc: '/investigacion/' },
 };
 
-export const FUTURE_HUB_GROUPS: readonly ContentGroup[] = ['innovacion', 'investigacion'];
+/** Hub groups with infrastructure ready but no indexable CollectionPage yet. */
+export const FUTURE_HUB_GROUPS: readonly ContentGroup[] = ['investigacion'];
 
 export function isSitemapRoute(route: PublishedRoute): boolean {
   if (route.indexable === false) return false;

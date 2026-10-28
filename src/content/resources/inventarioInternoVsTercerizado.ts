@@ -55,19 +55,9 @@ export const inventarioInternoVsTercerizadoContent: ResourcePageContent = {
   ],
   faq: [
     {
-      question: '¿Tercerizar el inventario elimina el trabajo interno?',
+      question: '¿Un inventario interno sirve como evidencia para un tercero?',
       answer:
-        'No. Sigue haciendo falta preparar el sitio, definir alcance, controlar movimientos y nombrar responsables. El tercero cuenta y documenta; no reemplaza a la operación.',
-    },
-    {
-      question: '¿Un inventario interno sirve para una auditoría externa?',
-      answer:
-        'A veces no es la evidencia que pide el tercero, justamente porque quien opera el stock es quien cuenta. Si el objetivo es independencia, hay que decirlo antes de elegir el modelo.',
-    },
-    {
-      question: '¿Se pueden combinar ambos modelos?',
-      answer:
-        'Sí. Es habitual sostener cíclicos internos y contratar un general, una cobertura de sucursales o una auditoría cuando el universo o el riesgo lo justifican.',
+        'A veces no es la evidencia que pide gerencia, un auditor o un cliente, justamente porque quien opera el stock es quien cuenta. Si el objetivo es independencia, hay que decirlo antes de elegir el modelo.',
     },
   ],
   relatedLinks: [
