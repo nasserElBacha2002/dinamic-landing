@@ -48,14 +48,14 @@ export const retailCadenasSucursalesContent: IndustryPageContent = {
   ],
   faq: [
     {
-      question: '¿Qué cubre un inventario de retail?',
+      question: '¿Qué zonas cubre un inventario en una sucursal?',
       answer:
-        'Salón de ventas y depósito interno, con criterios homogéneos cuando hay varias sucursales y resultados trazables por local.',
+        'Salón de ventas y depósito interno, con reglas de movimiento durante el conteo. El alcance por local se acuerda antes del operativo.',
     },
     {
-      question: '¿Se puede coordinar una red de sucursales?',
+      question: '¿Cómo se consolida el resultado cuando hay varias sucursales?',
       answer:
-        'Sí. El servicio incluye planificación por local, horarios de menor impacto y consolidación de resultados.',
+        'Cada local cierra con su propia trazabilidad. Después se consolidan resultados sin mezclar evidencias entre puntos de venta.',
     },
   ],
   relatedLinks: [

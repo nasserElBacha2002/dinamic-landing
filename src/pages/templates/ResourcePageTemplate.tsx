@@ -3,6 +3,7 @@ import { Breadcrumbs } from '@/components/navigation/Breadcrumbs';
 import { ContentSections } from '@/components/page/ContentSections';
 import { InteriorHero } from '@/components/page/InteriorHero';
 import { PageCta } from '@/components/page/PageCta';
+import { PageFaq } from '@/components/page/PageFaq';
 import { RelatedLinks } from '@/components/page/RelatedLinks';
 import { StepsList } from '@/components/page/StepsList';
 import type { ResourcePageContent } from '@/content/types';
@@ -36,6 +37,7 @@ export function ResourcePageTemplate({ route, content }: ResourcePageTemplatePro
             </Text>
             <ContentSections sections={content.sections} />
             {content.steps?.length ? <StepsList title="Pasos resumidos" steps={content.steps} /> : null}
+            {content.faq?.length ? <PageFaq items={content.faq} /> : null}
             <RelatedLinks links={content.relatedLinks} />
           </Stack>
         </Container>

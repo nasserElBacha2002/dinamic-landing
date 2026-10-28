@@ -19,7 +19,11 @@ import {
   type PublishedRoute,
 } from '../src/routes.ts';
 import { PAGE_JSON_LD_SCRIPT_ID } from '../src/seo/jsonLd.ts';
-import { PHASE1_INTERNAL_REDIRECTS } from '../src/seo/phase1InternalRedirects.ts';
+import {
+  apacheRewriteRule,
+  matchPhase1Redirect,
+  PHASE1_INTERNAL_REDIRECTS,
+} from '../src/seo/phase1InternalRedirects.ts';
 import { defaultOgImage } from '../src/seo/types.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -172,7 +176,7 @@ async function main(): Promise<void> {
         : route.pageType === 'service'
           ? ['Organization', 'BreadcrumbList', 'Service', ...faqTypes]
           : route.pageType === 'resource'
-            ? ['Organization', 'BreadcrumbList', 'Article']
+            ? ['Organization', 'BreadcrumbList', 'Article', ...faqTypes]
             : route.pageType === 'hub'
               ? ['Organization', 'BreadcrumbList', 'CollectionPage', 'ItemList']
               : ['Organization', 'BreadcrumbList', ...faqTypes];
@@ -227,24 +231,125 @@ async function main(): Promise<void> {
       }
     }
 
+    const pageHtml = await fs.readFile(file, 'utf-8');
+    const $page = load(pageHtml);
+    const rawLd = $page(`script#${PAGE_JSON_LD_SCRIPT_ID}[type="application/ld+json"]`).text();
+    const data = JSON.parse(rawLd) as { '@graph'?: unknown[]; '@type'?: string };
+    const graph = data['@graph'] ?? (data['@type'] ? [data] : []);
+    const faqNode = graph.find(
+      (n) => typeof n === 'object' && n && (n as { '@type'?: string })['@type'] === 'FAQPage',
+    ) as
+      | { '@id'?: string; mainEntity?: Array<{ name?: string; acceptedAnswer?: { text?: string } }> }
+      | undefined;
+    const visibleFaq = content?.faq ?? (route.pageType === 'home' ? undefined : undefined);
     if (route.pageType === 'home') {
-      const homeHtml = await fs.readFile(file, 'utf-8');
-      const $home = load(homeHtml);
-      const rawLd = $home(`script#${PAGE_JSON_LD_SCRIPT_ID}[type="application/ld+json"]`).text();
-      const data = JSON.parse(rawLd) as { '@graph'?: unknown[] };
-      const faqNode = (data['@graph'] ?? []).find(
-        (n) => typeof n === 'object' && n && (n as { '@type'?: string })['@type'] === 'FAQPage',
-      ) as { mainEntity?: Array<{ name?: string; acceptedAnswer?: { text?: string } }> } | undefined;
       if (!faqNode?.mainEntity?.length) fail('home: FAQPage mainEntity empty');
       for (const q of faqNode.mainEntity) {
         const name = q.name ?? '';
         const answer = q.acceptedAnswer?.text ?? '';
-        if (!name || !$home('#root').text().includes(name)) fail(`home: FAQ question missing in HTML: ${name}`);
-        if (!answer || !$home('#root').text().includes(answer)) fail(`home: FAQ answer missing in HTML: ${name}`);
+        if (!name || !$page('#root').text().includes(name)) fail(`home: FAQ question missing in HTML: ${name}`);
+        if (!answer || !$page('#root').text().includes(answer)) fail(`home: FAQ answer missing in HTML: ${name}`);
       }
       if (/AggregateRating|Review/.test(rawLd)) fail('home: forbidden Review/AggregateRating in JSON-LD');
       ok('home: FAQPage matches visible FAQ HTML');
-    }  }
+    } else if (visibleFaq?.length) {
+      const expectedId = `${absoluteUrl(route.loc)}#faq`;
+      if (faqNode?.['@id'] !== expectedId) {
+        fail(`${route.id}: FAQPage @id expected ${expectedId}, got ${faqNode?.['@id'] ?? '(missing)'}`);
+      }
+      if ((faqNode.mainEntity ?? []).length !== visibleFaq.length) {
+        fail(
+          `${route.id}: FAQPage has ${(faqNode.mainEntity ?? []).length} questions, visible FAQ has ${visibleFaq.length}`,
+        );
+      }
+      const $faq = $page('#faq');
+      if (!$faq.length) fail(`${route.id}: visible FAQ section #faq missing`);
+      visibleFaq.forEach((item, index) => {
+        const entity = faqNode.mainEntity?.[index];
+        if (entity?.name !== item.question) {
+          fail(`${route.id}: FAQ schema Q${index + 1} mismatch: "${entity?.name}" vs "${item.question}"`);
+        }
+        if (entity?.acceptedAnswer?.text !== item.answer) {
+          fail(`${route.id}: FAQ schema A${index + 1} mismatch for "${item.question}"`);
+        }
+        if (!$faq.text().includes(item.question)) {
+          fail(`${route.id}: FAQ question not visible: ${item.question}`);
+        }
+        if (!$faq.text().includes(item.answer)) {
+          fail(`${route.id}: FAQ answer not visible: ${item.question}`);
+        }
+      });
+      ok(`${route.id}: FAQPage matches visible FAQ 1:1`);
+    } else if (faqNode) {
+      fail(`${route.id}: FAQPage schema present without visible FAQ`);
+    }
+
+    if (content?.relatedLinks && route.pageType !== 'hub') {
+      const links = content.relatedLinks;
+      if (links.length < 2 || links.length > 5) {
+        fail(`${route.id}: relatedLinks must be 2–5 (got ${links.length})`);
+      }
+      const redirectSources = new Set(PHASE1_INTERNAL_REDIRECTS.map((r) => `/${r.from}`));
+      const seenTo = new Set<string>();
+      for (const link of links) {
+        if (seenTo.has(link.to)) fail(`${route.id}: duplicate related link ${link.to}`);
+        seenTo.add(link.to);
+        if (link.to.startsWith('/#') || link.to.startsWith('#') || link.to.startsWith('http')) continue;
+        if (!link.to.startsWith('/') || !link.to.endsWith('/')) {
+          fail(`${route.id}: related link must be canonical with trailing slash: ${link.to}`);
+        }
+        const noSlash = link.to.replace(/\/$/, '').replace(/^\//, '');
+        if (redirectSources.has(link.to.replace(/\/$/, '')) || redirectSources.has(`/${noSlash}`)) {
+          fail(`${route.id}: related link points at redirect source ${link.to}`);
+        }
+      }
+    }
+  }
+
+  const commercialFaqIds = [
+    'service-inventarios-fisicos',
+    'service-inventarios-drones',
+    'service-inventarios-ciclicos',
+    'service-auditoria-inventarios',
+    'industry-depositos',
+    'industry-retail',
+    'industry-operadores-logisticos',
+  ];
+  const commercialQuestions = new Map<string, string>();
+  const commercialRelatedSignatures = new Map<string, string>();
+  for (const id of commercialFaqIds) {
+    const content = interiorContentByRouteId[id];
+    if (!content?.faq?.length) fail(`${id}: commercial landing must have visible FAQ`);
+    for (const item of content.faq) {
+      const prior = commercialQuestions.get(item.question);
+      if (prior) fail(`repeated FAQ question on ${id} and ${prior}: ${item.question}`);
+      commercialQuestions.set(item.question, id);
+      if (/por qué elegir dinamic|mejores|líderes|únicos/i.test(`${item.question} ${item.answer}`)) {
+        fail(`${id}: generic/sales FAQ copy: ${item.question}`);
+      }
+    }
+    const sig = content.relatedLinks.map((l) => l.to).join('|');
+    const priorSig = [...commercialRelatedSignatures.entries()].find(([, value]) => value === sig);
+    if (priorSig) fail(`${id}: relatedLinks cloned from ${priorSig[0]}`);
+    commercialRelatedSignatures.set(id, sig);
+  }
+  ok(`commercial FAQ uniqueness: ${commercialQuestions.size} questions across ${commercialFaqIds.length} landings`);
+
+  const h1ByPage = new Map<string, string>();
+  const titleByPage = new Map<string, string>();
+  for (const route of publishedRoutes as readonly PublishedRoute[]) {
+    const title = route.seo.title.trim().toLowerCase();
+    const priorTitle = titleByPage.get(title);
+    if (priorTitle) fail(`duplicate title between ${route.id} and ${priorTitle}: ${route.seo.title}`);
+    titleByPage.set(title, route.id);
+    const h1 = (interiorContentByRouteId[route.id]?.h1 ?? (route.pageType === 'home' ? 'home' : '')).trim().toLowerCase();
+    if (h1 && h1 !== 'home') {
+      const priorH1 = h1ByPage.get(h1);
+      if (priorH1) fail(`duplicate H1 between ${route.id} and ${priorH1}: ${h1}`);
+      h1ByPage.set(h1, route.id);
+    }
+  }
+  ok(`unique titles (${titleByPage.size}) and H1s (${h1ByPage.size})`);
 
   await validateHtmlFile(path.join(distDir, '404.html'), {
     title: 'Página no encontrada | Dinamic Systems',
@@ -279,7 +384,16 @@ async function main(): Promise<void> {
   const indexableHubs = (publishedRoutes as readonly PublishedRoute[]).filter(
     (r) => r.pageType === 'hub' && r.indexable !== false,
   );
-  if (indexableHubs.length !== 3) fail(`expected 3 indexable hubs, got ${indexableHubs.length}`);
+  const expectedHubGroups = ['servicios', 'industrias', 'recursos', 'buenas-practicas'] as const;
+  if (indexableHubs.length !== expectedHubGroups.length) {
+    fail(`expected ${expectedHubGroups.length} indexable hubs, got ${indexableHubs.length}`);
+  }
+  for (const group of expectedHubGroups) {
+    if (!getPublishedHubForGroup(group)) fail(`missing published hub for ${group}`);
+  }
+  if (getPublishedHubForGroup('innovacion') || getPublishedHubForGroup('investigacion')) {
+    fail('innovacion/investigacion hubs must stay unpublished in Fase 2');
+  }
   for (const hub of indexableHubs) {
     if (!locs.includes(absoluteUrl(hub.loc))) fail(`sitemap missing hub ${hub.loc}`);
   }
@@ -293,8 +407,8 @@ async function main(): Promise<void> {
   const publishedAbs = new Set(getSitemapLocs());
   const redirectSources = new Set(PHASE1_INTERNAL_REDIRECTS.map((r) => r.from));
   for (const rule of PHASE1_INTERNAL_REDIRECTS) {
-    const needle = `RewriteRule ^${rule.from}(\\.html)?/?$ ${rule.to} [R=301,L]`;
-    if (!htaccess.includes(needle)) fail(`missing 301 rule: ${needle}`);
+    const needle = apacheRewriteRule(rule.from, rule.to);
+    if (!htaccess.includes(needle)) fail(`missing exact 301 rule: ${needle}`);
     const destAbs = absoluteUrl(rule.to);
     if (!publishedAbs.has(destAbs)) fail(`redirect ${rule.from} target ${rule.to} is not a sitemap URL`);
     if (locs.some((l) => l.includes(`/${rule.from}`) || l.endsWith(rule.from) || l.includes(`${rule.from}/`))) {
@@ -303,8 +417,31 @@ async function main(): Promise<void> {
     const destKey = rule.to.replace(/^\//, '').replace(/\/$/, '');
     if (redirectSources.has(destKey)) fail(`redirect chain ${rule.from} → ${rule.to}`);
     if (!rule.to.endsWith('/')) fail(`redirect target missing trailing slash: ${rule.to}`);
+
+    const positives = [`/${rule.from}`, `/${rule.from}/`, `/${rule.from}.html`, `/${rule.from}?utm=1`];
+    for (const candidate of positives) {
+      const dest = matchPhase1Redirect(candidate);
+      if (dest !== rule.to) {
+        fail(`redirect matcher: ${candidate} expected ${rule.to}, got ${dest ?? '(none)'}`);
+      }
+    }
+    const negatives = [
+      `/${rule.from}-algo`,
+      `/${rule.from}/extra`,
+      `/${rule.from}.html/`,
+      `/${rule.from}.htm`,
+      `/prefijo-${rule.from}`,
+      `/x/${rule.from}`,
+    ];
+    for (const candidate of negatives) {
+      const dest = matchPhase1Redirect(candidate);
+      if (dest === rule.to) fail(`redirect matcher captured prefix/extra path: ${candidate}`);
+    }
   }
-  ok(`phase1 ${PHASE1_INTERNAL_REDIRECTS.length} internal 301s; no sitemap sources; no chains`);
+  if (matchPhase1Redirect('/inventarios-depositos-algo')) {
+    fail('redirect matcher must not capture /inventarios-depositos-algo');
+  }
+  ok(`phase1 ${PHASE1_INTERNAL_REDIRECTS.length} exact 301s; 3 variants; no prefix; no chains`);
 
 
   try {

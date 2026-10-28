@@ -17,6 +17,7 @@ import {
   RecursosHubPage,
   RetailCadenasPage,
   ServiciosHubPage,
+  interiorPage,
 } from '@/pages/interiorPages';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { publishedRoutes, type RouteId } from '@/routes';
@@ -38,6 +39,20 @@ const pageByRouteId = {
   'resource-preparar-deposito': ComoPrepararDepositoPage,
   'resource-general-vs-ciclico': InventarioGeneralVsCiclicoPage,
   'resource-como-funcionan-drones': ComoFuncionaInventarioDronesPage,
+  'resource-por-que-no-coincide': interiorPage('resource-por-que-no-coincide'),
+  'resource-cuanto-tarda': interiorPage('resource-cuanto-tarda'),
+  'resource-interno-vs-tercerizado': interiorPage('resource-interno-vs-tercerizado'),
+  'resource-elegir-empresa': interiorPage('resource-elegir-empresa'),
+  'resource-cuanto-cuesta': interiorPage('resource-cuanto-cuesta'),
+  'resource-cotizar': interiorPage('resource-cotizar'),
+  'resource-sin-detener': interiorPage('resource-sin-detener'),
+  'resource-reducir-diferencias': interiorPage('resource-reducir-diferencias'),
+  'resource-manual-vs-tecnologico': interiorPage('resource-manual-vs-tecnologico'),
+  'hub-buenas-practicas': interiorPage('hub-buenas-practicas'),
+  'practice-reconteos': interiorPage('practice-reconteos'),
+  'practice-posiciones': interiorPage('practice-posiciones'),
+  'practice-comunicacion': interiorPage('practice-comunicacion'),
+  'practice-resultados-auditables': interiorPage('practice-resultados-auditables'),
 } satisfies Record<RouteId, ComponentType>;
 
 for (const route of publishedRoutes) {

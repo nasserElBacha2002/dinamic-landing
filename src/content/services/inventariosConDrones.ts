@@ -78,19 +78,19 @@ export const inventariosConDronesContent: ServicePageContent = {
   ],
   faq: [
     {
-      question: '¿Los drones reemplazan el inventario físico?',
+      question: '¿En qué condiciones puede utilizarse un dron dentro de un depósito?',
       answer:
-        'No de forma universal. Son una modalidad complementaria para depósitos y altura, evaluada según layout, etiquetas y objetivo del inventario.',
+        'Cuando pasillos, altura, obstáculos y etiquetas visibles permiten una captura útil. Si el entorno no da esa condición, el plan se apoya en conteo físico convencional.',
     },
     {
-      question: '¿En qué operaciones se usa?',
+      question: '¿El inventario con drones reemplaza el conteo físico?',
       answer:
-        'Principalmente depósitos y centros de distribución con racks o posiciones elevadas donde la captura aérea aporta cobertura o evidencia.',
+        'No de forma universal. Es un complemento para racks y posiciones elevadas, integrado al mismo operativo de inventario.',
     },
     {
-      question: '¿Qué recibe la empresa?',
+      question: '¿Cómo se integran las capturas al resto del inventario?',
       answer:
-        'Un plan que combina, cuando aplica, conteo físico y captura en altura, con validación de resultados e integración al informe del inventario.',
+        'Las imágenes y lecturas se asocian a las ubicaciones del plan. Las diferencias o lecturas incompletas se revisan y, si hace falta, se recontra o se cuenta en piso.',
     },
   ],
   relatedLinks: [

@@ -52,36 +52,31 @@ export const operadoresLogisticosIndustriaContent: IndustryPageContent = {
   ],
   faq: [
     {
-      question: '¿Pueden inventariar stock de terceros?',
+      question: '¿Cómo se inventaría stock de distintos clientes en un mismo depósito?',
       answer:
-        'Sí. El alcance y los reportes se orientan a no mezclar inventarios de distintos dueños de stock, con control por ubicación.',
+        'Separando el alcance por dueño de stock, ubicación y, cuando aplica, lote. Los reportes no deben mezclar inventarios de terceros.',
     },
     {
-      question: '¿Qué incluye el operativo?',
+      question: '¿Qué hay que acordar antes del conteo en un operador logístico?',
       answer:
-        'Planificación de ventanas, conteo por posiciones y pallets, trazabilidad del relevamiento y conciliación para el operador y, cuando corresponde, para sus clientes.',
+        'Ventanas, qué clientes entran, reglas de movimiento y cómo se informan diferencias a cada dueño de mercadería.',
     },
   ],
   relatedLinks: [
     {
       label: 'Inventarios físicos',
       to: '/servicios/inventarios-fisicos/',
-    },
-    {
-      label: 'Inventarios con drones',
-      to: '/servicios/inventarios-con-drones/',
+      description: 'Conteo por ubicación y conciliación para operaciones con stock de terceros.',
     },
     {
       label: 'Depósitos y centros de distribución',
       to: '/industrias/depositos-centros-distribucion/',
+      description: 'Racks, pallets y control posicional en el predio del operador.',
     },
     {
-      label: 'Preparar un depósito para un inventario',
-      to: '/recursos/como-preparar-un-deposito-para-un-inventario/',
-    },
-    {
-      label: 'Contacto',
-      to: '/#contacto',
+      label: 'Auditoría de inventarios',
+      to: '/servicios/auditoria-de-inventarios/',
+      description: 'Control independiente cuando un cliente o un tercero pide evidencia.',
     },
   ],
   cta: {

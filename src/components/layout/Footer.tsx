@@ -44,6 +44,7 @@ export function Footer() {
   const serviciosHub = getPublishedHubForGroup('servicios');
   const industriasHub = getPublishedHubForGroup('industrias');
   const recursosHub = getPublishedHubForGroup('recursos');
+  const buenasPracticasHub = getPublishedHubForGroup('buenas-practicas');
 
   return (
     <Box
@@ -133,6 +134,9 @@ export function Footer() {
                 </Grid.Col>
                 <Grid.Col span={{ base: 12, xs: 4 }}>
                   <Stack gap="md">
+                    {buenasPracticasHub ? (
+                      <FooterColumnHeading label="Buenas prácticas" to={buenasPracticasHub.loc} />
+                    ) : null}
                     <Text tt="uppercase" size="xs" fw={800} c="dimmed" style={{ letterSpacing: '0.28em' }}>
                       Soporte
                     </Text>

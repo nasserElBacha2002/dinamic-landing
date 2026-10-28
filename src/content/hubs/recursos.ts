@@ -6,13 +6,14 @@ export const recursosHubContent: HubPageContent = {
   eyebrow: 'Recursos',
   h1: 'Guías sobre inventarios físicos',
   summary:
-    'Recursos prácticos para preparar un inventario, entender el proceso de conteo y comparar modalidades, sin convertir el sitio en un portal de contenidos.',
+    'Guías de proceso y de decisión sobre inventarios físicos: cómo se cuenta, cómo se prepara el depósito, por qué no cierra el stock, cuánto tarda o cuesta, y cuándo conviene contratar. Cada URL responde una pregunta distinta.',
   sections: [
     {
       id: 'uso',
-      heading: 'Para qué están estas guías',
+      heading: 'Cómo está ordenado este listado',
       body: [
-        'Las páginas de recursos responden preguntas concretas de operación: cómo se realiza un inventario físico, cómo preparar el depósito, cuándo conviene un inventario cíclico y cómo funciona un inventario con drones.',
+        'Primero están las guías de proceso ya publicadas: cómo realizar un inventario, cómo preparar el depósito, la comparación entre general y cíclico, y cómo funciona un inventario con drones.',
+        'Después, las preguntas de operación: causas de desvío, tiempos, costo, cotización, interno vs. tercerizado, cómo elegir proveedor, contar sin detener, reducir diferencias y medios de captura. El listado se actualiza con cada guía publicada.',
         'No reemplazan un relevamiento a medida. Si necesitás ejecutar un inventario, el siguiente paso es evaluar alcance, fechas y condiciones del sitio.',
       ],
     },

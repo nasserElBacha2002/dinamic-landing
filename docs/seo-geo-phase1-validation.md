@@ -1,9 +1,12 @@
 # Validación Fase 1 — consolidación comercial
 
-**Estado:** `PHASE_1_CODE_COMPLETE`  
+**Estado código:** `PHASE_1_CODE_COMPLETE`  
+**Estado producción:** `PHASE_1_PROD_PENDING`  
+**Redirects 301:** `PENDING_PRODUCTION_VALIDATION`  
 **Search Console:** `SEARCH_CONSOLE_PENDING_OWNER_DNS_VERIFICATION`  
 **Fecha:** 2026-10-28  
-**No avanzar a Fase 2.** Esperar code review.
+
+Fase 1 **no** está validada en Hostinger. Los 301 no se afirman live. Eso no bloquea implementación de código de Fase 2, pero el estado de producción de Fase 1 permanece pendiente hasta el próximo upload.
 
 ---
 
@@ -78,7 +81,7 @@ Reglas en `public/.htaccess` (también `path/` y `path.html`). Un salto. Destino
 | `/buenas-practicas/servicio-inventario-fisico-que-recibe-cliente` | `/servicios/inventarios-fisicos/` | 301 | CSV MERGE |
 | `/buenas-practicas/compromiso-cumplimiento-inventario-confiable` | `/servicios/inventarios-fisicos/` | 301 | CSV REMOVE |
 
-Hoy en Hostinger esos paths son 404. Vite preview no aplica `.htaccess`; la validación de reglas es estática (destino en sitemap, fuente fuera del sitemap, sin chains, sin `pages.dev`/`workers.dev`).
+Hoy en Hostinger esos paths son 404. Vite preview no aplica `.htaccess`; la validación de reglas es estática (match exacto, destino en sitemap, fuente fuera del sitemap, sin chains, sin `pages.dev`/`workers.dev`). **No afirmar que los 301 funcionan live hasta deploy real.**
 
 ---
 
@@ -118,14 +121,18 @@ Self-referencing en las 15 publicadas (`https://dinamicsystems.com` + `loc`). Hu
 npm run build:validated
   tsc OK
   prerender 15 + 404 + sitemap + .htaccess
-  validate:seo-build all checks passed (incl. 7 301, sitemap 15, hubs)
+  validate:seo-build all checks passed
+    FAQPage 1:1 en 7 landings + home
+    commercial FAQ uniqueness: 19 questions
+    phase1 7 exact 301s; 3 variants; no prefix; no chains
+    sitemap 15
   validate:links 15 paths, 0 huérfanos
 
 npx playwright test
-  11 passed (23.7s)
+  12 passed (25.1s)
 ```
 
-Playwright cubre: landings 200 + 1 H1 + canonical; header comercial; home sin GEO nuevo; hubs Fase 0; futuros no publicados; fuentes de redirect no prerenderizadas.
+Playwright cubre: landings 200 + 1 H1 + canonical; header comercial; home sin GEO nuevo; hubs Fase 0; futuros no publicados; fuentes de redirect no prerenderizadas; FAQ visible y específica en drones, cíclicos y auditoría.
 
 ---
 
@@ -142,11 +149,75 @@ Esto **no** marca Fase 1 como fallida.
 
 ---
 
+## Final code hardening
+
+Revisión posterior a `PHASE_1_CODE_COMPLETE`, **sin deploy** y **sin ampliar alcance**.
+
+### Redirects exactos
+
+Las 7 reglas en `public/.htaccess` ya no usan `(\.html)?/?$` (capturaba prefijos y `path.html/`). Cada regla es:
+
+```
+RewriteRule ^(slug|slug/|slug\.html)$ DESTINO [R=301,L]
+```
+
+Variantes aceptadas: `path`, `path/`, `path.html`. Un salto 301 al destino canónico con trailing slash. No SPA fallback. No query/path extra. No captura `/inventarios-depositos-algo`.
+
+Fuente de verdad en código: `src/seo/phase1InternalRedirects.ts` (`phase1RewritePattern`, `matchPhase1Redirect`, `apacheRewriteRule`). `scripts/validate-seo-build.ts` exige que `.htaccess` coincida con esas reglas y prueba positivos/negativos.
+
+**Estado:** `PENDING_PRODUCTION_VALIDATION`. LiteSpeed/Hostinger aún no tiene este `.htaccess` hasta el próximo upload.
+
+### FAQ revisadas (7 landings)
+
+Se eliminaron preguntas genéricas (`¿Trabajan en Argentina?`, `¿Cómo se solicita una evaluación?`, `¿Hace falta una URL aparte?`, “qué incluye” clonado, “Por qué elegir Dinamic”). Cada FAQ es de la intención de la página:
+
+| URL | Preguntas (resumen) |
+|-----|---------------------|
+| Inventarios físicos | qué incluye el servicio; tipos de operación; qué recibe al cierre |
+| Drones | condiciones de uso en depósito; si reemplaza el conteo físico; integración de capturas |
+| Cíclicos | si reemplaza al general; qué se cuenta por ciclo; interrupción operativa |
+| Auditoría | diferencia vs conteo completo; muestreo; evidencia |
+| Depósitos / CD | por qué se cuenta por ubicación; CD vs depósito de reserva; drones en altura |
+| Retail | zonas de sucursal; consolidación multi-local |
+| Operadores | stock de distintos clientes; acuerdos previos |
+
+### Schema FAQPage
+
+- Sólo se emite si `content.faq` tiene ítems.
+- `ResourcePageTemplate` ahora renderiza `PageFaq` cuando hay FAQ (las guías actuales no tienen, no cambia HTML).
+- `@id` = `{canonical}#faq`.
+- Validación 1:1: mismas preguntas y respuestas, mismo orden, visibles en `#faq`. Sin preguntas ocultas.
+- Preguntas de las 7 landings no se repiten entre páginas.
+
+### Related links
+
+2–5 por página, trailing slash, no apuntan a fuentes 301, conjuntos no clonados entre las 7.
+
+### Tests agregados
+
+- Matcher de redirects: 3 variantes → destino; prefijo/extra/`html/`/query-path no capturan.
+- FAQPage 1:1 en todas las páginas con FAQ.
+- Unicidad de preguntas y related links comerciales.
+- Playwright: FAQ visible en drones/cíclicos/auditoría; fuentes 301 y `inventarios-depositos-algo` no prerenderizadas.
+
+### Estado production pending
+
+```
+PHASE_1_CODE_COMPLETE
+PHASE_1_PROD_PENDING
+PENDING_PRODUCTION_VALIDATION   (7 redirects)
+SEARCH_CONSOLE_PENDING_OWNER_DNS_VERIFICATION
+```
+
+No se tocó Cloudflare, GSC, home ni header. No se inició Fase 3.
+
+---
+
 ## Scope
 
 | Restricción | Cumplido |
 |-------------|----------|
-| No comenzó Fase 2 | Sí |
+| No se implementó Fase 2 en este endurecimiento | Sí |
 | No se publicaron artículos GEO nuevos | Sí |
 | No se tocaron Cloudflare Pages/Workers | Sí |
 | No se apagaron hosts | Sí |
@@ -159,50 +230,26 @@ Esto **no** marca Fase 1 como fallida.
 
 ## Git (working tree, sin commit)
 
-### `git status --short`
+Snapshot al cierre del endurecimiento de código (antes de Fase 2). Diff completo: `git diff`.
+
+### Endurecimiento — `git diff --stat` (vs working tree de Fase 1)
 
 ```
- M deploy/HOSTINGER_FRONTEND.md
- M deploy/MEASUREMENT_AND_INDEXING.md
- M scripts/prerender.ts
- M scripts/validate-seo-build.ts
- M src/App.tsx
- M src/components/layout/Footer.tsx
- M src/components/page/PageCta.tsx
- M src/components/page/RelatedLinks.tsx
- M src/content/industries/depositosCentrosDistribucion.ts
- M src/content/industries/operadoresLogisticosIndustria.ts
- M src/content/industries/retailCadenasSucursales.ts
- M src/content/registry.ts
- M src/content/services/auditoriaDeInventarios.ts
- M src/content/services/inventariosCiclicos.ts
- M src/content/services/inventariosConDrones.ts
- M src/content/services/inventariosFisicos.ts
- M src/content/types.ts
- M src/pages/interiorPages.tsx
- M src/pages/templates/IndustryPageTemplate.tsx
- M src/pages/templates/ServicePageTemplate.tsx
- M src/routes.ts
- M src/seo/pageSeo.ts
- M src/seo/schemas.ts
- M tests/ssg-smoke.spec.ts
-?? docs/seo-geo-migration-plan.md
-?? docs/seo-geo-phase0-production-validation.md
-?? docs/seo-geo-phase0-validation.md
-?? docs/seo-geo-phase1-precheck.md
-?? docs/seo-geo-phase1-validation.md
-?? docs/seo-geo-url-map.csv
-?? public/.htaccess
-?? src/components/page/PageFaq.tsx
-?? src/content/hubs/
-?? src/pages/templates/HubPageTemplate.tsx
-?? src/seo/phase1InternalRedirects.ts
+ docs/seo-geo-phase1-validation.md                  |  75 ++++++++++-
+ public/.htaccess                                   |  17 +--
+ scripts/validate-seo-build.ts                      | 142 ++++++++++++++++++---
+ src/components/page/PageFaq.tsx                    |   2 +-
+ src/content/industries/depositosCentrosDistribucion.ts | 12 +-
+ src/content/industries/operadoresLogisticosIndustria.ts | 23 ++--
+ src/content/industries/retailCadenasSucursales.ts  |   8 +-
+ src/content/services/auditoriaDeInventarios.ts     |  17 +--
+ src/content/services/inventariosCiclicos.ts        |  18 +--
+ src/content/services/inventariosConDrones.ts       |  12 +-
+ src/content/services/inventariosFisicos.ts         |  17 +--
+ src/pages/templates/ResourcePageTemplate.tsx       |   2 +
+ src/seo/phase1InternalRedirects.ts                 |  27 ++++
+ tests/ssg-smoke.spec.ts                            |  32 +++++
+ 14 files changed, 314 insertions(+), 90 deletions(-)
 ```
 
-### `git diff --stat`
-
-```
- 24 files changed, 689 insertions(+), 130 deletions(-)
-```
-
-(El stat cubre también archivos de Fase 0 aún sin commit.) Diff completo: `git diff`.
+No deploy. No commit (no solicitado). El árbol también conserva archivos de Fase 0/1 aún untracked.

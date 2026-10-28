@@ -11,7 +11,7 @@ export function PageFaq({ items, title = 'Preguntas frecuentes' }: PageFaqProps)
   if (!items.length) return null;
 
   return (
-    <Stack gap="md" component="section" aria-labelledby="page-faq-heading">
+    <Stack gap="md" component="section" id="faq" aria-labelledby="page-faq-heading">
       <Text
         id="page-faq-heading"
         component="h2"

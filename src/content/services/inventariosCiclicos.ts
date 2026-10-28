@@ -78,19 +78,19 @@ export const inventariosCiclicosContent: ServicePageContent = {
   ],
   faq: [
     {
-      question: '¿El inventario cíclico reemplaza al inventario general?',
+      question: '¿Un inventario cíclico reemplaza a un inventario general?',
       answer:
-        'No de forma automática. El cíclico aporta control periódico sobre un segmento; el general cierra un universo acordado. La combinación depende de cada operación.',
+        'No de forma automática. El cíclico cuenta un segmento con frecuencia acordada; el general cierra el universo definido. En muchas operaciones conviven.',
     },
     {
-      question: '¿Qué incluye el servicio?',
+      question: '¿Qué se cuenta en cada ciclo?',
       answer:
-        'Definición de universo y prioridad, calendario de ciclos, conteo del segmento, reconteos ante diferencias y reporte con trazabilidad de lo relevado.',
+        'Un recorte priorizado: familias, ubicaciones, clientes o SKU críticos, según rotación, valor o historial de diferencias.',
     },
     {
-      question: '¿Dónde se explica la diferencia entre general y cíclico?',
+      question: '¿Cómo se reduce la interrupción operativa?',
       answer:
-        'En la guía Inventario general vs. inventario cíclico. Esta landing describe cómo Dinamic Systems ejecuta el servicio de cíclicos.',
+        'Con ventanas, zonas y reglas de movimiento acordadas. El ciclo es acotado; no exige detener todo el depósito si el plan lo permite.',
     },
   ],
   relatedLinks: [
@@ -107,11 +107,7 @@ export const inventariosCiclicosContent: ServicePageContent = {
     {
       label: 'Auditoría de inventarios',
       to: '/servicios/auditoria-de-inventarios/',
-      description: 'Control independiente y evidencia documentada.',
-    },
-    {
-      label: 'Contactar al equipo',
-      to: '/#contacto',
+      description: 'Control independiente sobre un recorte o muestra.',
     },
   ],
   cta: {

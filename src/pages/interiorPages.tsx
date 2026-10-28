@@ -13,15 +13,39 @@ import { serviciosHubContent } from '@/content/hubs/servicios';
 import { industriasHubContent } from '@/content/hubs/industrias';
 import { recursosHubContent } from '@/content/hubs/recursos';
 import { getRouteById } from '@/routes';
+import { interiorContentByRouteId } from '@/content/registry';
 import { HubPageTemplate } from '@/pages/templates/HubPageTemplate';
 import { IndustryPageTemplate } from '@/pages/templates/IndustryPageTemplate';
 import { ResourcePageTemplate } from '@/pages/templates/ResourcePageTemplate';
 import { ServicePageTemplate } from '@/pages/templates/ServicePageTemplate';
+import type { ComponentType } from 'react';
+import type { HubPageContent, IndustryPageContent, ResourcePageContent, ServicePageContent } from '@/content/types';
 
 function requireRoute(id: string) {
   const route = getRouteById(id);
   if (!route) throw new Error(`Missing published route: ${id}`);
   return route;
+}
+
+export function interiorPage(id: string): ComponentType {
+  return function InteriorRoutePage() {
+    const route = requireRoute(id);
+    const content = interiorContentByRouteId[id];
+    if (!content) throw new Error(`Missing content registry entry: ${id}`);
+    if (content.kind === 'hub') {
+      return <HubPageTemplate route={route} content={content as HubPageContent} />;
+    }
+    if (content.kind === 'resource') {
+      return <ResourcePageTemplate route={route} content={content as ResourcePageContent} />;
+    }
+    if (content.kind === 'service') {
+      return <ServicePageTemplate route={route} content={content as ServicePageContent} />;
+    }
+    if (content.kind === 'industry') {
+      return <IndustryPageTemplate route={route} content={content as IndustryPageContent} />;
+    }
+    throw new Error(`Unsupported content kind for ${id}`);
+  };
 }
 
 export function ServiciosHubPage() {

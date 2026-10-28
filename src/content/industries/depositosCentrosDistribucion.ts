@@ -48,19 +48,19 @@ export const depositosCentrosDistribucionContent: IndustryPageContent = {
   ],
   faq: [
     {
-      question: '¿Dinamic Systems hace inventarios de depósitos y centros de distribución?',
+      question: '¿Por qué el inventario de un depósito se organiza por ubicación?',
       answer:
-        'Sí. Es el contexto habitual del inventario físico: racks, pallets, pasillos, altura y control por ubicación.',
+        'Porque el dato útil no es solo cuántas unidades hay, sino en qué pasillo, rack, nivel o pallet se encontraron. Eso permite reconteos focalizados y detectar mercadería fuera de posición.',
     },
     {
-      question: '¿Hace falta una URL aparte de “inventarios de depósitos”?',
+      question: '¿Un centro de distribución se inventaría igual que un depósito de reserva?',
       answer:
-        'No. Esta página es la canónica para depósitos, centros de distribución y operaciones logísticas de almacenamiento.',
+        'La base es la misma —conteo por ubicación— pero un CD suele sumar más zonas, altura, picking y movimiento durante el operativo. El plan se parte en sectores controlables.',
     },
     {
-      question: '¿Se puede complementar con drones?',
+      question: '¿Cuándo se evalúa captura en altura con drones?',
       answer:
-        'Cuando el layout y las etiquetas lo permiten, la captura en altura se evalúa como complemento del conteo físico.',
+        'Cuando hay racks elevados y etiquetas visibles, como complemento del conteo físico, no como reemplazo de las zonas de piso.',
     },
   ],
   relatedLinks: [

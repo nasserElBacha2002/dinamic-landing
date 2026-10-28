@@ -6,6 +6,7 @@ import { PageCta } from '@/components/page/PageCta';
 import { RelatedLinks } from '@/components/page/RelatedLinks';
 import type { HubPageContent } from '@/content/types';
 import type { PublishedRoute } from '@/routes';
+import { childRoutesForGroup } from '@/routes';
 import { SeoHead } from '@/seo/SeoHead';
 import { buildUiBreadcrumbs, toPageSeo } from '@/seo/pageSeo';
 import { contentMaxWidth } from '@/theme/theme';
@@ -27,6 +28,14 @@ const listingTitleByGroup: Record<HubPageContent['group'], string> = {
 export function HubPageTemplate({ route, content }: HubPageTemplateProps) {
   const seo = toPageSeo(route, content);
   const crumbs = buildUiBreadcrumbs(route);
+  const listing = childRoutesForGroup(content.group).map((child) => ({
+    label:
+      child.breadcrumbLabels[child.breadcrumbLabels.length - 1] ??
+      child.navigation?.label ??
+      child.seo.title,
+    to: child.loc,
+    description: child.seo.description,
+  }));
 
   return (
     <>
@@ -37,7 +46,9 @@ export function HubPageTemplate({ route, content }: HubPageTemplateProps) {
         <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
           <Stack gap={rem(48)}>
             {content.sections.length ? <ContentSections sections={content.sections} /> : null}
-            <RelatedLinks title={listingTitleByGroup[content.group]} links={content.relatedLinks} />
+            {listing.length ? (
+              <RelatedLinks title={listingTitleByGroup[content.group]} links={listing} />
+            ) : null}
           </Stack>
         </Container>
       </Box>

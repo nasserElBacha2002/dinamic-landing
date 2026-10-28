@@ -78,24 +78,19 @@ export const inventariosFisicosContent: ServicePageContent = {
   ],
   faq: [
     {
-      question: '¿Qué inventario físico realiza Dinamic Systems?',
+      question: '¿Qué incluye un inventario físico profesional?',
       answer:
-        'Dinamic Systems realiza inventarios físicos para depósitos, centros de distribución, retail y operaciones logísticas. El alcance se define con cada empresa.',
+        'Planificación del alcance, conteo por ubicación, supervisión en campo, reconteos cuando aparecen diferencias, trazabilidad de capturas y un informe según lo acordado.',
     },
     {
-      question: '¿Qué incluye el servicio?',
+      question: '¿En qué tipos de operación se aplica?',
       answer:
-        'Planificación, conteo por ubicación, supervisión, reconteos cuando hay diferencias, trazabilidad de capturas y entrega de resultados según el alcance acordado.',
+        'Depósitos, centros de distribución, retail y operaciones logísticas. El plan se arma según layout, volumen y ventanas horarias de cada sitio.',
     },
     {
-      question: '¿Trabajan en Argentina?',
+      question: '¿Qué recibe la empresa al cierre?',
       answer:
-        'Sí. Dinamic Systems es una empresa argentina y evalúa cada operativo según ubicación, volumen, fechas y condiciones del sitio.',
-    },
-    {
-      question: '¿Cómo se solicita una evaluación?',
-      answer:
-        'Desde el formulario de contacto: localidad, tipo de operación, volumen aproximado y fecha objetivo alcanzan para revisar el alcance.',
+        'Resultados consolidables por sector o ubicación, con las diferencias validadas en reconteo cuando correspondió, para conciliar stock y auditoría.',
     },
   ],
   relatedLinks: [

@@ -70,19 +70,19 @@ export const auditoriaDeInventariosContent: ServicePageContent = {
   ],
   faq: [
     {
-      question: '¿En qué se diferencia de un inventario físico completo?',
+      question: '¿Cuál es la diferencia entre auditar inventario y realizar un conteo completo?',
       answer:
-        'La auditoría se centra en control independiente, muestreo o cobertura parcial y evidencia de hallazgos. El inventario físico cubre el universo operativo acordado.',
+        'La auditoría toma una muestra o un universo de control y revisa procedimientos con mirada independiente. El inventario físico cubre el alcance operativo acordado, no solo una muestra.',
     },
     {
-      question: '¿Qué incluye?',
+      question: '¿Qué cubre el muestreo en una auditoría de inventarios?',
       answer:
-        'Definición del objetivo de control, plan de muestreo o cobertura, conteos o reconteos independientes donde corresponde, análisis de diferencias e informe.',
+        'Zonas, SKU o ubicaciones definidas por riesgo. Sobre ese recorte se cuentan o recontraen de forma independiente y se documentan hallazgos.',
     },
     {
-      question: '¿Para quién es?',
+      question: '¿Qué evidencia entrega una auditoría?',
       answer:
-        'Empresas que necesitan evidencia para control interno, gerencia o terceros sobre la confiabilidad del inventario y de los procedimientos de conteo.',
+        'Cobertura del plan, diferencias relevadas, lectura de procedimientos y un informe usable por control interno, gerencia o un tercero.',
     },
   ],
   relatedLinks: [
@@ -99,10 +99,7 @@ export const auditoriaDeInventariosContent: ServicePageContent = {
     {
       label: 'Cómo realizar un inventario físico',
       to: '/recursos/como-realizar-un-inventario-fisico/',
-    },
-    {
-      label: 'Contactar al equipo',
-      to: '/#contacto',
+      description: 'Proceso operativo de conteo completo, distinto del muestreo de auditoría.',
     },
   ],
   cta: {

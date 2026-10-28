@@ -130,10 +130,47 @@ test.describe('SSG multipage smoke', () => {
   });
 
   test('unpublished future hubs are not prerendered', async ({ request }) => {
-    for (const path of ['/buenas-practicas/', '/innovacion/', '/investigacion/']) {
+    for (const path of ['/innovacion/', '/investigacion/']) {
       const response = await request.get(path);
       expect(response.status(), `${path} must not be an indexable document yet`).toBeGreaterThanOrEqual(400);
     }
+  });
+
+  test('all sitemap URLs prerender with canonical and one H1', async ({ page, request }) => {
+    test.setTimeout(180_000);
+    const sitemap = await request.get('/sitemap.xml');
+    expect(sitemap.ok()).toBeTruthy();
+    const xml = await sitemap.text();
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
+      const abs = match[1] ?? '';
+      return abs.replace('https://dinamicsystems.com', '') || '/';
+    });
+    expect(locs.length).toBeGreaterThanOrEqual(29);
+    expect(locs).toContain('/buenas-practicas/');
+    expect(locs).toContain('/recursos/por-que-no-coincide-el-stock/');
+    expect(locs.some((loc) => loc.includes('/innovacion'))).toBe(false);
+    for (const loc of locs) {
+      const response = await page.goto(loc, { waitUntil: 'domcontentloaded' });
+      expect(response?.status(), loc).toBe(200);
+      await expect(page.locator('h1')).toHaveCount(1);
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+      expect(canonical, loc).toBe(`https://dinamicsystems.com${loc}`);
+      const header = page.locator('header').first();
+      await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
+      await expect(header.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+    }
+  });
+
+  test('buenas prácticas hub is indexable and lists published practices', async ({ page }) => {
+    const response = await page.goto('/buenas-practicas/', { waitUntil: 'networkidle' });
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('h1')).toContainText(/Buenas prácticas de inventario físico/i);
+    await expect(page.getByRole('link', { name: 'Reconteos inteligentes' }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Control de posiciones y pasillos' }).first()).toBeVisible();
+    const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+    expect(canonical).toBe('https://dinamicsystems.com/buenas-practicas/');
+    const header = page.locator('header').first();
+    await expect(header.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
   });
 
   test('phase 1 commercial landings stay canonical and commercial', async ({ page }) => {
@@ -159,21 +196,54 @@ test.describe('SSG multipage smoke', () => {
     }
     await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('h1')).toContainText(/Inventarios físicos para depósitos/i);
-    await expect(page.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+    const homeHeader = page.locator('header').first();
+    await expect(homeHeader.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
     assertClean(pageErrors, consoleErrors);
   });
 
   test('phase 1 redirect sources are not prerendered documents', async ({ request }) => {
     const sources = [
+      '/inventarios-fisicos-argentina',
       '/inventarios-fisicos-argentina/',
+      '/inventarios-fisicos-argentina.html',
       '/inventarios-con-drones-depositos/',
       '/inventarios-depositos/',
+      '/inventarios-depositos-algo',
       '/empresa-inventarios-depositos-argentina/',
       '/inventarios-centros-distribucion-argentina/',
+      '/buenas-practicas/servicio-inventario-fisico-que-recibe-cliente/',
+      '/buenas-practicas/compromiso-cumplimiento-inventario-confiable/',
     ];
     for (const path of sources) {
       const response = await request.get(path);
       expect(response.status(), `${path} must not be an indexable prerendered page`).toBeGreaterThanOrEqual(400);
+    }
+  });
+
+  test('phase 1 commercial FAQ is visible and page-specific', async ({ page }) => {
+    const pages = [
+      {
+        path: '/servicios/inventarios-con-drones/',
+        question: '¿En qué condiciones puede utilizarse un dron dentro de un depósito?',
+      },
+      {
+        path: '/servicios/inventarios-ciclicos/',
+        question: '¿Un inventario cíclico reemplaza a un inventario general?',
+      },
+      {
+        path: '/servicios/auditoria-de-inventarios/',
+        question: '¿Cuál es la diferencia entre auditar inventario y realizar un conteo completo?',
+      },
+    ];
+    const seen = new Set<string>();
+    for (const item of pages) {
+      await page.goto(item.path, { waitUntil: 'networkidle' });
+      const faq = page.locator('#faq');
+      await expect(faq).toBeVisible();
+      await expect(faq.getByText(item.question)).toBeVisible();
+      await expect(faq.getByText(/Por qué elegir Dinamic/i)).toHaveCount(0);
+      expect(seen.has(item.question)).toBe(false);
+      seen.add(item.question);
     }
   });
 

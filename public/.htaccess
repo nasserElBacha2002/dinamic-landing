@@ -27,14 +27,15 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # Fase 1: 301 internos a URLs comerciales live (CSV REDIRECT/MERGE/REMOVE).
-# Un salto, destino con trailing slash. No incluir estos paths en sitemap.
+# Exact match only: path | path/ | path.html. No prefix capture. No SPA fallback.
+# PENDING_PRODUCTION_VALIDATION until Hostinger upload.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^inventarios-fisicos-argentina(\.html)?/?$ /servicios/inventarios-fisicos/ [R=301,L]
-  RewriteRule ^inventarios-con-drones-depositos(\.html)?/?$ /servicios/inventarios-con-drones/ [R=301,L]
-  RewriteRule ^empresa-inventarios-depositos-argentina(\.html)?/?$ /industrias/depositos-centros-distribucion/ [R=301,L]
-  RewriteRule ^inventarios-depositos(\.html)?/?$ /industrias/depositos-centros-distribucion/ [R=301,L]
-  RewriteRule ^inventarios-centros-distribucion-argentina(\.html)?/?$ /industrias/depositos-centros-distribucion/ [R=301,L]
-  RewriteRule ^buenas-practicas/servicio-inventario-fisico-que-recibe-cliente(\.html)?/?$ /servicios/inventarios-fisicos/ [R=301,L]
-  RewriteRule ^buenas-practicas/compromiso-cumplimiento-inventario-confiable(\.html)?/?$ /servicios/inventarios-fisicos/ [R=301,L]
+  RewriteRule ^(inventarios-fisicos-argentina|inventarios-fisicos-argentina/|inventarios-fisicos-argentina\.html)$ /servicios/inventarios-fisicos/ [R=301,L]
+  RewriteRule ^(inventarios-con-drones-depositos|inventarios-con-drones-depositos/|inventarios-con-drones-depositos\.html)$ /servicios/inventarios-con-drones/ [R=301,L]
+  RewriteRule ^(empresa-inventarios-depositos-argentina|empresa-inventarios-depositos-argentina/|empresa-inventarios-depositos-argentina\.html)$ /industrias/depositos-centros-distribucion/ [R=301,L]
+  RewriteRule ^(inventarios-depositos|inventarios-depositos/|inventarios-depositos\.html)$ /industrias/depositos-centros-distribucion/ [R=301,L]
+  RewriteRule ^(inventarios-centros-distribucion-argentina|inventarios-centros-distribucion-argentina/|inventarios-centros-distribucion-argentina\.html)$ /industrias/depositos-centros-distribucion/ [R=301,L]
+  RewriteRule ^(buenas-practicas/servicio-inventario-fisico-que-recibe-cliente|buenas-practicas/servicio-inventario-fisico-que-recibe-cliente/|buenas-practicas/servicio-inventario-fisico-que-recibe-cliente\.html)$ /servicios/inventarios-fisicos/ [R=301,L]
+  RewriteRule ^(buenas-practicas/compromiso-cumplimiento-inventario-confiable|buenas-practicas/compromiso-cumplimiento-inventario-confiable/|buenas-practicas/compromiso-cumplimiento-inventario-confiable\.html)$ /servicios/inventarios-fisicos/ [R=301,L]
 </IfModule>
