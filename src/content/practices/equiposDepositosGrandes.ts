@@ -48,9 +48,9 @@ export const equiposDepositosGrandesContent: ResourcePageContent = {
       description: 'El operativo que hay que staffear.',
     },
     {
-      label: 'Inventarios para depósitos y CD',
-      to: '/industrias/depositos-centros-distribucion/',
-      description: 'El contexto de racks, pallets y altura.',
+      label: 'Cómo calcular el personal de un inventario',
+      to: '/recursos/como-calcular-personal-inventario/',
+      description: 'Cómo se estima el tamaño; acá se parte y se supervisa.',
     },
   ],
   cta: {

@@ -12,7 +12,7 @@ export const recursosHubContent: HubPageContent = {
       id: 'uso',
       heading: 'Cómo usar estas guías',
       body: [
-        'Están agrupadas por tipo de decisión: preparar el operativo, entender diferencias, estimar tiempo y costo, elegir si contratar, y elegir medio de captura.',
+        'Están agrupadas por tipo de decisión: preparar el operativo, controlar diferencias, estimar tiempo, personal y costo, elegir si contratar, y elegir medio de captura.',
         'No reemplazan un relevamiento a medida. Si el siguiente paso es ejecutar un inventario, hay que evaluar alcance, fechas y condiciones del sitio.',
       ],
     },
@@ -24,6 +24,7 @@ export const recursosHubContent: HubPageContent = {
       routeIds: [
         'resource-inventario-fisico',
         'resource-preparar-deposito',
+        'resource-checklist',
         'resource-general-vs-ciclico',
       ],
     },
@@ -37,6 +38,7 @@ export const recursosHubContent: HubPageContent = {
       title: 'Costos y tiempos',
       routeIds: [
         'resource-cuanto-tarda',
+        'resource-calcular-personal',
         'resource-cuanto-cuesta',
         'resource-cotizar',
         'resource-sin-detener',

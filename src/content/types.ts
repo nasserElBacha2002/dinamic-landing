@@ -55,12 +55,20 @@ export type IndustryPageContent = PageContentBase & {
   kind: 'industry';
 };
 
+export type ChecklistGroup = {
+  id: string;
+  title: string;
+  items: string[];
+};
+
 export type ResourcePageContent = PageContentBase & {
   kind: 'resource';
   /** ISO date YYYY-MM-DD */
   datePublished: string;
   dateModified: string;
   authorName: string;
+  /** Optional printable control list. Rendered as a real checklist, not as SEO filler. */
+  checklist?: readonly ChecklistGroup[];
 };
 
 export type HubChildGroup = {

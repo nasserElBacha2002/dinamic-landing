@@ -72,9 +72,9 @@ export const metodologiaInventariosContent: ResourcePageContent = {
       description: 'La unidad espacial sobre la que se captura.',
     },
     {
-      label: 'Resultados auditables',
-      to: '/buenas-practicas/resultados-auditables/',
-      description: 'El rastro que deja cada eslabón.',
+      label: 'Checklist de inventario físico',
+      to: '/recursos/checklist-inventario-fisico/',
+      description: 'Lista de control de cada eslabón del ciclo.',
     },
   ],
   cta: {

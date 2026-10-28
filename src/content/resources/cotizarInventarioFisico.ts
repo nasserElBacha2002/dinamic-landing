@@ -74,9 +74,9 @@ export const cotizarInventarioFisicoContent: ResourcePageContent = {
       description: 'Qué se está cotizando como servicio.',
     },
     {
-      label: 'Cómo elegir una empresa de inventarios',
-      to: '/recursos/como-elegir-empresa-inventarios/',
-      description: 'Comparar propuestas por método, no solo por precio.',
+      label: 'Cómo calcular el personal de un inventario',
+      to: '/recursos/como-calcular-personal-inventario/',
+      description: 'La dotación se estima; no se cotiza con un ratio genérico.',
     },
   ],
   cta: {

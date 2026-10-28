@@ -47,9 +47,9 @@ export const etiquetasInteligentesContent: ResourcePageContent = {
       description: 'La identificación es una capa del mapa, no todo el stack.',
     },
     {
-      label: 'Evitar duplicados y cantidades incorrectas',
-      to: '/buenas-practicas/evitar-duplicados-cantidades/',
-      description: 'Qué pasa cuando dos etiquetas o dos lecturas apuntan al mismo pallet.',
+      label: 'OCR en inventarios',
+      to: '/innovacion/ocr-inventarios/',
+      description: 'Qué se puede leer de una etiqueta visible, y cuándo falla.',
     },
   ],
   cta: {

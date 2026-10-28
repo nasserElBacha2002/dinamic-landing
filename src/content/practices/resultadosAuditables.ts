@@ -74,9 +74,9 @@ export const resultadosAuditablesContent: ResourcePageContent = {
       description: 'El segundo conteo también tiene que dejar rastro.',
     },
     {
-      label: 'Inventarios físicos',
-      to: '/servicios/inventarios-fisicos/',
-      description: 'El operativo cuyo cierre debería poder reconstruirse.',
+      label: 'Trazabilidad entre conteo y reconteo',
+      to: '/buenas-practicas/trazabilidad-conteo-reconteo/',
+      description: 'El puente entre las dos versiones de una misma posición.',
     },
   ],
   cta: {

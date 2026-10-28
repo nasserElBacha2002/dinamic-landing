@@ -80,9 +80,9 @@ export const cuantoTardaUnInventarioFisicoContent: ResourcePageContent = {
       description: 'Qué cambia el reloj cuando el depósito sigue despachando.',
     },
     {
-      label: 'Cotizar un inventario físico',
-      to: '/recursos/cotizar-inventario-fisico/',
-      description: 'Datos del sitio que también sirven para estimar duración.',
+      label: 'Cómo calcular el personal de un inventario',
+      to: '/recursos/como-calcular-personal-inventario/',
+      description: 'La nómina es una de las variables del reloj.',
     },
   ],
   cta: {

@@ -73,9 +73,9 @@ export const inventariosSinDetenerOperacionContent: ResourcePageContent = {
       description: 'Cuando el recorte periódico encaja mejor que un general en actividad.',
     },
     {
-      label: 'Inventarios físicos',
-      to: '/servicios/inventarios-fisicos/',
-      description: 'Planificación del operativo, con o sin detención.',
+      label: 'Control de stock en movimiento',
+      to: '/buenas-practicas/control-stock-en-movimiento/',
+      description: 'Cómo tratar el ítem que se mueve durante el conteo.',
     },
   ],
   cta: {

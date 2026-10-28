@@ -62,9 +62,9 @@ export const inteligenciaArtificialContent: ResourcePageContent = {
       description: 'Vehículo de cámara; el procesamiento viene después.',
     },
     {
-      label: 'Metodología de inventarios',
-      to: '/investigacion/metodologia-inventarios/',
-      description: 'Dónde entra la validación en el ciclo, con o sin IA.',
+      label: 'OCR en inventarios',
+      to: '/innovacion/ocr-inventarios/',
+      description: 'Lectura de caracteres; la IA no es OCR.',
     },
   ],
   cta: {

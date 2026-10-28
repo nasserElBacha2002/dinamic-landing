@@ -226,3 +226,46 @@ section[id] {
     transform: rotate(-360deg);
   }
 }
+
+.ds-checklist-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-checklist-list li {
+  position: relative;
+  padding: 0.2rem 0 0.2rem 1.7rem;
+  color: var(--mantine-color-dimmed);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.ds-checklist-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1.5px solid var(--mantine-color-gray-5);
+  border-radius: 2px;
+}
+
+@media print {
+  header,
+  footer,
+  .ds-no-print,
+  #contacto,
+  nav[aria-label='Miga de pan'] {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .ds-checklist {
+    break-inside: avoid;
+  }
+}

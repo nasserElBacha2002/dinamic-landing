@@ -23,6 +23,8 @@ import { cotizarInventarioFisicoContent } from '@/content/resources/cotizarInven
 import { inventariosSinDetenerOperacionContent } from '@/content/resources/inventariosSinDetenerOperacion';
 import { comoReducirDiferenciasDeStockContent } from '@/content/resources/comoReducirDiferenciasDeStock';
 import { inventarioManualVsTecnologicoContent } from '@/content/resources/inventarioManualVsTecnologico';
+import { checklistInventarioFisicoContent } from '@/content/resources/checklistInventarioFisico';
+import { comoCalcularPersonalInventarioContent } from '@/content/resources/comoCalcularPersonalInventario';
 import { reconteosInteligentesContent } from '@/content/practices/reconteosInteligentes';
 import { controlPosicionesPasillosContent } from '@/content/practices/controlPosicionesPasillos';
 import { comunicacionClienteInventarioContent } from '@/content/practices/comunicacionClienteInventario';
@@ -31,11 +33,14 @@ import { planificacionInventarioContent } from '@/content/practices/planificacio
 import { equiposDepositosGrandesContent } from '@/content/practices/equiposDepositosGrandes';
 import { evitarDuplicadosCantidadesContent } from '@/content/practices/evitarDuplicadosCantidades';
 import { inventarioAdaptadoClienteContent } from '@/content/practices/inventarioAdaptadoCliente';
+import { controlStockEnMovimientoContent } from '@/content/practices/controlStockEnMovimiento';
+import { trazabilidadConteoReconteoContent } from '@/content/practices/trazabilidadConteoReconteo';
 import { innovacionHubContent } from '@/content/hubs/innovacion';
 import { tecnologiaAplicadaContent } from '@/content/innovation/tecnologiaAplicada';
 import { inteligenciaArtificialContent } from '@/content/innovation/inteligenciaArtificial';
 import { dronesInventariosContent } from '@/content/innovation/dronesInventarios';
 import { visionArtificialContent } from '@/content/innovation/visionArtificial';
+import { ocrInventariosContent } from '@/content/innovation/ocrInventarios';
 import { etiquetasInteligentesContent } from '@/content/innovation/etiquetasInteligentes';
 import { tecnologiaMovilOfflineContent } from '@/content/innovation/tecnologiaMovilOffline';
 import { inventariosTiempoRealContent } from '@/content/innovation/inventariosTiempoReal';
@@ -69,6 +74,8 @@ export const interiorContentByRouteId: Record<string, InteriorPageContent> = {
   'resource-sin-detener': inventariosSinDetenerOperacionContent,
   'resource-reducir-diferencias': comoReducirDiferenciasDeStockContent,
   'resource-manual-vs-tecnologico': inventarioManualVsTecnologicoContent,
+  'resource-checklist': checklistInventarioFisicoContent,
+  'resource-calcular-personal': comoCalcularPersonalInventarioContent,
   'hub-buenas-practicas': buenasPracticasHubContent,
   'practice-reconteos': reconteosInteligentesContent,
   'practice-posiciones': controlPosicionesPasillosContent,
@@ -78,11 +85,14 @@ export const interiorContentByRouteId: Record<string, InteriorPageContent> = {
   'practice-equipos': equiposDepositosGrandesContent,
   'practice-duplicados': evitarDuplicadosCantidadesContent,
   'practice-adaptado': inventarioAdaptadoClienteContent,
+  'practice-stock-movimiento': controlStockEnMovimientoContent,
+  'practice-trazabilidad-conteo': trazabilidadConteoReconteoContent,
   'hub-innovacion': innovacionHubContent,
   'innovation-tecnologia-aplicada': tecnologiaAplicadaContent,
   'innovation-ia': inteligenciaArtificialContent,
   'innovation-drones': dronesInventariosContent,
   'innovation-vision': visionArtificialContent,
+  'innovation-ocr': ocrInventariosContent,
   'innovation-etiquetas': etiquetasInteligentesContent,
   'innovation-mobile-offline': tecnologiaMovilOfflineContent,
   'innovation-tiempo-real': inventariosTiempoRealContent,

@@ -61,7 +61,7 @@ test.describe('SSG multipage smoke', () => {
     await expect(page.locator('h1')).toContainText(/depósitos y centros de distribución/i);
     await page.goto('/recursos/como-realizar-un-inventario-fisico/', { waitUntil: 'networkidle' });
     await expect(page.locator('h1')).toContainText(/inventario físico empresarial/i);
-    await expect(page.getByText(/Publicado por Dinamic Systems/i)).toBeVisible();
+    await expect(page.getByText(/Contenido técnico de Dinamic Systems/i)).toBeVisible();
     assertClean(pageErrors, consoleErrors);
   });
 
@@ -161,12 +161,18 @@ test.describe('SSG multipage smoke', () => {
       const abs = match[1] ?? '';
       return abs.replace('https://dinamicsystems.com', '') || '/';
     });
-    expect(locs.length).toBe(42);
+    expect(locs.length).toBe(47);
     expect(locs).toContain('/buenas-practicas/');
     expect(locs).toContain('/recursos/por-que-no-coincide-el-stock/');
+    expect(locs).toContain('/recursos/checklist-inventario-fisico/');
+    expect(locs).toContain('/recursos/como-calcular-personal-inventario/');
+    expect(locs).toContain('/buenas-practicas/control-stock-en-movimiento/');
+    expect(locs).toContain('/buenas-practicas/trazabilidad-conteo-reconteo/');
+    expect(locs).toContain('/innovacion/ocr-inventarios/');
     expect(locs).toContain('/innovacion/');
     expect(locs).toContain('/investigacion/metodologia-inventarios/');
     expect(locs).not.toContain('/investigacion/');
+    expect(locs).not.toContain('/herramientas/estimador-inventario/');
     for (const loc of locs) {
       const response = await page.goto(loc, { waitUntil: 'domcontentloaded' });
       expect(response?.status(), loc).toBe(200);
@@ -271,6 +277,46 @@ test.describe('SSG multipage smoke', () => {
       expect(seen.has(item.question)).toBe(false);
       seen.add(item.question);
     }
+  });
+
+  test('phase 5 authority pages keep distinct intents and stay out of the header', async ({ page }) => {
+    const pages = [
+      {
+        path: '/recursos/checklist-inventario-fisico/',
+        h1: /Checklist de un inventario físico/i,
+      },
+      {
+        path: '/recursos/como-calcular-personal-inventario/',
+        h1: /Cómo calcular el personal de un inventario físico/i,
+      },
+      {
+        path: '/buenas-practicas/control-stock-en-movimiento/',
+        h1: /Control de stock en movimiento/i,
+      },
+      {
+        path: '/buenas-practicas/trazabilidad-conteo-reconteo/',
+        h1: /Trazabilidad entre conteo y reconteo/i,
+      },
+      {
+        path: '/innovacion/ocr-inventarios/',
+        h1: /OCR en inventarios físicos/i,
+      },
+    ];
+    for (const item of pages) {
+      const response = await page.goto(item.path, { waitUntil: 'domcontentloaded' });
+      expect(response?.status(), item.path).toBe(200);
+      await expect(page.locator('h1')).toContainText(item.h1);
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute('href');
+      expect(canonical).toBe(`https://dinamicsystems.com${item.path}`);
+      await expect(page.getByText(/Contenido técnico de Dinamic Systems/i)).toBeVisible();
+      const header = page.locator('header').first();
+      await expect(header.getByRole('button', { name: /Recursos/ })).toHaveCount(0);
+      await expect(header.getByRole('link', { name: /Buenas prácticas/i })).toHaveCount(0);
+      await expect(header.getByRole('link', { name: /Innovación/i })).toHaveCount(0);
+    }
+    await page.goto('/recursos/checklist-inventario-fisico/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#checklist')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Imprimir checklist/i })).toBeVisible();
   });
 
   test('drones cluster keeps three distinct intents', async ({ page }) => {

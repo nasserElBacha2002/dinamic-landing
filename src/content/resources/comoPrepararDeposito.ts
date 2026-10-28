@@ -74,8 +74,9 @@ export const comoPrepararDepositoContent: ResourcePageContent = {
       to: '/recursos/como-realizar-un-inventario-fisico/',
     },
     {
-      label: 'Contacto',
-      to: '/#contacto',
+      label: 'Checklist de inventario físico',
+      to: '/recursos/checklist-inventario-fisico/',
+      description: 'La lista de control que pregunta si esta preparación está hecha.',
     },
   ],
   cta: {

@@ -55,9 +55,9 @@ export const tecnologiaAplicadaContent: ResourcePageContent = {
       description: 'Captura sin red y sincronización posterior.',
     },
     {
-      label: 'Inventarios físicos',
-      to: '/servicios/inventarios-fisicos/',
-      description: 'El operativo donde estas capas se aplican o no.',
+      label: 'OCR en inventarios',
+      to: '/innovacion/ocr-inventarios/',
+      description: 'Lectura de caracteres: un paso, no el inventario.',
     },
   ],
   cta: {

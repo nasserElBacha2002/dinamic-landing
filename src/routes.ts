@@ -530,6 +530,38 @@ export const publishedRoutes = [
     },
   },
   {
+    id: 'resource-checklist',
+    path: '/recursos/checklist-inventario-fisico',
+    loc: '/recursos/checklist-inventario-fisico/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Recursos', 'Checklist de inventario físico'],
+    seo: {
+      title: 'Checklist de un inventario físico',
+      description:
+        'Lista de control operativa: antes, durante y después del inventario. Alcance, zonas, movimientos, reconteos y cierre. No sustituye planificación ni preparar el depósito.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Checklist de inventario físico', group: 'recursos' },
+  },
+  {
+    id: 'resource-calcular-personal',
+    path: '/recursos/como-calcular-personal-inventario',
+    loc: '/recursos/como-calcular-personal-inventario/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Recursos', 'Cómo calcular el personal de un inventario'],
+    seo: {
+      title: 'Cómo calcular el personal de un inventario físico',
+      description:
+        'Cómo estimar la dotación de un inventario: posiciones, densidad, layout, ventana y reconteo. Fórmula conceptual sin ratios universales ni cifras de productividad.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Cómo calcular el personal de un inventario', group: 'recursos' },
+  },
+  {
     id: 'hub-buenas-practicas',
     path: '/buenas-practicas',
     loc: '/buenas-practicas/',
@@ -538,7 +570,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Buenas prácticas de inventario físico | Dinamic Systems',
       description:
-        'Prácticas de inventario físico: reconteos, control de posiciones y pasillos, comunicación durante el operativo y resultados auditables.',
+        'Prácticas de inventario físico: planificación, ejecución, stock en movimiento, reconteos, trazabilidad del dato y cierre auditable.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -692,6 +724,38 @@ export const publishedRoutes = [
     navigation: { label: 'Inventario adaptado a cliente o proveedor', group: 'buenas-practicas' },
   },
   {
+    id: 'practice-stock-movimiento',
+    path: '/buenas-practicas/control-stock-en-movimiento',
+    loc: '/buenas-practicas/control-stock-en-movimiento/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Control de stock en movimiento'],
+    seo: {
+      title: 'Control de stock en movimiento durante el inventario',
+      description:
+        'Cómo controlar ingresos, egresos, picking, reposición y transferencias mientras se cuenta. Distinto de decidir si se puede inventariar sin detener la operación.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Control de stock en movimiento', group: 'buenas-practicas' },
+  },
+  {
+    id: 'practice-trazabilidad-conteo',
+    path: '/buenas-practicas/trazabilidad-conteo-reconteo',
+    loc: '/buenas-practicas/trazabilidad-conteo-reconteo/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Buenas prácticas', 'Trazabilidad entre conteo y reconteo'],
+    seo: {
+      title: 'Trazabilidad entre conteo y reconteo',
+      description:
+        'Cómo conservar las dos versiones del dato: primer conteo, motivo, segundo conteo y resolución. Distinto de cuándo recontear y de un resultado auditable.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'Trazabilidad entre conteo y reconteo', group: 'buenas-practicas' },
+  },
+  {
     id: 'hub-innovacion',
     path: '/innovacion',
     loc: '/innovacion/',
@@ -700,7 +764,7 @@ export const publishedRoutes = [
     seo: {
       title: 'Tecnología e innovación en inventarios físicos | Dinamic Systems',
       description:
-        'Tecnología aplicada a inventarios: captura digital, visión, drones, IA, etiquetas, móvil offline y el sentido real de tiempo real. Con límites explícitos.',
+        'Tecnología aplicada a inventarios: captura digital, visión, OCR, drones, IA, etiquetas, móvil offline y el sentido real de tiempo real. Con límites explícitos.',
       ogType: 'website',
       robots: 'index, follow',
       ogImage: defaultOgImage,
@@ -776,6 +840,22 @@ export const publishedRoutes = [
       ogImage: defaultOgImage,
     },
     navigation: { label: 'Visión artificial', group: 'innovacion' },
+  },
+  {
+    id: 'innovation-ocr',
+    path: '/innovacion/ocr-inventarios',
+    loc: '/innovacion/ocr-inventarios/',
+    pageType: 'resource',
+    breadcrumbLabels: ['Innovación', 'OCR en inventarios'],
+    seo: {
+      title: 'OCR en inventarios físicos',
+      description:
+        'Qué es OCR en un inventario, qué puede leer y cuándo falla. No es IA, no es visión completa y no es un inventario automático. Sin porcentajes de precisión.',
+      ogType: 'article',
+      robots: 'index, follow',
+      ogImage: defaultOgImage,
+    },
+    navigation: { label: 'OCR en inventarios', group: 'innovacion' },
   },
   {
     id: 'innovation-etiquetas',

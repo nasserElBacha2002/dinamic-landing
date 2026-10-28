@@ -69,9 +69,9 @@ export const reconteosInteligentesContent: ResourcePageContent = {
       description: 'Revisión independiente, distinta del reconteo del operativo.',
     },
     {
-      label: 'Resultados auditables',
-      to: '/buenas-practicas/resultados-auditables/',
-      description: 'Qué rastro deja un conteo y un reconteo defendibles.',
+      label: 'Trazabilidad entre conteo y reconteo',
+      to: '/buenas-practicas/trazabilidad-conteo-reconteo/',
+      description: 'Cómo se relacionan las dos versiones del dato, una vez disparado el reconteo.',
     },
   ],
   cta: {

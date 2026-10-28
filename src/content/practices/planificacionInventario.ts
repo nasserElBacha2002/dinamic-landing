@@ -58,9 +58,9 @@ export const planificacionInventarioContent: ResourcePageContent = {
       description: 'El ciclo del dato que el plan tiene que hacer posible.',
     },
     {
-      label: 'Inventarios físicos',
-      to: '/servicios/inventarios-fisicos/',
-      description: 'El operativo que se está planificando.',
+      label: 'Checklist de inventario físico',
+      to: '/recursos/checklist-inventario-fisico/',
+      description: 'Lista de control de que este plan exista por escrito.',
     },
   ],
   cta: {

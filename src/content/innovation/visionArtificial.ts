@@ -47,6 +47,11 @@ export const visionArtificialContent: ResourcePageContent = {
   ],
   relatedLinks: [
     {
+      label: 'OCR en inventarios',
+      to: '/innovacion/ocr-inventarios/',
+      description: 'La lectura de caracteres dentro del pipeline de imagen.',
+    },
+    {
       label: 'Inteligencia artificial en inventarios',
       to: '/innovacion/inteligencia-artificial-inventarios/',
       description: 'Qué se hace con las lecturas y las excepciones después de ver.',

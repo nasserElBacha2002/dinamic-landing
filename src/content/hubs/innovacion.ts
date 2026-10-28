@@ -28,6 +28,7 @@ export const innovacionHubContent: HubPageContent = {
       routeIds: [
         'innovation-drones',
         'innovation-vision',
+        'innovation-ocr',
         'innovation-etiquetas',
         'innovation-mobile-offline',
       ],

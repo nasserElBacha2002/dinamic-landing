@@ -1,5 +1,6 @@
 import { Box, Container, Stack, Text, rem } from '@mantine/core';
 import { Breadcrumbs } from '@/components/navigation/Breadcrumbs';
+import { ChecklistBlock } from '@/components/page/ChecklistBlock';
 import { ContentSections } from '@/components/page/ContentSections';
 import { InteriorHero } from '@/components/page/InteriorHero';
 import { PageCta } from '@/components/page/PageCta';
@@ -30,12 +31,13 @@ export function ResourcePageTemplate({ route, content }: ResourcePageTemplatePro
         <Container size="xl" px={{ base: 'md', md: 'xl' }} maw={contentMaxWidth}>
           <Stack gap={rem(48)}>
             <Text c="dimmed" fz="sm" fw={600}>
-              Publicado por {content.authorName} · Publicado {content.datePublished}
+              Contenido técnico de {content.authorName} · Publicado {content.datePublished}
               {content.dateModified !== content.datePublished
                 ? ` · Actualizado ${content.dateModified}`
                 : null}
             </Text>
             <ContentSections sections={content.sections} />
+            {content.checklist?.length ? <ChecklistBlock groups={content.checklist} /> : null}
             {content.steps?.length ? <StepsList title="Pasos resumidos" steps={content.steps} /> : null}
             {content.faq?.length ? <PageFaq items={content.faq} /> : null}
             <RelatedLinks links={content.relatedLinks} />

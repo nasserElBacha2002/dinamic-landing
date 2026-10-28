@@ -25,12 +25,12 @@ export const buenasPracticasHubContent: HubPageContent = {
     {
       id: 'ejecucion',
       title: 'Ejecución',
-      routeIds: ['practice-posiciones', 'practice-duplicados', 'practice-comunicacion'],
+      routeIds: ['practice-posiciones', 'practice-duplicados', 'practice-stock-movimiento', 'practice-comunicacion'],
     },
     {
       id: 'control',
       title: 'Control y cierre',
-      routeIds: ['practice-reconteos', 'practice-resultados-auditables'],
+      routeIds: ['practice-reconteos', 'practice-trazabilidad-conteo', 'practice-resultados-auditables'],
     },
   ],
   relatedLinks: [],
