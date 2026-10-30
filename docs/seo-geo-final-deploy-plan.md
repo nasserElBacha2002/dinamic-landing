@@ -50,6 +50,8 @@ npx playwright test
 
 Subir **todo** el contenido de `dist/` a `public_html` (reemplazo completo, no un diff a mano).
 
+Excepción: **no borrar** `public_html/a/`. Fusionar `dist/a/.htaccess` dentro de esa carpeta. Es un directorio legado de Hostinger; `Options -Indexes` del sitio lo estaba devolviendo 403.
+
 Debe incluir:
 
 - `index.html`

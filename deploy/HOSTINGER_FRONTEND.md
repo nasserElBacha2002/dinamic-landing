@@ -22,7 +22,9 @@ npm run test:ssg-smoke
 
 ## Qué subir a `public_html`
 
-Subí **todo** el contenido de `dist/` (reemplazo completo recomendado):
+Subí **todo** el contenido de `dist/` (reemplazo completo recomendado).
+
+**No borres** la carpeta `public_html/a/` del servidor. Es un directorio anterior al sitio React (sin `index.html`). El `dist/a/.htaccess` solo habilita el listado; hay que **fusionarlo** en la carpeta existente, no reemplazar `a/` entera.
 
 ```text
 index.html

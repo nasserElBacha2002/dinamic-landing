@@ -5,6 +5,10 @@ DirectoryIndex index.html
 Options -MultiViews -Indexes
 ErrorDocument 404 /404.html
 
+# /a is a pre-existing Hostinger directory (no index.html). Site-wide -Indexes
+# 403s https://dinamicsystems.com/a/ — verified in production. Allow listing
+# only there via public/a/.htaccess. Do not prerender dist/a/index.html.
+
 <IfModule mod_mime.c>
   AddType application/xml xml
 </IfModule>
@@ -31,6 +35,8 @@ ErrorDocument 404 /404.html
 # NOT executed until Hostinger upload (DEPLOY_NOT_EXECUTED).
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Leave the pre-existing /a tree out of SEO 301s.
+  RewriteRule ^a($|/) - [L]
   RewriteRule ^(inventarios-fisicos-argentina|inventarios-fisicos-argentina/|inventarios-fisicos-argentina\.html)$ /servicios/inventarios-fisicos/ [R=301,L]
   RewriteRule ^(inventarios-con-drones-depositos|inventarios-con-drones-depositos/|inventarios-con-drones-depositos\.html)$ /servicios/inventarios-con-drones/ [R=301,L]
   RewriteRule ^(empresa-inventarios-depositos-argentina|empresa-inventarios-depositos-argentina/|empresa-inventarios-depositos-argentina\.html)$ /industrias/depositos-centros-distribucion/ [R=301,L]

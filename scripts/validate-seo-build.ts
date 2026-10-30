@@ -436,6 +436,28 @@ async function main(): Promise<void> {
   if (/pages\.dev|workers\.dev/i.test(htaccess)) {
     fail('.htaccess must not redirect Cloudflare Pages/Workers hosts');
   }
+  if (!/Options -MultiViews -Indexes/.test(htaccess)) {
+    fail('.htaccess must keep site-wide -Indexes');
+  }
+  if (!/RewriteRule \^a\(\$\|\/\) - \[L\]/.test(htaccess)) {
+    fail('.htaccess must pass through legacy /a without SEO 301s');
+  }
+  const aIndex = path.join(distDir, 'a', 'index.html');
+  try {
+    await fs.access(aIndex);
+    fail('dist must not prerender /a/index.html (would hide the Hostinger directory)');
+  } catch {
+    ok('no prerendered /a/index.html');
+  }
+  await assertFile(path.join(distDir, 'a', '.htaccess'), 'a/.htaccess');
+  const aHtaccess = await fs.readFile(path.join(distDir, 'a', '.htaccess'), 'utf-8');
+  if (!aHtaccess.includes('Options +Indexes')) {
+    fail('a/.htaccess must enable Indexes for the legacy Hostinger directory');
+  }
+  if (locs.some((l) => l === absoluteUrl('/a/') || l === absoluteUrl('/a'))) {
+    fail('sitemap must not include legacy /a');
+  }
+  ok('legacy /a stays listable and out of the sitemap');
   const publishedAbs = new Set(getSitemapLocs());
   const redirectSources = new Set(INTERNAL_REDIRECTS.map((r) => r.from));
   for (const rule of INTERNAL_REDIRECTS) {
@@ -472,6 +494,9 @@ async function main(): Promise<void> {
   }
   if (matchInternalRedirect('/inventarios-depositos-algo')) {
     fail('redirect matcher must not capture /inventarios-depositos-algo');
+  }
+  if (matchInternalRedirect('/a') || matchInternalRedirect('/a/')) {
+    fail('legacy /a must not be treated as an internal SEO 301');
   }
   ok(
     `internal ${INTERNAL_REDIRECTS.length} exact 301s (${PHASE1_INTERNAL_REDIRECTS.length} fase1 + ${INTERNAL_REDIRECTS.length - PHASE1_INTERNAL_REDIRECTS.length} fase4); 3 variants; no prefix; no chains`,
